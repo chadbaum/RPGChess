@@ -6,3 +6,4 @@
 * Zach Berman - zberms@gmail.com
 * (https://github.com/aleksgorbenko "Aleks Gorbenko") - AleksEdGorbenko@gmail.com
 
+* Ethan He - ethanhe1992@gmail.com
