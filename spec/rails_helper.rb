@@ -26,6 +26,11 @@ require 'rspec/rails'
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.check_pending!
 
+# run migration on test DB the same time as on developemt
+if ActiveRecord::Migrator.needs_migration?
+  ActiveRecord::Migrator.migrate(File.join(Rails.root, 'db/migrate'))
+end
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
