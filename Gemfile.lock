@@ -35,7 +35,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
-<<<<<<< HEAD
     devise (3.5.9)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -43,9 +42,7 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
-=======
     diff-lcs (1.2.5)
->>>>>>> 7a4b229a976e344b33ae2c0058bae2707d34fb07
     erubis (2.7.0)
     execjs (2.7.0)
     factory_girl (4.7.0)
@@ -95,10 +92,8 @@ GEM
     rake (11.2.2)
     rdoc (4.2.2)
       json (~> 1.4)
-<<<<<<< HEAD
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
-=======
     rspec-core (3.4.4)
       rspec-support (~> 3.4.0)
     rspec-expectations (3.4.0)
@@ -116,7 +111,6 @@ GEM
       rspec-mocks (~> 3.4.0)
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
->>>>>>> 7a4b229a976e344b33ae2c0058bae2707d34fb07
     sass (3.2.19)
     sass-rails (4.0.5)
       railties (>= 4.0.0, < 5.0)
@@ -157,11 +151,8 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
-<<<<<<< HEAD
   devise
-=======
   factory_girl_rails (~> 4.0)
->>>>>>> 7a4b229a976e344b33ae2c0058bae2707d34fb07
   jbuilder (~> 1.2)
   jquery-rails
   pg
