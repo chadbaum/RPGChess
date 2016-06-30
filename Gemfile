@@ -1,8 +1,17 @@
 source 'https://rubygems.org'
 
 gem 'rails_12factor', group: :production
+<<<<<<< HEAD
 gem 'simple_form'
 gem 'devise'
+=======
+
+group :development, :test do
+  gem "rspec-rails", "~> 3.0"
+  gem "factory_girl_rails", "~> 4.0"
+end
+
+>>>>>>> 7a4b229a976e344b33ae2c0058bae2707d34fb07
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.4'
 
