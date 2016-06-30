@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails_12factor', group: :production
-<<<<<<< HEAD
 gem 'simple_form'
 gem 'devise'
 =======
