@@ -7,6 +7,7 @@ gem 'rails', '4.0.4'
 group :development, :test do
   gem "rspec-rails", "~> 3.0"
   gem "factory_girl_rails", "~> 4.0"
+  gem "rspec-core"
 end
 
 # Use postgresql as the database for Active Record
