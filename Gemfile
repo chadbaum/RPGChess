@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gem 'rails_12factor', group: :production
 gem 'simple_form'
 gem 'devise'
-=======
 gem 'bootstrap-sass'
 
 group :development, :test do
