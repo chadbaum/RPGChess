@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gem 'rails_12factor', group: :production
 gem 'simple_form'
 gem 'devise'
+=======
+gem 'bootstrap-sass'
 
 group :development, :test do
   gem "rspec-rails", "~> 3.0"
@@ -11,6 +13,12 @@ end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.4'
+
+group :development, :test do
+  gem "rspec-rails", "~> 3.0"
+  gem "factory_girl_rails", "~> 4.0"
+  gem "rspec-core"
+end
 
 # Use postgresql as the database for Active Record
 gem 'pg'
