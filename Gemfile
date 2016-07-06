@@ -9,7 +9,7 @@ group :development, :test do
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.4'
+gem 'rails'
 
 group :development, :test do
   gem "rspec-rails", "~> 3.0"
