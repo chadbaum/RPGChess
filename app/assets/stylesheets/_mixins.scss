@@ -1,0 +1,11 @@
+@mixin shadow-box($amount, $color) {
+  box-shadow: inset 0 0 0 $amount $color;
+  -moz-box-shadow: inset 0 0 0 $amount $color;
+  -webkit-box-shadow:inset 0 0 0 $amount $color;
+}
+
+@mixin cell-gradient($from, $to) {
+  background:#cecece;
+  background:-moz-linear-gradient(top, $from, $to);
+  background:-webkit-gradient(linear,0 0, 0 100%, from($from), to($to));
+}
