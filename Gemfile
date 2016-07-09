@@ -5,6 +5,7 @@ gem 'bootstrap-sass'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'
+gem 'rubocop', '~> 0.41.2', require: false
 
 group :development, :test do
   gem "rspec-rails", "~> 3.0"
