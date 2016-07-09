@@ -22,10 +22,6 @@ describe "security" do
     # page.should have_content('Welcome! You have signed up successfully.')
   end
 
-  # it "signs out" do
-  #   visit "/users/sign_out"
-  #   # click_button "Sign out"
-  # end
 
   it "signs back in" do
     visit "/users/sign_in"
