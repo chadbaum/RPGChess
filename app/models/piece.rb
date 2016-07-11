@@ -44,7 +44,7 @@ class Piece < ActiveRecord::Base
   end
 
   def l_shaped_move?(x,y) #validates a move in an L-shape
-    (x_distance(x) == 2 && y_distance(y) == 1) || x_distance(x) == 1 && y_distance(y) == 2)
+    (x_distance(x) == 2 && y_distance(y) == 1) || (x_distance(x) == 1 && y_distance(y) == 2)
   end
 
 end
