@@ -11,6 +11,4 @@ class King < Piece
     x_position == 0 && y_position == 3 if color == "black"
   end
 
-
-
 end
