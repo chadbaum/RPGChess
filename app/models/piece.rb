@@ -34,8 +34,8 @@ class Piece < ActiveRecord::Base
   end
 
   def forward_move?(x,y) #validates a move 1 space forward
-    x == x_position + 1 if color == 'black'
-    x == x_position - 1 if color == 'white'
+    y == y_position && x == x_position + 1 if color == 'black'
+    y == y_position && x == x_position - 1 if color == 'white'
   end
 
   def first_forward_move?(x,y) #validates a move 1-2 spaces forward
