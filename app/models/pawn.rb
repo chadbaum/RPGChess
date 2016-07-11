@@ -1,8 +1,7 @@
 class Pawn < Piece
 
   def valid_move?(x, y) #DOES NOT INCLUDE CAPTURE LOGIC YET
-    first_forward_move?(x,y) if first_move?
-    forward_move?(x,y)
+    first_move? ? first_forward_move?(x,y) : forward_move?(x,y)
   end
 
   def promote (new_type)
