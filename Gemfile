@@ -13,6 +13,8 @@ group :development, :test do
   gem "rspec-core"
 end
 
+gem 'coveralls', require: false
+
 # Use postgresql as the database for Active Record
 gem 'pg'
 
