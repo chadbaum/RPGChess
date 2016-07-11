@@ -5,6 +5,7 @@ gem 'bootstrap-sass'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'
+gem 'rubocop', '~> 0.41.2', require: false
 
 group :development, :test do
   gem "rspec-rails", "~> 3.0"
@@ -16,7 +17,7 @@ end
 gem 'pg'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.2'
+gem 'sass-rails'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'

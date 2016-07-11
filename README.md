@@ -4,6 +4,9 @@
 
 
 * Zach Berman - zberms@gmail.com
-* (https://github.com/aleksgorbenko "Aleks Gorbenko") - AleksEdGorbenko@gmail.com
+* Aleks Gorbenko - AleksEdGorbenko@gmail.com
+..*[Personal Blog](https://aleksgorbenko.com)
+..*[GitHub](https://github.com/aleksgorbenko)
+..*[LinkedIn](https://uk.linkedin.com/in/aleks-gorbenko-web-developer)
 
 * Ethan He - ethanhe1992@gmail.com
