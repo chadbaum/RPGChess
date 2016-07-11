@@ -1,6 +1,5 @@
 FactoryGirl.define do
   factory :pawn do
-    type 'Pawn'
 
     trait :moved do
       x_position 5
