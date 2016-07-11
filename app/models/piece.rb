@@ -34,13 +34,19 @@ class Piece < ActiveRecord::Base
   end
 
   def forward_move?(x,y) #validates a move 1 space forward
-    y == y_position && x == x_position + 1 if color == 'black'
-    y == y_position && x == x_position - 1 if color == 'white'
+    if color == 'black'
+      y == y_position && x == x_position + 1
+    else
+      y == y_position && x == x_position - 1
+    end
   end
 
   def first_forward_move?(x,y) #validates a move 1-2 spaces forward
-    y == y_position && (x == x_position + 1 || x == x_position + 2) if color == 'black'
-    y == y_position && (x == x_position - 1 || x == x_position - 2) if color == 'white'
+    if color == 'black'
+      y == y_position && (x == x_position + 1 || x == x_position + 2)
+    else
+      y == y_position && (x == x_position - 1 || x == x_position - 2)
+    end
   end
 
   def l_shaped_move?(x,y) #validates a move in an L-shape
