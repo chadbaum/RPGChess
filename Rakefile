@@ -4,6 +4,5 @@
 require File.expand_path('../config/application', __FILE__)
 require 'coveralls/rake/task'
 
-
 StoicChess::Application.load_tasks
 Coveralls::RakeTask.new
