@@ -145,3 +145,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Coveralls
+.coveralls.yml

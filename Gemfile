@@ -4,6 +4,7 @@ gem 'rails_12factor', group: :production
 gem 'simple_form'
 gem 'devise'
 gem 'bootstrap-sass'
+gem 'coveralls', require: false
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'
