@@ -12,6 +12,9 @@ describe 'home page' do
 end
 
 describe "the signin process", :type => :feature do
+  before :each do
+    User.create(:email => 'user@example.com', :password => 'password')
+  end
 
   it "signs me in" do
     visit '/users/sign_in'
