@@ -11,38 +11,6 @@ describe 'home page' do
   end
 end
 
-
-
-describe "security" do
-  it "signs users up" do
-    visit "/users/sign_up"
-
-    fill_in "Email", :with => "user@example.com"
-    fill_in("Password", with: '12345678', :match => :prefer_exact)
-    fill_in("Password confirmation", with: '12345678', :match => :prefer_exact)
-    click_button "Sign up"
-
-    # expect(page).to have_content 'Welcome! You have signed up successfully.'
-  end
-
-
-  it "signs back in" do
-    visit "/users/sign_in"
-
-    fill_in "Email", :with => "user@example.com"
-    fill_in("Password", with: '12345678', :match => :prefer_exact)
-
-    click_button "Log in"
-
-    # response.body.should include("Signed in successfully.")
-    # page.should have_content('Signed in successfully.')
-    # expect(page).to have_content('Signed in successfully.')
-  end
-end
-
-
-
-
 describe "the signin process", :type => :feature do
 
   it "signs me in" do
