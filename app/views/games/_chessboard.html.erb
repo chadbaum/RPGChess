@@ -7,17 +7,17 @@
 
 <script>
     $(function() {
-        for (var i = 8; i > 0; i--) {
+        for (var y = 0; y <= 7; y++) {
             $("#chess-board").append(
           "<tr>" +
-            "<td id=A" + i + "></td>" +
-            "<td id=B" + i + "></td>" +
-            "<td id=C" + i + "></td>" +
-            "<td id=D" + i + "></td>" +
-            "<td id=E" + i + "></td>" +
-            "<td id=F" + i + "></td>" +
-            "<td id=G" + i + "></td>" +
-            "<td id=H" + i + "></td>" +
+            "<td data-x='0' data-y='" + y + "'></td>" +
+            "<td data-x='1' data-y='" + y + "'></td>" +
+            "<td data-x='2' data-y='" + y + "'></td>" +
+            "<td data-x='3' data-y='" + y + "'></td>" +
+            "<td data-x='4' data-y='" + y + "'></td>" +
+            "<td data-x='5' data-y='" + y + "'></td>" +
+            "<td data-x='6' data-y='" + y + "'></td>" +
+            "<td data-x='7' data-y='" + y + "'></td>" +
           "</tr>");
         }
     })
