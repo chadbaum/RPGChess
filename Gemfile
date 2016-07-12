@@ -11,9 +11,8 @@ group :development, :test do
   gem "rspec-rails", "~> 3.0"
   gem "factory_girl_rails", "~> 4.0"
   gem "rspec-core"
+  gem 'coveralls', require: false
 end
-
-gem 'coveralls', require: false
 
 # Use postgresql as the database for Active Record
 gem 'pg'
