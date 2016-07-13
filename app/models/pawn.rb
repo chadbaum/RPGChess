@@ -17,4 +17,20 @@ class Pawn < Piece
     return true if color == "black" && x_position == 1
   end
 
+  def forward_move?(x,y) #validates a move 1 space forward
+    if color == 'black'
+      y == y_position && x == x_position + 1
+    else
+      y == y_position && x == x_position - 1
+    end
+  end
+
+  def first_forward_move?(x,y) #validates a move 1-2 spaces forward
+    if color == 'black'
+      y == y_position && (x == x_position + 1 || x == x_position + 2)
+    else
+      y == y_position && (x == x_position - 1 || x == x_position - 2)
+    end
+  end
+
 end

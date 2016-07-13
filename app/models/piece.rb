@@ -9,48 +9,22 @@ class Piece < ActiveRecord::Base
 
   #ALL MOVE CHECKS ASSUME WHITE PLAYER IS AT BOTTOM OF 2-D ARRAY/BOARD, AND BLACK PLAYER IS ON TOP.  NO IMPACT ON VIEW. -Chad
 
-  def x_distance(x) #calculates how many tiles piece has moved on x-axis
-    (x_position - x).abs
-  end
-
-  def y_distance(y) #calculates how many tiles piece has moved on y-axis
-    (y_position - y).abs
+  def distance(destination, x_or_y) #calculates how many tiles piece has moved on x-axis or y-axis
+    raise ArgumentError unless x_or_y == "x" || x_or_y == "y"
+    (x_position - destination).abs if x_or_y == "x"
+    (y_position - destination).abs if x_or_y == "y"
   end
 
   def moved?(x,y) #validates whether piece is at its origin position
     x != x_position || y != y_position
   end
 
-  def horizontal_or_vertical_move?(x,y) #validates a move any amount of spaces along one axis
-    (x_distance(x) == 0 || y_distance(y) == 0)
+  def horizontal_or_vertical_move?(x,y) #validates a move any amount of spaces along one axis; used for Rook and Queen
+    (distance(x,"x") == 0 || distance(y,"y") == 0)
   end
 
-  def diagonal_move?(x,y) #validates a move any amount of spaces along a diagonal
-    x_distance(x) == y_distance(y)
-  end
-
-  def radial_move?(x,y) #validates a move 1 space in any direction
-    x_distance(x) < 2 && y_distance(y) < 2
-  end
-
-  def forward_move?(x,y) #validates a move 1 space forward
-    if color == 'black'
-      y == y_position && x == x_position + 1
-    else
-      y == y_position && x == x_position - 1
-    end
-  end
-
-  def first_forward_move?(x,y) #validates a move 1-2 spaces forward
-    if color == 'black'
-      y == y_position && (x == x_position + 1 || x == x_position + 2)
-    else
-      y == y_position && (x == x_position - 1 || x == x_position - 2)
-    end
-  end
-
-  def l_shaped_move?(x,y) #validates a move in an L-shape
-    (x_distance(x) == 2 && y_distance(y) == 1) || (x_distance(x) == 1 && y_distance(y) == 2)
+  def diagonal_move?(x,y) #validates a move any amount of spaces along a diagonal; used for Bishop and Queen
+    distance(x,"x") == distance(y,"y")
   end
 
 end

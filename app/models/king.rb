@@ -11,4 +11,8 @@ class King < Piece
     x_position == 0 && y_position == 3 if color == "black"
   end
 
+  def radial_move?(x,y)
+    distance(x,"x") <= 1 && distance(y,"y") <= 1
+  end
+
 end
