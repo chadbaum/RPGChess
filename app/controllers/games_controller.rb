@@ -4,6 +4,9 @@ class GamesController < ApplicationController
     @game = Game.new
   end
 
+
   def index
+
   end
+  
 end
