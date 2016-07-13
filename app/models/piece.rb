@@ -19,11 +19,15 @@ class Piece < ActiveRecord::Base
     x != x_position || y != y_position
   end
 
-  def horizontal_or_vertical_move?(x,y) #validates a move any amount of spaces along one axis; used for Rook and Queen
-    (distance(x,"x") == 0 || distance(y,"y") == 0)
+  def horizontal_move?(x,y) #validates a move any amount of spaces along y-axis
+    distance(x,"x") == 0
   end
 
-  def diagonal_move?(x,y) #validates a move any amount of spaces along a diagonal; used for Bishop and Queen
+  def vertical_move?(x,y) #validates a move any amount of spaces along x-axis
+    distance(y,"y") == 0
+  end
+
+  def diagonal_move?(x,y) #validates a move any amount of spaces along a diagonal
     distance(x,"x") == distance(y,"y")
   end
 
