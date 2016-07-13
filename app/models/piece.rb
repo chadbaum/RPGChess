@@ -11,8 +11,8 @@ class Piece < ActiveRecord::Base
 
   def distance(destination, x_or_y) #calculates how many tiles piece has moved on x-axis or y-axis
     raise ArgumentError unless x_or_y == "x" || x_or_y == "y"
-    (x_position - destination).abs if x_or_y == "x"
-    (y_position - destination).abs if x_or_y == "y"
+    return (x_position - destination).abs if x_or_y == "x"
+    return (y_position - destination).abs if x_or_y == "y"
   end
 
   def moved?(x,y) #validates whether piece is at its origin position
