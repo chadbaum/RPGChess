@@ -51,18 +51,4 @@ ActiveRecord::Schema.define(version: 20160708212203) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-
-  create_table "pieces", force: true do |t|
-    t.string   "color"
-    t.string   "type"
-    t.integer  "x_position"
-    t.integer  "y_position"
-    t.integer  "game_id"
-    t.integer  "player_id"
-    t.boolean  "captured"
-    t.boolean  "checkmate"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
 end
