@@ -18,6 +18,11 @@ RSpec.describe Pawn, type: :model do
       expect(pawn.valid_move?(7,5)).to eq false
     end
 
+    it "should return true if the pawn is moved one space forward" do
+      pawn = FactoryGirl.create(:pawn, :white, :moved)
+      expect(pawn.valid_move?(4,5)).to eq true
+    end
+
     it "should return false if the pawn is moved two spaces but not on its first move" do
       pawn = FactoryGirl.create(:pawn, :white, :moved)
       expect(pawn.valid_move?(3,5)).to eq false
@@ -28,7 +33,7 @@ RSpec.describe Pawn, type: :model do
       expect(pawn.valid_move?(4,5)).to eq true
     end
 
-    it "should return true if the pawn is moved one space forward" do
+    it "should return true if the pawn is moved one space forward on its first move" do
       pawn = FactoryGirl.create(:pawn, :white)
       expect(pawn.valid_move?(5,5)).to eq true
     end
@@ -52,6 +57,11 @@ RSpec.describe Pawn, type: :model do
       expect(pawn.valid_move?(0,5)).to eq false
     end
 
+    it "should return true if the pawn is moved one space forward" do
+      pawn = FactoryGirl.create(:pawn, :black, :moved)
+      expect(pawn.valid_move?(6,5)).to eq true
+    end
+
     it "should return false if the pawn is moved two spaces but not on its first move" do
       pawn = FactoryGirl.create(:pawn, :black, :moved)
       expect(pawn.valid_move?(5,5)).to eq false
@@ -62,7 +72,7 @@ RSpec.describe Pawn, type: :model do
       expect(pawn.valid_move?(3,5)).to eq true
     end
 
-    it "should return true if the pawn is moved one space forward" do
+    it "should return true if the pawn is moved one space forward on its first move" do
       pawn = FactoryGirl.create(:pawn, :black)
       expect(pawn.valid_move?(2,5)).to eq true
     end
