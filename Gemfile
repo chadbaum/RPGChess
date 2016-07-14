@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'rails_12factor', group: :production
+gem 'simple_form'
+gem 'devise'
 gem 'bootstrap-sass'
 gem 'coveralls', require: false
 
@@ -9,9 +11,12 @@ gem 'rails'
 gem 'rubocop', '~> 0.41.2', require: false
 
 group :development, :test do
+
   gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'rspec-core'
+  gem 'capybara'
+
 end
 
 # Use postgresql as the database for Active Record
