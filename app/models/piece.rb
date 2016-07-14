@@ -5,30 +5,50 @@ class Piece < ActiveRecord::Base
   validates :color, inclusion: { in: %w(black white) }
   validates :type, inclusion: { in: %w(Pawn Rook Bishop Knight King Queen) }
 
+  # All validation assumes white player is on the
+  # 6-7 rows of the array, and black player is on
+  # 0-1 rows of the array.
+
   private
 
-  #ALL MOVE CHECKS ASSUME WHITE PLAYER IS AT BOTTOM OF 2-D ARRAY/BOARD, AND BLACK PLAYER IS ON TOP.  NO IMPACT ON VIEW. -Chad
-
-  def distance(destination, x_or_y) #calculates how many tiles piece has moved on x-axis or y-axis
-    raise ArgumentError unless x_or_y == "x" || x_or_y == "y"
-    return (x_position - destination).abs if x_or_y == "x"
-    return (y_position - destination).abs if x_or_y == "y"
+  # Compares a piece's x_position with the
+  # coordinate provided and returns the
+  # distance between the two.
+  def x_distance(new_x_coordinate)
+    (x_position - new_x_coordinate).abs
   end
 
-  def moved?(x,y) #validates whether piece is at its origin position
+  # Compares a piece's y_position with the
+  # coordinate provided and returns the
+  # distance between the two.
+  def y_distance(new_y_coordinate)
+    (y_position - new_y_coordinate).abs
+  end
+
+  # Returns true if the coordinates provided
+  # are different from the piece's starting
+  # position.
+  def moved?(x,y)
     x != x_position || y != y_position
   end
 
-  def horizontal_move?(x,y) #validates a move any amount of spaces along y-axis
-    distance(x,"x") == 0
+  # Returns true if the coordinates provided
+  # have the same x-axis value.
+  def horizontal_move?(x,y)
+    x_distance(x) == 0
   end
 
-  def vertical_move?(x,y) #validates a move any amount of spaces along x-axis
-    distance(y,"y") == 0
+  # Returns true if the coordinates provided
+  # have the same y-axis value.
+  def vertical_move?(x,y)
+    y_distance(y) == 0
   end
 
-  def diagonal_move?(x,y) #validates a move any amount of spaces along a diagonal
-    distance(x,"x") == distance(y,"y")
+  # Returns true if the coordinates provided
+  # are the same distance away from the
+  # origin point along both axis.
+  def diagonal_move?(x,y)
+    x_distance(x) == y_distance(y)
   end
 
 end

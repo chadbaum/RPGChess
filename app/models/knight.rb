@@ -1,13 +1,20 @@
 class Knight < Piece
 
-  def valid_move?(x,y) #DOES NOT INCLUDE CAPTURE LOGIC YET
+  # Capture, collision, check, and checkmate logic are not
+  # implemented yet and thus ignored.
+  def valid_move?(x,y)
     moved?(x,y) && l_shaped_move?(x,y)
   end
 
   private
 
-  def l_shaped_move?(x,y) #validates a move in an L-shape
-    (distance(x,"x") == 2 && distance(y,"y") == 1) || (distance(x,"x") == 1 && distance(y,"y") == 2)
+  # Returns true if the coordinates provided are either
+  # 2 tiles away from the x_position along the x_axis and
+  # 1 tile away from the y_position along the y_axis OR 1 tile
+  # away from the x_position along the x_axis and 2 tiles
+  # away from the y_position along the y_axis
+  def l_shaped_move?(x,y)
+    (x_distance(x) == 2 && y_distance(y) == 1) || (x_distance(x) == 1 && y_distance(y) == 2)
   end
 
 end

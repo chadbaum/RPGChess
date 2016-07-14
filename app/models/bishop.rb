@@ -1,7 +1,9 @@
 class Bishop < Piece
 
-  def valid_move?(x, y) #NO CAPTURE/COLLISION LOGIC YET
-    moved?(x,y) && diagonal_move?(x,y) #bishop moved any number of diagonal spaces
+  # Capture, collision, check, and checkmate logic are not
+  # implemented yet and thus ignored.
+  def valid_move?(x, y)
+    moved?(x,y) && diagonal_move?(x,y)
   end
 
 end

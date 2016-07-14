@@ -1,9 +1,11 @@
 class Rook < Piece
 
-  def valid_move?(x, y) #NO CAPTURE/COLLISION LOGIC YET
+  # Capture, collision, check, and checkmate logic are not
+  # implemented yet and thus ignored.  We will need a boolean
+  # to store whether a piece has ever moved for rook and king
+  # castling logic.
+  def valid_move?(x, y)
     moved?(x,y) && (horizontal_move?(x,y) || vertical_move?(x,y))
   end
-
-  #WE NEED A BOOLEAN IN DATABASE TO SUPPORT WHETHER OR NOT ROOK HAS EVER MOVED FOR "CASTLING" LOGIC. -Chad
 
 end
