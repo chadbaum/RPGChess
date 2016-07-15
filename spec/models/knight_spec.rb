@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Knight, type: :model do
+
   describe "white knight movement validation" do
 
     it "should return false if the knight is not being moved from its original location" do
@@ -66,6 +67,18 @@ RSpec.describe Knight, type: :model do
       knight = FactoryGirl.create(:knight, :black)
       expect(knight.valid_move?(3,1)).to eq true
     end
-
   end
+
+  describe "Knight creation validation" do
+
+    it "should have a type of Knight" do
+      r = FactoryGirl.create(:knight)
+      expect(r.type).to eq("Knight")
+    end
+
+    it "should not be allowed to create a red knight" do
+      expect { FactoryGirl.create(:knight, color: "red") }.to raise_error(ActiveRecord::RecordInvalid)
+    end
+  end
+
 end

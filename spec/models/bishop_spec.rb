@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Bishop, type: :model do
+
   describe "white bishop movement validation" do
 
     it "should return false if the bishop is not being moved from its original location" do
@@ -56,6 +57,19 @@ RSpec.describe Bishop, type: :model do
       bishop = FactoryGirl.create(:bishop, :black)
       expect(bishop.valid_move?(0,2)).to eq true
     end
-
   end
+
+
+  describe "Bishop creation validation" do
+
+    it "should have a type of Bishop" do
+      r = FactoryGirl.create(:bishop)
+      expect(r.type).to eq("Bishop")
+    end
+
+    it "should not be allowed to create a red bishop" do
+      expect { FactoryGirl.create(:bishop, color: "red") }.to raise_error(ActiveRecord::RecordInvalid)
+    end
+  end
+  
 end

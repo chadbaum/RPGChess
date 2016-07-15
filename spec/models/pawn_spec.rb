@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Pawn, type: :model do
+
   describe "white pawn movement validation" do
 
     it "should return false if the pawn is not being moved from its original location" do
@@ -76,6 +77,18 @@ RSpec.describe Pawn, type: :model do
       pawn = FactoryGirl.create(:pawn, :black)
       expect(pawn.valid_move?(5,2)).to eq true
     end
-
   end
+
+  describe "Pawn creation validation" do
+
+    it "should have a type of Pawn" do
+      r = FactoryGirl.create(:pawn)
+      expect(r.type).to eq("Pawn")
+    end
+
+    it "should not be allowed to create a red pawn" do
+      expect { FactoryGirl.create(:pawn, color: "red") }.to raise_error(ActiveRecord::RecordInvalid)
+    end
+  end
+
 end

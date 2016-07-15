@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Queen, type: :model do
+
   describe "white queen movement validation" do
 
     it "should return false if the queen is not being moved from its original location" do
@@ -86,6 +87,17 @@ RSpec.describe Queen, type: :model do
       queen = FactoryGirl.create(:queen, :black)
       expect(queen.valid_move?(4,5)).to eq true
     end
-
   end
+
+  describe "Queen creation validation" do
+    it "should have a type of Queen" do
+      r = FactoryGirl.create(:queen)
+      expect(r.type).to eq("Queen")
+    end
+
+    it "should not be allowed to create a red queen" do
+      expect { FactoryGirl.create(:queen, color: "red") }.to raise_error(ActiveRecord::RecordInvalid)
+    end
+  end
+
 end

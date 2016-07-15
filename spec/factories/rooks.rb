@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :rook do
+<<<<<<< HEAD
 
     trait :white do
       color 'white'
@@ -11,5 +12,6 @@ FactoryGirl.define do
       x_position 0
       y_position 0
     end
+
   end
 end

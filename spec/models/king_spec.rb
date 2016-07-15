@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe King, type: :model do
+
   describe "white king movement validation" do
 
     it "should return false if the king is not being moved from its original location" do
@@ -67,5 +68,16 @@ RSpec.describe King, type: :model do
       expect(king.valid_move?(3,1)).to eq true
     end
 
+  describe "King" do
+    
+    it "should have a type of King" do
+      r = FactoryGirl.create(:king)
+      expect(r.type).to eq("King")
+    end
+
+    it "should not be allowed to create a red king" do
+      expect { FactoryGirl.create(:king, color: "red") }.to raise_error(ActiveRecord::RecordInvalid)
+    end
   end
+
 end
