@@ -15,12 +15,12 @@ RSpec.describe Rook, type: :model do
 
     it "should return true if the rook is moved forward 3 spaces" do
       rook = FactoryGirl.create(:rook, :white)
-      expect(rook.valid_move?(4,7)).to eq true
+      expect(rook.valid_move?(7,4)).to eq true
     end
 
     it "should return true if the rook is moved three spaces to the left" do
       rook = FactoryGirl.create(:rook, :white)
-      expect(rook.valid_move?(7,4)).to eq true
+      expect(rook.valid_move?(4,7)).to eq true
     end
 
   end
@@ -39,12 +39,12 @@ RSpec.describe Rook, type: :model do
 
     it "should return true if the rook is moved forward 3 spaces" do
       rook = FactoryGirl.create(:rook, :black)
-      expect(rook.valid_move?(3,0)).to eq true
+      expect(rook.valid_move?(0,3)).to eq true
     end
 
     it "should return true if the rook is moved three spaces to the right" do
       rook = FactoryGirl.create(:rook, :black)
-      expect(rook.valid_move?(0,3)).to eq true
+      expect(rook.valid_move?(3,0)).to eq true
     end
 
   end

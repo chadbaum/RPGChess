@@ -21,17 +21,17 @@ class Pawn < Piece
   # Returns true if the pawn is in its
   # starting row position.
   def first_move?
-    return true if color == "white" && x_position == 6
-    return true if color == "black" && x_position == 1
+    return true if color == "white" && y_position == 6
+    return true if color == "black" && y_position == 1
   end
 
   # Returns true if the coordinates provided
   # are 1 tile forward from the piece's origin.
   def forward_move?(x,y)
     if color == 'black'
-      y_distance(y) == 0 && x == x_position + 1
+      x_distance(x) == 0 && y == y_position + 1
     else
-      y_distance(y) == 0 && x == x_position - 1
+      x_distance(x) == 0 && y == y_position - 1
     end
   end
 
@@ -39,9 +39,9 @@ class Pawn < Piece
   # are 1-2 tiles forward from the piece's origin.
   def first_forward_move?(x,y)
     if color == 'black'
-      y_distance(y) == 0 && (x == x_position + 1 || x == x_position + 2)
+      x_distance(x) == 0 && (y == y_position + 1 || y == y_position + 2)
     else
-      y_distance(y) == 0 && (x == x_position - 1 || x == x_position - 2)
+      x_distance(x) == 0 && (y == y_position - 1 || y == y_position - 2)
     end
   end
 
