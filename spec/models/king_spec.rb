@@ -67,9 +67,10 @@ RSpec.describe King, type: :model do
       king = FactoryGirl.create(:king, :black)
       expect(king.valid_move?(3,1)).to eq true
     end
+  end
 
   describe "King" do
-    
+
     it "should have a type of King" do
       r = FactoryGirl.create(:king)
       expect(r.type).to eq("King")
