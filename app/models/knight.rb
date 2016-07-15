@@ -6,8 +6,6 @@ class Knight < Piece
     moved?(x,y) && l_shaped_move?(x,y)
   end
 
-  private
-
   # Returns true if the coordinates provided are either
   # 2 tiles away from the x_position along the x_axis and
   # 1 tile away from the y_position along the y_axis OR 1 tile

@@ -89,7 +89,7 @@ RSpec.describe Queen, type: :model do
     end
   end
 
-  describe "Queen creation validation" do
+  describe "queen creation validation" do
 
     it "should have a type of Queen" do
       r = FactoryGirl.create(:queen, color: 'white')
@@ -99,6 +99,24 @@ RSpec.describe Queen, type: :model do
     it "should not be allowed to create a red queen" do
       expect { FactoryGirl.create(:queen, color: "red") }.to raise_error(ActiveRecord::RecordInvalid)
     end
+  end
+
+  describe "queen move method" do
+
+    it "should return true and update the queen's position when it makes a valid move" do
+      queen = FactoryGirl.create(:queen, :white)
+      expect(queen.move!(7,7)).to eq true
+      expect(queen.x_position).to eq 7
+      expect(queen.y_position).to eq 7
+    end
+
+    it "should return nil and not update the queen's position when it makes an invalid move" do
+      queen = FactoryGirl.create(:queen, :black)
+      expect(queen.move!(3,7)).to eq false
+      expect(queen.x_position).to eq 4
+      expect(queen.y_position).to eq 0
+    end
+
   end
 
 end
