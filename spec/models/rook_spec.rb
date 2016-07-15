@@ -49,7 +49,7 @@ RSpec.describe Rook, type: :model do
     end
   end
 
-  describe "Rook creation validation" do
+  describe "rook creation validation" do
     it "should have a type of Rook" do
       r = FactoryGirl.create(:rook, color: 'white')
       expect(r.type).to eq("Rook")
@@ -58,6 +58,24 @@ RSpec.describe Rook, type: :model do
     it "should not be allowed to create a red rook" do
       expect { FactoryGirl.create(:rook, color: "red") }.to raise_error(ActiveRecord::RecordInvalid)
     end
+  end
+
+  describe "rook move method" do
+
+    it "should return 'valid' and update the rook's position when it makes a valid move" do
+      rook = FactoryGirl.create(:rook, :white)
+      expect(rook.move(0,7)).to eq "valid"
+      expect(rook.x_position).to eq 0
+      expect(rook.y_position).to eq 7
+    end
+
+    it "should return 'nil' and not update the rook's position when it makes an invalid move" do
+      rook = FactoryGirl.create(:rook, :black)
+      expect(rook.move(3,7)).to eq nil
+      expect(rook.x_position).to eq 0
+      expect(rook.y_position).to eq 0
+    end
+
   end
 
 end

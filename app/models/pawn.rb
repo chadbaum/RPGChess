@@ -8,8 +8,8 @@ class Pawn < Piece
     first_move? ? first_forward_move?(x,y) : forward_move?(x,y)
   end
 
-  # Mutates the type of the piece from Pawn
-  # to the new type provided.
+  # Updates the piece's type from Pawn to the new type
+  # provided.
   def promote! (new_type)
     options = ["Bishop", "Knight", "Queen", "Rook"]
     raise ArgumentError unless options.include?(new_type)

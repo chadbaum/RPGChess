@@ -79,7 +79,7 @@ RSpec.describe Pawn, type: :model do
     end
   end
 
-  describe "Pawn creation validation" do
+  describe "pawn creation validation" do
 
     it "should have a type of Pawn" do
       r = FactoryGirl.create(:pawn, color: 'white')
@@ -89,6 +89,24 @@ RSpec.describe Pawn, type: :model do
     it "should not be allowed to create a red pawn" do
       expect { FactoryGirl.create(:pawn, color: "red") }.to raise_error(ActiveRecord::RecordInvalid)
     end
+  end
+
+  describe "pawn move method" do
+
+    it "should return 'valid' and update the pawn's position when it makes a valid move" do
+      pawn = FactoryGirl.create(:pawn, :white)
+      expect(pawn.move(5,5)).to eq "valid"
+      expect(pawn.x_position).to eq 5
+      expect(pawn.y_position).to eq 5
+    end
+
+    it "should return 'nil' and not update the pawn's position when it makes an invalid move" do
+      pawn = FactoryGirl.create(:pawn, :black)
+      expect(pawn.move(5,0)).to eq nil
+      expect(pawn.x_position).to eq 5
+      expect(pawn.y_position).to eq 1
+    end
+
   end
 
 end
