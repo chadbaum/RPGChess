@@ -1,6 +1,5 @@
 FactoryGirl.define do
   factory :pawn do
-<<<<<<< HEAD
 
     trait :moved do
       y_position 5

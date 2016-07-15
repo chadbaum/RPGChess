@@ -1,6 +1,5 @@
 FactoryGirl.define do
   factory :queen do
-<<<<<<< HEAD
 
     trait :white do
       color 'white'
