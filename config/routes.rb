@@ -2,6 +2,10 @@ StoicChess::Application.routes.draw do
   devise_for :users
   root 'games#index'
 
+
+  resources :games, only: [:new, :create]
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
