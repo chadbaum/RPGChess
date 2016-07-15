@@ -103,16 +103,16 @@ RSpec.describe Queen, type: :model do
 
   describe "queen move method" do
 
-    it "should return 'valid' and update the queen's position when it makes a valid move" do
+    it "should return true and update the queen's position when it makes a valid move" do
       queen = FactoryGirl.create(:queen, :white)
-      expect(queen.move(7,7)).to eq "valid"
+      expect(queen.move!(7,7)).to eq true
       expect(queen.x_position).to eq 7
       expect(queen.y_position).to eq 7
     end
 
     it "should return nil and not update the queen's position when it makes an invalid move" do
       queen = FactoryGirl.create(:queen, :black)
-      expect(queen.move(3,7)).to eq nil
+      expect(queen.move!(3,7)).to eq false
       expect(queen.x_position).to eq 4
       expect(queen.y_position).to eq 0
     end

@@ -93,16 +93,16 @@ RSpec.describe Pawn, type: :model do
 
   describe "pawn move method" do
 
-    it "should return 'valid' and update the pawn's position when it makes a valid move" do
+    it "should return true and update the pawn's position when it makes a valid move" do
       pawn = FactoryGirl.create(:pawn, :white)
-      expect(pawn.move(5,5)).to eq "valid"
+      expect(pawn.move!(5,5)).to eq true
       expect(pawn.x_position).to eq 5
       expect(pawn.y_position).to eq 5
     end
 
     it "should return nil and not update the pawn's position when it makes an invalid move" do
       pawn = FactoryGirl.create(:pawn, :black)
-      expect(pawn.move(5,0)).to eq nil
+      expect(pawn.move!(5,0)).to eq false
       expect(pawn.x_position).to eq 5
       expect(pawn.y_position).to eq 1
     end

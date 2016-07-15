@@ -83,16 +83,16 @@ RSpec.describe King, type: :model do
 
   describe "king move method" do
 
-    it "should return 'valid' and update the king's position when it makes a valid move" do
+    it "should return true and update the king's position when it makes a valid move" do
       king = FactoryGirl.create(:king, :white)
-      expect(king.move(4,6)).to eq "valid"
+      expect(king.move!(4,6)).to eq true
       expect(king.x_position).to eq 4
       expect(king.y_position).to eq 6
     end
 
     it "should return nil and not update the king's position when it makes an invalid move" do
       king = FactoryGirl.create(:king, :black)
-      expect(king.move(5,0)).to eq nil
+      expect(king.move!(5,0)).to eq false
       expect(king.x_position).to eq 3
       expect(king.y_position).to eq 0
     end

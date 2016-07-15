@@ -83,16 +83,16 @@ RSpec.describe Knight, type: :model do
 
   describe "knight move method" do
 
-    it "should return 'valid' and update the knight's position when it makes a valid move" do
+    it "should return true and update the knight's position when it makes a valid move" do
       knight = FactoryGirl.create(:knight, :white)
-      expect(knight.move(3,6)).to eq "valid"
+      expect(knight.move!(3,6)).to eq true
       expect(knight.x_position).to eq 3
       expect(knight.y_position).to eq 6
     end
 
     it "should return nil and not update the knight's position when it makes an invalid move" do
       knight = FactoryGirl.create(:knight, :black)
-      expect(knight.move(3,0)).to eq nil
+      expect(knight.move!(3,0)).to eq false
       expect(knight.x_position).to eq 1
       expect(knight.y_position).to eq 0
     end
