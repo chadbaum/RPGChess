@@ -72,7 +72,7 @@ RSpec.describe Knight, type: :model do
   describe "Knight creation validation" do
 
     it "should have a type of Knight" do
-      r = FactoryGirl.create(:knight)
+      r = FactoryGirl.create(:knight, color: 'white')
       expect(r.type).to eq("Knight")
     end
 

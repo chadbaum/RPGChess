@@ -51,7 +51,7 @@ RSpec.describe Rook, type: :model do
 
   describe "Rook creation validation" do
     it "should have a type of Rook" do
-      r = FactoryGirl.create(:rook)
+      r = FactoryGirl.create(:rook, color: 'white')
       expect(r.type).to eq("Rook")
     end
 

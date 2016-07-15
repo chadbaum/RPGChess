@@ -63,7 +63,7 @@ RSpec.describe Bishop, type: :model do
   describe "Bishop creation validation" do
 
     it "should have a type of Bishop" do
-      r = FactoryGirl.create(:bishop)
+      r = FactoryGirl.create(:bishop, color: 'white')
       expect(r.type).to eq("Bishop")
     end
 
@@ -71,5 +71,5 @@ RSpec.describe Bishop, type: :model do
       expect { FactoryGirl.create(:bishop, color: "red") }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
-  
+
 end

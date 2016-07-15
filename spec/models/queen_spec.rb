@@ -90,8 +90,9 @@ RSpec.describe Queen, type: :model do
   end
 
   describe "Queen creation validation" do
+
     it "should have a type of Queen" do
-      r = FactoryGirl.create(:queen)
+      r = FactoryGirl.create(:queen, color: 'white')
       expect(r.type).to eq("Queen")
     end
 

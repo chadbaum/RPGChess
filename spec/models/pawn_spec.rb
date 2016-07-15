@@ -82,7 +82,7 @@ RSpec.describe Pawn, type: :model do
   describe "Pawn creation validation" do
 
     it "should have a type of Pawn" do
-      r = FactoryGirl.create(:pawn)
+      r = FactoryGirl.create(:pawn, color: 'white')
       expect(r.type).to eq("Pawn")
     end
 

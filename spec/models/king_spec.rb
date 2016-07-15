@@ -72,7 +72,7 @@ RSpec.describe King, type: :model do
   describe "King" do
 
     it "should have a type of King" do
-      r = FactoryGirl.create(:king)
+      r = FactoryGirl.create(:king, color: 'white')
       expect(r.type).to eq("King")
     end
 
