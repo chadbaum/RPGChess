@@ -1,2 +1,67 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "mixins";
+
+/* Global */
+
+hr {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* CHESS BOARD */
+
+#chess-board {
+  border: 7px solid #000;
+  border-collapse: separate;
+  padding: 1px;
+}
+
+#chess-board td {
+  width: 70px;
+  height: 70px;
+  @include cell-gradient(#fff, #eee);
+  @include shadow-box(1px, #fff);
+  font-size: 50px;
+  @extend .text-center
+}
+
+@media (max-width: 620px) {
+  #chess-board td {
+  width: 55px;
+  height: 55px;
+  font-size: 35px;
+  }
+}
+
+@media (max-width: 490px) {
+  #chess-board td {
+  width: 45px;
+  height: 45px;
+  font-size: 30px;
+  }
+}
+
+.players h2 {
+  word-spacing: 10px;
+}
+/* makes the baord centered at all times*/
+.col-centered {
+  float: none;
+  margin: auto;
+}
+
+#chess-board tr:nth-child(odd) td:nth-child(even),
+#chess-board tr:nth-child(even) td:nth-child(odd) {
+  box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+  -moz-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+  -webkit-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+  @include cell-gradient(#ccc, #eee);
+}
+
+/* have to use a class here to override box shadow settings above */
+.container #chess-board tr td:hover {
+  box-shadow: inset 0 0 12px rgba(166,34,25, 0.6);
+  -moz-box-shadow: inset 0 0 12px rgba(166,34,25, 0.6);
+  -webkit-box-shadow: inset 0 0 12px rgba(166,34,25, 0.6);
+}
