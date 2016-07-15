@@ -69,7 +69,7 @@ RSpec.describe Rook, type: :model do
       expect(rook.y_position).to eq 7
     end
 
-    it "should return 'nil' and not update the rook's position when it makes an invalid move" do
+    it "should return nil and not update the rook's position when it makes an invalid move" do
       rook = FactoryGirl.create(:rook, :black)
       expect(rook.move(3,7)).to eq nil
       expect(rook.x_position).to eq 0

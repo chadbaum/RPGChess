@@ -80,7 +80,7 @@ RSpec.describe Bishop, type: :model do
       expect(bishop.y_position).to eq 6
     end
 
-    it "should return 'nil' and not update the bishop's position when it makes an invalid move" do
+    it "should return nil and not update the bishop's position when it makes an invalid move" do
       bishop = FactoryGirl.create(:bishop, :black)
       expect(bishop.move(3,0)).to eq nil
       expect(bishop.x_position).to eq 2

@@ -110,7 +110,7 @@ RSpec.describe Queen, type: :model do
       expect(queen.y_position).to eq 7
     end
 
-    it "should return 'nil' and not update the queen's position when it makes an invalid move" do
+    it "should return nil and not update the queen's position when it makes an invalid move" do
       queen = FactoryGirl.create(:queen, :black)
       expect(queen.move(3,7)).to eq nil
       expect(queen.x_position).to eq 4

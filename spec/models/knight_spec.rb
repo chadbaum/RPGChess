@@ -90,7 +90,7 @@ RSpec.describe Knight, type: :model do
       expect(knight.y_position).to eq 6
     end
 
-    it "should return 'nil' and not update the knight's position when it makes an invalid move" do
+    it "should return nil and not update the knight's position when it makes an invalid move" do
       knight = FactoryGirl.create(:knight, :black)
       expect(knight.move(3,0)).to eq nil
       expect(knight.x_position).to eq 1

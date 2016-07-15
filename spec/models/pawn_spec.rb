@@ -100,7 +100,7 @@ RSpec.describe Pawn, type: :model do
       expect(pawn.y_position).to eq 5
     end
 
-    it "should return 'nil' and not update the pawn's position when it makes an invalid move" do
+    it "should return nil and not update the pawn's position when it makes an invalid move" do
       pawn = FactoryGirl.create(:pawn, :black)
       expect(pawn.move(5,0)).to eq nil
       expect(pawn.x_position).to eq 5
