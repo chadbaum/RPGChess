@@ -35,8 +35,10 @@ class Game < ActiveRecord::Base
 
     Knight.create(game_id: id, x_position: 1, y_position: 7, color: "white")
     Knight.create(game_id: id, x_position: 6, y_position: 7, color: "white")
+    
     Bishop.create(game_id: id, x_position: 2, y_position: 7, color: "white")
     Bishop.create(game_id: id, x_position: 5, y_position: 7, color: "white")
+    
     Queen.create(game_id: id, x_position: 3, y_position: 7, color: "white")
     King.create(game_id: id, x_position: 4, y_position: 7, color: "white")
 
