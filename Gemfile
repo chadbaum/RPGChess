@@ -7,14 +7,16 @@ gem 'bootstrap-sass'
 gem 'coveralls', require: false
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails'
+gem 'rails', '5.0'
 gem 'rubocop', '~> 0.41.2', require: false
 
 group :development, :test do
-  gem "rspec-rails", "~> 3.0"
+
+  gem 'rspec-rails', '~> 3.0'
+  gem 'factory_girl_rails', '~> 4.0'
+  gem 'rspec-core'
   gem 'capybara'
-  gem "factory_girl_rails", "~> 4.0"
-  gem "rspec-core"
+
 end
 
 # Use postgresql as the database for Active Record
@@ -27,7 +29,7 @@ gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
 
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
