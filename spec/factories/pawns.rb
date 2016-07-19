@@ -3,6 +3,7 @@ FactoryGirl.define do
 
     trait :moved do
       y_position 5
+      moved true
     end
 
     trait :white do

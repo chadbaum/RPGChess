@@ -5,13 +5,15 @@ class Piece < ActiveRecord::Base
   validates :color, inclusion: { in: %w(black white) }
   validates :type, inclusion: { in: %w(Pawn Rook Bishop Knight King Queen) }
 
-  # Returns true and updates the piece's x and
-  # y position to provided coordinates if move is valid,
-  # otherwise do nothing and return false.
+  # Returns true, updates the piece's x and y position
+  # to provided coordinates if move is valid, and sets
+  # the moved flag to true otherwise do nothing and
+  # return false.
   def move!(x,y)
     if valid_move?(x,y)
       self.x_position = x
       self.y_position = y
+      self.moved = true
       return true
     else
       return false
