@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -17,13 +16,14 @@ ActiveRecord::Schema.define(version: 20160712160707) do
   enable_extension "plpgsql"
 
   create_table "games", force: :cascade do |t|
-    t.string   "name"
-    t.string   "state"
-    t.integer  "white_player_id"
-    t.integer  "black_player_id"
-    t.integer  "winning_player"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.string   "winning_player"
+    t.string   "game_status"
+    t.integer  "counter"
+    t.integer  "turn"
+    t.integer  "user_id"
+    t.integer  "player_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "pieces", force: :cascade do |t|
@@ -52,10 +52,8 @@ ActiveRecord::Schema.define(version: 20160712160707) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-  
 
 end
