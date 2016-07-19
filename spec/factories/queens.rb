@@ -1,6 +1,5 @@
 FactoryGirl.define do
   factory :queen do
-
     trait :white do
       color 'white'
       x_position 4
@@ -11,6 +10,5 @@ FactoryGirl.define do
       x_position 4
       y_position 0
     end
-
   end
 end
