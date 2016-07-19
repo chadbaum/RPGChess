@@ -45,14 +45,14 @@ class Piece < ActiveRecord::Base
 
   # Returns true if the coordinates provided
   # have the same x-axis value.
-  def horizontal_move?(_x, y)
-    y_distance(y) == 0
+  def horizontal_move?(x)
+    x_distance(x) == 0
   end
 
   # Returns true if the coordinates provided
   # have the same y-axis value.
-  def vertical_move?(x, _y)
-    x_distance(x) == 0
+  def vertical_move?(y)
+    y_distance(y) == 0
   end
 
   # Returns true if the coordinates provided

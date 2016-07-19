@@ -92,8 +92,8 @@ RSpec.describe Queen, type: :model do
     end
 
     it 'should fail to create a red queen' do
-      expect { FactoryGirl.create(:queen, color: 'red') }.to
-      raise_error(ActiveRecord::RecordInvalid)
+      expect { FactoryGirl.create(:queen, color: 'red') }.to\
+        raise_error(ActiveRecord::RecordInvalid)
     end
   end
 

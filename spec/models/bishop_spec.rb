@@ -62,8 +62,8 @@ RSpec.describe Bishop, type: :model do
     end
 
     it 'should fail to create a red bishop' do
-      expect { FactoryGirl.create(:bishop, color: 'red') }.to
-      raise_error(ActiveRecord::RecordInvalid)
+      expect { FactoryGirl.create(:bishop, color: 'red') }.to\
+        raise_error(ActiveRecord::RecordInvalid)
     end
   end
 

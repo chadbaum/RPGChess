@@ -35,7 +35,7 @@ class Pawn < Piece
     end
   end
 
-  def two_forward_move(x, y)
+  def two_forward_move?(x, y)
     if color == 'black'
       x_distance(x) == 0 && y == y_position + 2
     else
