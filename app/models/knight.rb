@@ -1,3 +1,4 @@
+# Knight behavior.
 class Knight < Piece
   # Capture, collision, check, and checkmate logic are not
   # implemented yet and thus ignored.
@@ -11,6 +12,7 @@ class Knight < Piece
   # away from the x_position along the x_axis and 2 tiles
   # away from the y_position along the y_axis
   def l_shaped_move?(x, y)
-    (x_distance(x) == 2 && y_distance(y) == 1) || (x_distance(x) == 1 && y_distance(y) == 2)
+    (x_distance(x) == 2 && y_distance(y) == 1) ||
+      (x_distance(x) == 1 && y_distance(y) == 2)
   end
 end

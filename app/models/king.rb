@@ -1,3 +1,4 @@
+# King behavior.
 class King < Piece
   # Capture, collision, check, and checkmate logic are not
   # implemented yet and thus ignored.

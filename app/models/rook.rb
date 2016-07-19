@@ -1,3 +1,4 @@
+# Rook behavior.
 class Rook < Piece
   # Capture, collision, check, and checkmate logic are not
   # implemented yet and thus ignored.  We will need a boolean
