@@ -7,4 +7,9 @@ require 'rubocop/rake_task'
 
 Coveralls::RakeTask.new
 StoicChess::Application.load_tasks
-RuboCop::RakeTask.new
+
+task test: :rubocop
+
+task :rubocop do
+  sh 'rubocop'
+end
