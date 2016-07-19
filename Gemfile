@@ -11,13 +11,11 @@ gem 'rails', '5.0'
 gem 'rubocop', '~> 0.41.2', require: false
 
 group :development, :test do
-
   gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'rspec-core'
   gem 'capybara'
   gem 'pry-rails'
-
 end
 
 # Use postgresql as the database for Active Record
