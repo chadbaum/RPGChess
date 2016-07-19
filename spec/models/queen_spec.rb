@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Queen, type: :model do
   describe 'white queen movement validation' do
+
     it 'should return false if not being moved' do
       queen = FactoryGirl.create(:queen, :white)
       expect(queen.valid_move?(4, 7)).to eq false
