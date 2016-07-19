@@ -1,0 +1,8 @@
+AllCops:
+  Exclude:
+    - '**/Rakefile'
+    - '**/config.ru'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - !ruby/regexp /old_and_unused\.rb$/
