@@ -10,13 +10,10 @@ class Piece < ActiveRecord::Base
   # y position to provided coordinates if move is valid,
   # otherwise do nothing and return false.
   def move!(x, y)
-    if valid_move?(x, y)
-      self.x_position = x
-      self.y_position = y
-      return true
-    else
-      return false
-    end
+    return false unless valid_move?(x, y)
+    self.x_position = x
+    self.y_position = y
+    true
   end
 
   # All validation assumes white player is on the
