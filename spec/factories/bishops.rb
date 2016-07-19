@@ -1,6 +1,5 @@
 FactoryGirl.define do
   factory :bishop do
-
     trait :white do
       color 'white'
       x_position 2
@@ -13,5 +12,4 @@ FactoryGirl.define do
       y_position 0
     end
   end
-  
 end
