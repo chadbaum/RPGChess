@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Rook, type: :model do
   describe 'white rook movement validation' do
-
     it 'should return false if not being moved' do
       rook = FactoryGirl.create(:rook, :white)
       expect(rook.valid_move?(7, 7)).to eq false
@@ -25,7 +24,6 @@ RSpec.describe Rook, type: :model do
   end
 
   describe 'black rook movement validation' do
-
     it 'should return false if not being moved' do
       rook = FactoryGirl.create(:rook, :black)
       expect(rook.valid_move?(0, 0)).to eq false
@@ -48,7 +46,6 @@ RSpec.describe Rook, type: :model do
   end
 
   describe 'rook creation validation' do
-
     it 'should create a white rook' do
       rook = FactoryGirl.create(:rook, color: 'white')
       expect(rook.type).to eq('Rook')
@@ -58,11 +55,9 @@ RSpec.describe Rook, type: :model do
       expect { FactoryGirl.create(:rook, color: 'red') }.to
       raise_error(ActiveRecord::RecordInvalid)
     end
-
   end
 
   describe 'rook move method' do
-
     it 'should return true and update position on valid move' do
       rook = FactoryGirl.create(:rook, :white)
       expect(rook.move!(0, 7)).to eq true
