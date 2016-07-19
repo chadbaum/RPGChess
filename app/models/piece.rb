@@ -14,6 +14,7 @@ class Piece < ActiveRecord::Base
     return false unless valid_move?(x, y)
     self.x_position = x
     self.y_position = y
+    self.moved = true
     true
   end
 
