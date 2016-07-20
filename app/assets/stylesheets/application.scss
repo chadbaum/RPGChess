@@ -45,6 +45,15 @@ hr {
 .players h2 {
   word-spacing: 10px;
 }
+
+.white-pcs,
+.black-pcs {
+  text-shadow: 3px 3px 8px #444;
+}
+.white-pcs {
+  color: #fff;
+}
+
 /* makes the baord centered at all times*/
 .col-centered {
   float: none;
