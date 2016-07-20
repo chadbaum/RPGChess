@@ -3,6 +3,8 @@
 
 require 'coveralls/rake/task'
 require File.expand_path('../config/application', __FILE__)
+require 'rubocop/rake_task'
 
 Coveralls::RakeTask.new
 StoicChess::Application.load_tasks
+RuboCop::RakeTask.new
