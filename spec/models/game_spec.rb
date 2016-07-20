@@ -12,7 +12,7 @@ RSpec.describe Game, type: :model do
     end
     it 'should give me the last y position of population' do
       g = FactoryGirl.create(:game)
-      expect(g.pieces.last.y_position).to eq 7
+      expect(g.pieces.last.y_position).to eq 0
     end
     it 'should give me the last piece of the population as the King' do
       g = FactoryGirl.create(:game)
@@ -20,7 +20,7 @@ RSpec.describe Game, type: :model do
     end
     it 'should give me the last pieces color' do
       g = FactoryGirl.create(:game)
-      expect(g.pieces.last.color).to eq 'white'
+      expect(g.pieces.last.color).to eq 'black'
     end
   end
 end
