@@ -1,10 +1,4 @@
-<div class="container">
-  <table id="chess-board" class="col-centered" >
-  </table>
-</div>
-
-<script>
-  $(function() {
+$(function() {
     // draw the chess board
     for (var y = 0; y <= 7; y++) {
         $("#chess-board").append(
@@ -20,15 +14,15 @@
           "</tr>");
     }
 
-    // draw white pawns
-    for (var i = 0; i <= 7; i++) {
-        $('td[data-x="' + i + '"][data-y="1"]').append(
-          '<i class="white-pcs glyphicon glyphicon-pawn">');
-        }
     // draw black pawns
     for (var i = 0; i <= 7; i++) {
-        $('td[data-x="' + i + '"][data-y="6"]').append(
+        $('td[data-x="' + i + '"][data-y="1"]').append(
           '<i class="black-pcs glyphicon glyphicon-pawn">');
+        }
+    // draw white pawns
+    for (var i = 0; i <= 7; i++) {
+        $('td[data-x="' + i + '"][data-y="6"]').append(
+          '<i class="white-pcs glyphicon glyphicon-pawn">');
         }
     // assign variables to initial positions based on
     // their data attributes
@@ -59,29 +53,27 @@
     var black_king = 'td[data-x="4"][data-y="7"]';
 
     // appent BS glyphicons to each <td> elements
-    // white figures
-    $(white_rooks).append(
-        '<i class="white-pcs glyphicon glyphicon-tower">');
-    $(white_bishops).append(
-        '<i class="white-pcs glyphicon glyphicon-bishop">');
-    $(white_knights).append(
-        '<i class="white-pcs glyphicon glyphicon-knight">');
-    $(white_queen).append(
-        '<i class="white-pcs glyphicon glyphicon-queen">');
-    $(white_king).append(
-        '<i class="white-pcs glyphicon glyphicon-king">');
-
     // black figures
-    $(black_rooks).append(
+    $(white_rooks).append(
         '<i class="black-pcs glyphicon glyphicon-tower">');
-    $(black_bishops).append(
+    $(white_bishops).append(
         '<i class="black-pcs glyphicon glyphicon-bishop">');
-    $(black_knights).append(
+    $(white_knights).append(
         '<i class="black-pcs glyphicon glyphicon-knight">');
-    $(black_queen).append(
+    $(white_queen).append(
         '<i class="black-pcs glyphicon glyphicon-queen">');
-    $(black_king).append(
+    $(white_king).append(
         '<i class="black-pcs glyphicon glyphicon-king">');
 
-    });
-</script>
+    // white figures
+    $(black_rooks).append(
+        '<i class="white-pcs glyphicon glyphicon-tower">');
+    $(black_bishops).append(
+        '<i class="white-pcs glyphicon glyphicon-bishop">');
+    $(black_knights).append(
+        '<i class="white-pcs glyphicon glyphicon-knight">');
+    $(black_queen).append(
+        '<i class="white-pcs glyphicon glyphicon-queen">');
+    $(black_king).append(
+        '<i class="white-pcs glyphicon glyphicon-king">');
+});
