@@ -1,10 +1,4 @@
-<div class="container">
-  <table id="chess-board" class="col-centered" >
-  </table>
-</div>
-
-<script>
-  $(function() {
+$(function() {
     // draw the chess board
     for (var y = 0; y <= 7; y++) {
         $("#chess-board").append(
@@ -84,4 +78,3 @@
         '<i class="white-pcs glyphicon glyphicon-king">');
 
     });
-</script>
