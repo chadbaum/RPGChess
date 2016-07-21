@@ -50,10 +50,10 @@ class Piece < ActiveRecord::Base
   # pieces in between.
   def horizontal_move?(x, y)
     return false unless y_distance(y) == 0
-    range = (x_position + 1)...x if x_position < x #right
-    range = (x + 1)...x_position if x_position > x #left
-    range.each do |x_coordinate_between|
-      return false if game.pieces.find_by(x_position: x_coordinate_between, y_position: y)
+    range = (x_position + 1)...x if x_position < x # right
+    range = (x + 1)...x_position if x_position > x # left
+    range.each do |x_coord|
+      return false if game.pieces.find_by(x_position: x_coord, y_position: y)
     end
     true
   end
@@ -63,10 +63,10 @@ class Piece < ActiveRecord::Base
   # pieces in between.
   def vertical_move?(x, y)
     return false unless x_distance(x) == 0
-    range = (y_position + 1)...y if y_position < y #down
-    range = (y + 1)...y_position if y_position > y #up
-    range.each do |y_coordinate_between|
-      return false if game.pieces.find_by(y_position: y_coordinate_between, x_position: x)
+    range = (y_position + 1)...y if y_position < y # down
+    range = (y + 1)...y_position if y_position > y # up
+    range.each do |y_coord|
+      return false if game.pieces.find_by(y_position: y_coord, x_position: x)
     end
     true
   end
