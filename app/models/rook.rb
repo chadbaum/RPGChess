@@ -5,6 +5,6 @@ class Rook < Piece
   # to store whether a piece has ever moved for rook and king
   # castling logic.
   def valid_move?(x, y)
-    moved?(x, y) && (horizontal_move?(x) || vertical_move?(y))
+    moved?(x, y) && (horizontal_move?(x, y) || vertical_move?(x, y))
   end
 end

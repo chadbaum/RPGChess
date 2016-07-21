@@ -46,21 +46,33 @@ class Piece < ActiveRecord::Base
   end
 
   # Returns true if the coordinates provided
-  # have the same x-axis value.
-  def horizontal_move?(x)
-    x_distance(x) == 0
+  # have the same x-axis value and there are no
+  # pieces in between.
+  def horizontal_move?(x, y)
+    return false unless y_distance(y) == 0
+    range = (x_position + 1)...x if x_position < x #right
+    range = (x + 1)...x_position if x_position > x #left
+    range.each do |x_coordinate_between|
+      return false if game.pieces.find_by(x_position: x_coordinate_between, y_position: y)
+    end
   end
 
   # Returns true if the coordinates provided
-  # have the same y-axis value.
-  def vertical_move?(y)
-    y_distance(y) == 0
+  # have the same y-axis value and there are no
+  # pieces in between.
+  def vertical_move?(x, y)
+    return false unless x_distance(x) == 0
+    range = (y_position + 1)...y if y_position < y #down
+    range = (y + 1)...y_position if y_position > y #up
+    range.each do |y_coordinate_between|
+      return false if game.pieces.find_by(y_position: y_coordinate_between, x_position: x)
+    end
   end
 
   # Returns true if the coordinates provided
   # are the same distance away from the
   # origin point along both axis.
-  def diagonal_move?(x, y)
+  def diagonal_move?(y)
     x_distance(x) == y_distance(y)
   end
 end
