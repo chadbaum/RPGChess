@@ -50,10 +50,10 @@ class Piece < ActiveRecord::Base
   # pieces in between.
   def horizontal_move?(x, y)
     return false unless y_distance(y) == 0
-    range = (x_position + 1)...x if x_position < x # right
-    range = (x + 1)...x_position if x_position > x # left
-    range.each do |x_coord|
-      return false if game.pieces.find_by(x_position: x_coord, y_position: y)
+    x_range = (x_position + 1)...x if x_position < x # right
+    x_range = (x + 1)...x_position if x_position > x # left
+    x_range.each do |x_check|
+      return false if game.pieces.find_by(x_position: x_check, y_position: y)
     end
     true
   end
@@ -63,10 +63,10 @@ class Piece < ActiveRecord::Base
   # pieces in between.
   def vertical_move?(x, y)
     return false unless x_distance(x) == 0
-    range = (y_position + 1)...y if y_position < y # down
-    range = (y + 1)...y_position if y_position > y # up
-    range.each do |y_coord|
-      return false if game.pieces.find_by(y_position: y_coord, x_position: x)
+    y_range = (y_position + 1)...y if y_position < y # down
+    y_range = (y + 1)...y_position if y_position > y # up
+    y_range.each do |y_check|
+      return false if game.pieces.find_by(x_position: x, y_position: y_check)
     end
     true
   end
@@ -75,6 +75,28 @@ class Piece < ActiveRecord::Base
   # are the same distance away from the
   # origin point along both axis.
   def diagonal_move?(x, y)
-    x_distance(x) == y_distance(y)
+    return false unless x_distance(x) == y_distance(y)
+    if y_position < y && x_position < x #bottom-right
+      x_range = (x_position + 1)...y
+      y_range = (y_position + 1)...y
+    end
+    if y_position < y && x_position > x # bottom-left
+      x_range = (x + 1)...x_position
+      y_range = (y_position + 1)...y
+    end
+    if y_position > y && x_position < x # top-right
+      x_range = (x_position + 1)...x
+      y_range = (y + 1)...y_position
+    end
+    if y_position > y && x_position > x # top-left
+      x_range = (x + 1)...x_position
+      y_range = (y + 1)...y_position
+    end
+    x_range.each do |x_check|
+      y_range.each do |y_check|
+        return false if game.pieces.find_by(x_position: x_check, y_position: y_check)
+      end
+    end
+    true
   end
 end
