@@ -55,6 +55,7 @@ class Piece < ActiveRecord::Base
     range.each do |x_coordinate_between|
       return false if game.pieces.find_by(x_position: x_coordinate_between, y_position: y)
     end
+    true
   end
 
   # Returns true if the coordinates provided
@@ -67,12 +68,13 @@ class Piece < ActiveRecord::Base
     range.each do |y_coordinate_between|
       return false if game.pieces.find_by(y_position: y_coordinate_between, x_position: x)
     end
+    true
   end
 
   # Returns true if the coordinates provided
   # are the same distance away from the
   # origin point along both axis.
-  def diagonal_move?(y)
+  def diagonal_move?(x, y)
     x_distance(x) == y_distance(y)
   end
 end
