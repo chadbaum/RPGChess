@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Rook, type: :model do
   describe 'white rook movement validation' do
+    rook = FactoryGirl.create(:rook, :white)
+
     it 'should return false if not being moved' do
-      rook = FactoryGirl.create(:rook, :white)
       expect(rook.valid_move?(7, 7)).to eq false
     end
 

@@ -2,73 +2,65 @@ require 'rails_helper'
 
 RSpec.describe Knight, type: :model do
   describe 'white knight movement validation' do
+    knight = FactoryGirl.create(:knight, :white)
+
     it 'should return false if not moved' do
-      knight = FactoryGirl.create(:knight, :white)
       expect(knight.valid_move?(1, 7)).to eq false
     end
 
     it 'should return false if moved 2 spaces right' do
-      knight = FactoryGirl.create(:knight, :white)
       expect(knight.valid_move?(3, 7)).to eq false
     end
 
     it 'should return false if moved 1 space forward' do
-      knight = FactoryGirl.create(:knight, :white)
       expect(knight.valid_move?(1, 6)).to eq false
     end
 
     it 'should return false if moved 3 spaces forward and 3 spaces right' do
-      knight = FactoryGirl.create(:knight, :white)
       expect(knight.valid_move?(4, 4)).to eq false
     end
 
     it 'should return true if moved 2 spaces forward and 1 space left' do
-      knight = FactoryGirl.create(:knight, :white)
       expect(knight.valid_move?(2, 5)).to eq true
     end
 
     it 'should return true if moved to 2 spaces right and 1 space forward' do
-      knight = FactoryGirl.create(:knight, :white)
       expect(knight.valid_move?(3, 6)).to eq true
     end
   end
 
   describe 'black knight movement validation' do
+    knight = FactoryGirl.create(:knight, :black)
+
     it 'should return false if not moved' do
-      knight = FactoryGirl.create(:knight, :black)
       expect(knight.valid_move?(1, 0)).to eq false
     end
 
     it 'should return false if moved 2 spaces right' do
-      knight = FactoryGirl.create(:knight, :black)
       expect(knight.valid_move?(3, 0)).to eq false
     end
 
     it 'should return false if moved 1 space forward' do
-      knight = FactoryGirl.create(:knight, :black)
       expect(knight.valid_move?(1, 1)).to eq false
     end
 
     it 'should return false if moved 3 spaces forward and 3 spaces right' do
-      knight = FactoryGirl.create(:knight, :black)
       expect(knight.valid_move?(4, 3)).to eq false
     end
 
     it 'should return true if moved 2 spaces forward and 1 space left' do
-      knight = FactoryGirl.create(:knight, :black)
       expect(knight.valid_move?(0, 2)).to eq true
     end
 
     it 'should return true if moved to 2 spaces right and 1 space forward' do
-      knight = FactoryGirl.create(:knight, :black)
       expect(knight.valid_move?(3, 1)).to eq true
     end
   end
 
   describe 'knight creation validation' do
     it 'should create a white knight' do
-      r = FactoryGirl.create(:knight, color: 'white')
-      expect(r.type).to eq('Knight')
+      knight = FactoryGirl.create(:knight, color: 'white')
+      expect(knight.type).to eq('Knight')
     end
 
     it 'should fail to create a red knight' do
