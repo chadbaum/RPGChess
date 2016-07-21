@@ -1,4 +1,5 @@
 # Piece superset behavior.
+require 'pry'
 class Piece < ActiveRecord::Base
   belongs_to :game
   belongs_to :player
@@ -6,16 +7,49 @@ class Piece < ActiveRecord::Base
   validates :color, inclusion: { in: %w(black white) }
   validates :type, inclusion: { in: %w(Pawn Rook Bishop Knight King Queen) }
 
-  # Returns true, updates the piece's x and y position
-  # to provided coordinates if move is valid, and sets
-  # the moved flag to true otherwise do nothing and
-  # return false.
+  # Returns true and updates the piece's x and
+  # y position to provided coordinates if move is valid,
+  # otherwise do nothing and return false.
   def move!(x, y)
     return false unless valid_move?(x, y)
     self.x_position = x
     self.y_position = y
     self.moved = true
     true
+  end
+
+  # First check if coordinates is taken
+  # return false if coordinates belongs to friendly piece
+  # otherwise return true
+  # return false if position is not taken
+  def capturable?(x,y)
+    if position_taken?(x,y)
+      if friendly_piece?(x,y)
+        return false
+      else
+        return true
+      end
+    else
+      return false
+    end  
+  end
+
+  def capture!(x,y)
+    if capturable?(x,y)
+      target_piece(x,y).update_attributes(x_position: nil, y_position: nil, captured: true)
+    end
+  end
+
+  # Return true if target is a friendly piece
+  # otherwise return false
+  def friendly_piece?(x,y)
+    return true if color == target_piece(x,y).color
+    false
+  end
+
+  # Find the target piece base on game id, and x,y coordinates
+  def target_piece(x,y)
+    Piece.find_by(game_id: game_id, x_position: x, y_position: y)
   end
 
   # All validation assumes white player is on the
@@ -62,5 +96,10 @@ class Piece < ActiveRecord::Base
   # origin point along both axis.
   def diagonal_move?(x, y)
     x_distance(x) == y_distance(y)
+  end
+
+  # Return true if target coordinates is taken base on game id and x,y coordinates
+  def position_taken?(x,y)
+    Piece.find_by(game_id: game_id, x_position: x, y_position: y).present?
   end
 end
