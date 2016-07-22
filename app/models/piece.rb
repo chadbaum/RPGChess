@@ -6,6 +6,11 @@ class Piece < ActiveRecord::Base
   validates :color, inclusion: { in: %w(black white) }
   validates :type, inclusion: { in: %w(Pawn Rook Bishop Knight King Queen) }
 
+  RIGHT = 1
+  LEFT = -1
+  UP = -1
+  DOWN = 1
+
   # Returns true, updates the piece's x and y position
   # to provided coordinates if move is valid, and sets
   # the moved flag to true otherwise do nothing and
@@ -22,7 +27,7 @@ class Piece < ActiveRecord::Base
   # 6-7 rows of the array, and black player is on
   # 0-1 rows of the array.
 
-  private
+  #private
 
   # Compares a piece's x_position with the
   # coordinate provided and returns the
@@ -77,25 +82,34 @@ class Piece < ActiveRecord::Base
   def diagonal_move?(x, y)
     return false unless x_distance(x) == y_distance(y)
     diag_distance = x_distance(x)
-    diag_path_clear?(diag_distance, path_direction(x, y))
+    diag_path_clear?(
+      generate_coordinates(diag_distance, path_direction(x, y))
+    )
   end
 
   def path_direction(x, y)
     {
-      vertical: (y_position < y) ? 'bottom' : 'top',
-      horizontal: (x_position < x) ? 'right' : 'left'
+      x: (x_position < x) ? RIGHT : LEFT,
+      y: (y_position < y) ? DOWN : UP
     }
   end
 
-  def diag_path_clear?(distance, direction)
-    x_check = x_position
-    y_check = y_position
-    (distance - 1).times do
-      x_check = (direction[:horizontal] == 'right') ? x_check + 1 : x_check - 1
-      y_check = (direction[:vertical] == 'bottom') ? y_check + 1 : y_check - 1
+  def generate_coordinates(distance, direction)
+    coords = []
+    (distance - 1).times do |i|
+      coords << [
+        x_position + direction[:x],
+        y_position + direction[:y]
+      ]
+    end
+    coords
+  end
+
+  def diag_path_clear?(coordinates)
+    coordinates.each do |coordinate|
       return false if game.pieces.find_by(
-        x_position: x_check,
-        y_position: y_check
+        x_position: coordinate[0],
+        y_position: coordinate[1]
       )
     end
     true
