@@ -31,12 +31,13 @@ class Piece < ActiveRecord::Base
       end
     else
       return false
-    end  
+    end
   end
 
+  # if piece is capturable change piece's attributes
   def capture!(x,y)
     if capturable?(x,y)
-      target_piece(x,y).update_attributes(x_position: nil, y_position: nil, captured: true)
+      target_piece(x,y).update_attributes!(x_position: nil, y_position: nil, captured: true)
     end
   end
 
@@ -47,9 +48,9 @@ class Piece < ActiveRecord::Base
     false
   end
 
-  # Find the target piece base on game id, and x,y coordinates
+  # Find the target piece base on it x and y coordinates
   def target_piece(x,y)
-    Piece.find_by(game_id: game_id, x_position: x, y_position: y)
+    game.pieces.find_by(x_position: x, y_position: y)
   end
 
   # All validation assumes white player is on the
@@ -57,6 +58,11 @@ class Piece < ActiveRecord::Base
   # 0-1 rows of the array.
 
   private
+
+  # check if position is taken by any piece
+  def position_taken?(x,y)
+    game.pieces.find_by(x_position: x, y_position: y).present?
+  end
 
   # Compares a piece's x_position with the
   # coordinate provided and returns the
@@ -96,10 +102,5 @@ class Piece < ActiveRecord::Base
   # origin point along both axis.
   def diagonal_move?(x, y)
     x_distance(x) == y_distance(y)
-  end
-
-  # Return true if target coordinates is taken base on game id and x,y coordinates
-  def position_taken?(x,y)
-    Piece.find_by(game_id: game_id, x_position: x, y_position: y).present?
   end
 end
