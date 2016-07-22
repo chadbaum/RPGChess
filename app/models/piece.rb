@@ -81,35 +81,18 @@ class Piece < ActiveRecord::Base
   end
 
   def path_direction(x, y)
-    if y_position < y && x_position < x
-      'bottom-right'
-    elsif y_position > y && x_position > x
-      'top-left'
-    elsif y_position < y && x_position > x
-      'bottom-left'
-    else
-      'top-right'
-    end
+    {
+      vertical: (y_position < y) ? 'bottom' : 'top',
+      horizontal: (x_position < x) ? 'right' : 'left'
+    }
   end
 
   def diag_path_clear?(distance, direction)
     x_check = x_position
     y_check = y_position
     (distance - 1).times do
-      case direction
-      when 'bottom-right'
-        x_check += 1
-        y_check += 1
-      when 'top-right'
-        x_check += 1
-        y_check -= 1
-      when 'top-left'
-        x_check -= 1
-        y_check -= 1
-      when 'bottom-left'
-        x_check -= 1
-        y_check += 1
-      end
+      x_check = (direction[:horizontal] == 'right') ? x_check + 1 : x_check - 1
+      y_check = (direction[:vertical] == 'bottom') ? y_check + 1 : y_check - 1
       return false if game.pieces.find_by(x_position: x_check, y_position: y_check)
     end
     true
