@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Knight, type: :model do
   describe 'white knight movement validation' do
-    knight = FactoryGirl.create(:knight, :white)
+    let(:knight) { FactoryGirl.create(:knight, :white) }
 
     it 'should return false if not moved' do
       expect(knight.valid_move?(1, 7)).to eq false
@@ -30,7 +30,7 @@ RSpec.describe Knight, type: :model do
   end
 
   describe 'black knight movement validation' do
-    knight = FactoryGirl.create(:knight, :black)
+    let(:knight) { FactoryGirl.create(:knight, :black) }
 
     it 'should return false if not moved' do
       expect(knight.valid_move?(1, 0)).to eq false

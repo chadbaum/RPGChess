@@ -2,46 +2,41 @@ require 'rails_helper'
 
 RSpec.describe Rook, type: :model do
   describe 'white rook movement validation' do
-    rook = FactoryGirl.create(:rook, :white)
+    let(:rook) { FactoryGirl.create(:rook, :white) }
 
     it 'should return false if not being moved' do
       expect(rook.valid_move?(7, 7)).to eq false
     end
 
     it 'should return false if moved 3 spaces diagonally' do
-      rook = FactoryGirl.create(:rook, :white)
       expect(rook.valid_move?(4, 4)).to eq false
     end
 
     it 'should return true if moved 3 spaces forward' do
-      rook = FactoryGirl.create(:rook, :white)
       expect(rook.valid_move?(7, 4)).to eq true
     end
 
     it 'should return true if moved 3 spaces left' do
-      rook = FactoryGirl.create(:rook, :white)
       expect(rook.valid_move?(4, 7)).to eq true
     end
   end
 
   describe 'black rook movement validation' do
+    let(:rook) { FactoryGirl.create(:rook, :black) }
+
     it 'should return false if not being moved' do
-      rook = FactoryGirl.create(:rook, :black)
       expect(rook.valid_move?(0, 0)).to eq false
     end
 
     it 'should return false if moved 3 spaces forward and 3 spaces right' do
-      rook = FactoryGirl.create(:rook, :black)
       expect(rook.valid_move?(3, 3)).to eq false
     end
 
     it 'should return true if moved 3 spaces forward' do
-      rook = FactoryGirl.create(:rook, :black)
       expect(rook.valid_move?(0, 3)).to eq true
     end
 
     it 'should return true if moved 3 spaces right' do
-      rook = FactoryGirl.create(:rook, :black)
       expect(rook.valid_move?(3, 0)).to eq true
     end
   end
@@ -75,9 +70,9 @@ RSpec.describe Rook, type: :model do
   end
 
   describe 'obstructed logic' do
-    game = FactoryGirl.create(:game)
-    rook = game.pieces.find_by(type: 'Rook', color: 'white', x_position: 7, y_position: 7)
-    moved_rook = game.pieces.create(type: 'Rook', color: 'white', x_position: 3, y_position: 3)
+    let(:game) { FactoryGirl.create(:game) }
+    let(:rook) { game.pieces.find_by(type: 'Rook', color: 'white', x_position: 7, y_position: 7) }
+    let(:moved_rook) { game.pieces.create(type: 'Rook', color: 'white', x_position: 3, y_position: 3) }
 
     it 'should return false and not update position on obstructed move' do
       expect(rook.move!(7, 4)).to eq false

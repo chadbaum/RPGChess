@@ -93,7 +93,10 @@ class Piece < ActiveRecord::Base
     (distance - 1).times do
       x_check = (direction[:horizontal] == 'right') ? x_check + 1 : x_check - 1
       y_check = (direction[:vertical] == 'bottom') ? y_check + 1 : y_check - 1
-      return false if game.pieces.find_by(x_position: x_check, y_position: y_check)
+      return false if game.pieces.find_by(
+        x_position: x_check,
+        y_position: y_check
+      )
     end
     true
   end
