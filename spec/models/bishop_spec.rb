@@ -82,4 +82,22 @@ RSpec.describe Bishop, type: :model do
       expect(bishop.y_position).to eq 0
     end
   end
+
+  describe 'obstructed logic' do
+    game = FactoryGirl.create(:game)
+    bishop = game.pieces.find_by(type: 'Bishop', color: 'white', x_position: 2, y_position: 7)
+    moved_bishop = game.pieces.create(type: 'Bishop', color: 'white', x_position: 3, y_position: 3)
+
+    it 'should return false and not update position on obstructed move' do
+      expect(bishop.move!(4,5)).to eq false
+      expect(bishop.x_position).to eq 2
+      expect(bishop.y_position).to eq 7
+    end
+
+    it 'should return true and update position on non-obstructed move' do
+      expect(moved_bishop.move!(5,5)).to eq true
+      expect(moved_bishop.x_position).to eq 5
+      expect(moved_bishop.y_position).to eq 5
+    end
+  end
 end

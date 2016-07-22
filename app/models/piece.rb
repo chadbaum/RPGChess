@@ -76,26 +76,57 @@ class Piece < ActiveRecord::Base
   # origin point along both axis.
   def diagonal_move?(x, y)
     return false unless x_distance(x) == y_distance(y)
-    if y_position < y && x_position < x #bottom-right
-      x_range = (x_position + 1)...y
-      y_range = (y_position + 1)...y
+    if y_position < y && x_position < x
+      bottom_right_check?(x, y)
+    elsif y_position > y && x_position > x
+      top_left_check?(x, y)
+    elsif y_position < y && x_position > x
+      bottom_left_check?(x, y)
+    else
+      top_right_check?(x, y)
     end
-    if y_position < y && x_position > x # bottom-left
-      x_range = (x + 1)...x_position
-      y_range = (y_position + 1)...y
+  end
+
+  def bottom_right_check?(x, y)
+    x_check = x_position
+    y_check = y_position
+    (x_distance(x) - 1).times do
+      x_check += 1
+      y_check += 1
+      return false if game.pieces.find_by(x_position: x_check, y_position: y_check)
     end
-    if y_position > y && x_position < x # top-right
-      x_range = (x_position + 1)...x
-      y_range = (y + 1)...y_position
+    true
+  end
+
+  def top_left_check?(x, y)
+    x_check = x_position
+    y_check = y_position
+    (x_distance(x) - 1).times do
+      x_check -= 1
+      y_check -= 1
+      return false if game.pieces.find_by(x_position: x_check, y_position: y_check)
     end
-    if y_position > y && x_position > x # top-left
-      x_range = (x + 1)...x_position
-      y_range = (y + 1)...y_position
+    true
+  end
+
+  def bottom_left_check?(x, y)
+    x_check = x_position
+    y_check = y_position
+    (x_distance(x) - 1).times do
+      x_check -= 1
+      y_check += 1
+      return false if game.pieces.find_by(x_position: x_check, y_position: y_check)
     end
-    x_range.each do |x_check|
-      y_range.each do |y_check|
-        return false if game.pieces.find_by(x_position: x_check, y_position: y_check)
-      end
+    true
+  end
+
+  def top_right_check?(x, y)
+    x_check = x_position
+    y_check = y_position
+    (x_distance(x) - 1).times do
+      x_check += 1
+      y_check -= 1
+      return false if game.pieces.find_by(x_position: x_check, y_position: y_check)
     end
     true
   end
