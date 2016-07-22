@@ -57,6 +57,17 @@ RSpec.describe Piece, type: :model do
       expect(white_pawn.captured).to eq true
     end
   end
+  describe "friendly_piece" do
+    it "return true if target's piece have the same color" do
+      game = empty_game
+      white_pawn = FactoryGirl.create(:pawn, :white, game_id: game.id, :x_position => 3, :y_position => 0, :captured => false)
+      other_white_pawn = FactoryGirl.create(:pawn, :white, game_id: game.id, :x_position => 4, :y_position => 1, :captured => false)
+
+      expect(other_white_pawn.friendly_piece?(white_pawn.x_position,white_pawn.y_position)).to eq true
+    end
+  end
+
+
 
   # before create a new game, destory all pieces from pre populated from game model
   def empty_game
