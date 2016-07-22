@@ -27,7 +27,7 @@ class Piece < ActiveRecord::Base
   # 6-7 rows of the array, and black player is on
   # 0-1 rows of the array.
 
-  #private
+  private
 
   # Compares a piece's x_position with the
   # coordinate provided and returns the
@@ -97,9 +97,10 @@ class Piece < ActiveRecord::Base
   def generate_coordinates(distance, direction)
     coords = []
     (distance - 1).times do |i|
+      i += 1
       coords << [
-        x_position + direction[:x],
-        y_position + direction[:y]
+        x_position + i * direction[:x],
+        y_position + i * direction[:y]
       ]
     end
     coords
