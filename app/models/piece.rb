@@ -21,34 +21,35 @@ class Piece < ActiveRecord::Base
   # return false if coordinates belongs to friendly piece
   # otherwise return true
   # return false if position is not taken
-  def capturable?(x,y)
-    if position_taken?(x,y)
-      if friendly_piece?(x,y)
-        return false
-      else
-        return true
-      end
+  def capturable?(x, y)
+    if position_taken?(x, y)
+      return false if friendly_piece?(x, y)
+      true
     else
-      return false
+      false
     end
   end
 
   # if piece is capturable change piece's attributes
-  def capture!(x,y)
-    if capturable?(x,y)
-      target_piece(x,y).update_attributes!(x_position: nil, y_position: nil, captured: true)
+  def capture!(x, y)
+    if capturable?(x, y)
+      target_piece(x, y).update_attributes!(
+        x_position: nil,
+        y_position: nil,
+        captured: true
+      )
     end
   end
 
   # Return true if target is a friendly piece
   # otherwise return false
-  def friendly_piece?(x,y)
-    return true if color == target_piece(x,y).color
+  def friendly_piece?(x, y)
+    return true if color == target_piece(x, y).color
     false
   end
 
   # Find the target piece base on it x and y coordinates
-  def target_piece(x,y)
+  def target_piece(x, y)
     game.pieces.find_by(x_position: x, y_position: y)
   end
 
@@ -59,7 +60,7 @@ class Piece < ActiveRecord::Base
   private
 
   # check if position is taken by any piece
-  def position_taken?(x,y)
+  def position_taken?(x, y)
     game.pieces.find_by(x_position: x, y_position: y).present?
   end
 
