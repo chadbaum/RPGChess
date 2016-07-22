@@ -76,56 +76,40 @@ class Piece < ActiveRecord::Base
   # origin point along both axis.
   def diagonal_move?(x, y)
     return false unless x_distance(x) == y_distance(y)
+    diag_distance = x_distance(x)
+    diag_path_clear?(diag_distance, path_direction(x, y))
+  end
+
+  def path_direction(x, y)
     if y_position < y && x_position < x
-      bottom_right_check?(x, y)
+      'bottom-right'
     elsif y_position > y && x_position > x
-      top_left_check?(x, y)
+      'top-left'
     elsif y_position < y && x_position > x
-      bottom_left_check?(x, y)
+      'bottom-left'
     else
-      top_right_check?(x, y)
+      'top-right'
     end
   end
 
-  def bottom_right_check?(x, y)
+  def diag_path_clear?(distance, direction)
     x_check = x_position
     y_check = y_position
-    (x_distance(x) - 1).times do
-      x_check += 1
-      y_check += 1
-      return false if game.pieces.find_by(x_position: x_check, y_position: y_check)
-    end
-    true
-  end
-
-  def top_left_check?(x, y)
-    x_check = x_position
-    y_check = y_position
-    (x_distance(x) - 1).times do
-      x_check -= 1
-      y_check -= 1
-      return false if game.pieces.find_by(x_position: x_check, y_position: y_check)
-    end
-    true
-  end
-
-  def bottom_left_check?(x, y)
-    x_check = x_position
-    y_check = y_position
-    (x_distance(x) - 1).times do
-      x_check -= 1
-      y_check += 1
-      return false if game.pieces.find_by(x_position: x_check, y_position: y_check)
-    end
-    true
-  end
-
-  def top_right_check?(x, y)
-    x_check = x_position
-    y_check = y_position
-    (x_distance(x) - 1).times do
-      x_check += 1
-      y_check -= 1
+    (distance - 1).times do
+      case direction
+      when 'bottom-right'
+        x_check += 1
+        y_check += 1
+      when 'top-right'
+        x_check += 1
+        y_check -= 1
+      when 'top-left'
+        x_check -= 1
+        y_check -= 1
+      when 'bottom-left'
+        x_check -= 1
+        y_check += 1
+      end
       return false if game.pieces.find_by(x_position: x_check, y_position: y_check)
     end
     true

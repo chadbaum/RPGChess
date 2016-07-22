@@ -76,17 +76,17 @@ RSpec.describe Rook, type: :model do
 
   describe 'obstructed logic' do
     game = FactoryGirl.create(:game)
-    rook = game.pieces.find_by(type: 'Rook', color: 'white', x_position: 7, x_position: 7)
+    rook = game.pieces.find_by(type: 'Rook', color: 'white', x_position: 7, y_position: 7)
     moved_rook = game.pieces.create(type: 'Rook', color: 'white', x_position: 3, y_position: 3)
 
     it 'should return false and not update position on obstructed move' do
-      expect(rook.move!(7,4)).to eq false
+      expect(rook.move!(7, 4)).to eq false
       expect(rook.x_position).to eq 7
       expect(rook.y_position).to eq 7
     end
 
     it 'should return true and update position on non-obstructed move' do
-      expect(moved_rook.move!(7,3)).to eq true
+      expect(moved_rook.move!(7, 3)).to eq true
       expect(moved_rook.x_position).to eq 7
       expect(moved_rook.y_position).to eq 3
     end
