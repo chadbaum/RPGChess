@@ -17,28 +17,22 @@ class Piece < ActiveRecord::Base
     true
   end
 
-  # First check if coordinates is taken
-  # return false if coordinates belongs to friendly piece
+  # Return false if coordinates is taken but belongs to friendly piece
   # otherwise return true
-  # return false if position is not taken
   def capturable?(x, y)
-    if position_taken?(x, y)
-      return false if friendly_piece?(x, y)
-      true
-    else
-      false
-    end
+    return false unless position_taken?(x, y) && !friendly_piece?(x, y)
+    true
   end
 
   # if piece is capturable change piece's attributes
   def capture!(x, y)
-    if capturable?(x, y)
-      target_piece(x, y).update_attributes!(
-        x_position: nil,
-        y_position: nil,
-        captured: true
-      )
-    end
+    return false unless capturable?(x, y)
+    move!(x, y)
+    target_piece(x, y).update_attributes!(
+      x_position: nil,
+      y_position: nil,
+      captured: true
+    )
   end
 
   # Return true if target is a friendly piece
