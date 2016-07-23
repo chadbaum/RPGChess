@@ -53,43 +53,41 @@ class Piece < ActiveRecord::Base
   # Returns true if the coordinates provided
   # have the same x-axis value and there are no
   # pieces in between.
-  def horizontal_move?(x, y)
+  def clear_horizontal_move?(x, y)
     return false unless y_distance(y) == 0
-    x_range = (x_position + 1)...x if x_position < x # right
-    x_range = (x + 1)...x_position if x_position > x # left
-    x_range.each do |x_check|
-      return false if game.pieces.find_by(x_position: x_check, y_position: y)
-    end
-    true
+    distance = x_distance(x)
+    path_clear?(x, y, distance)
   end
 
   # Returns true if the coordinates provided
   # have the same y-axis value and there are no
   # pieces in between.
-  def vertical_move?(x, y)
+  def clear_vertical_move?(x, y)
     return false unless x_distance(x) == 0
-    y_range = (y_position + 1)...y if y_position < y # down
-    y_range = (y + 1)...y_position if y_position > y # up
-    y_range.each do |y_check|
-      return false if game.pieces.find_by(x_position: x, y_position: y_check)
-    end
-    true
+    distance = y_distance(y)
+    path_clear?(x, y, distance)
   end
 
   # Returns true if the coordinates provided
   # are the same distance away from the
   # origin point along both axis.
-  def diagonal_move?(x, y)
+  def clear_diagonal_move?(x, y)
     return false unless x_distance(x) == y_distance(y)
     distance = x_distance(x)
     path_clear?(x, y, distance)
   end
 
   def path_direction(x, y)
-    {
-      x: (x_position < x) ? RIGHT : LEFT,
-      y: (y_position < y) ? DOWN : UP
-    }
+    direction = {}
+    direction[:x] = if x_position < x then RIGHT
+                    elsif x_position > x then LEFT
+                    else 0
+                    end
+    direction[:y] = if y_position < y then DOWN
+                    elsif y_position > y then UP
+                    else 0
+                    end
+    direction
   end
 
   def generate_path_coordinates(x, y, distance)
