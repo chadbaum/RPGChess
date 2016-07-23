@@ -81,10 +81,8 @@ class Piece < ActiveRecord::Base
   # origin point along both axis.
   def diagonal_move?(x, y)
     return false unless x_distance(x) == y_distance(y)
-    diag_distance = x_distance(x)
-    diag_path_clear?(
-      generate_coordinates(diag_distance, path_direction(x, y))
-    )
+    distance = x_distance(x)
+    path_clear?(x, y, distance)
   end
 
   def path_direction(x, y)
@@ -94,19 +92,21 @@ class Piece < ActiveRecord::Base
     }
   end
 
-  def generate_coordinates(distance, direction)
-    coords = []
+  def generate_path_coordinates(x, y, distance)
+    coordinate_sets = []
+    direction = path_direction(x, y)
     (distance - 1).times do |i|
       i += 1
-      coords << [
+      coordinate_sets << [
         x_position + i * direction[:x],
         y_position + i * direction[:y]
       ]
     end
-    coords
+    coordinate_sets
   end
 
-  def diag_path_clear?(coordinates)
+  def path_clear?(x, y, distance)
+    coordinates = generate_path_coordinates(x, y, distance)
     coordinates.each do |coordinate|
       return false if game.pieces.find_by(
         x_position: coordinate[0],
