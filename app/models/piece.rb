@@ -38,8 +38,7 @@ class Piece < ActiveRecord::Base
   # Return true if target is a friendly piece
   # otherwise return false
   def friendly_piece?(x, y)
-    return true if color == target_piece(x, y).color
-    false
+    color == target_piece(x, y).color
   end
 
   # Find the target piece base on it x and y coordinates
