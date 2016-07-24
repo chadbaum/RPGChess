@@ -18,19 +18,21 @@ RSpec.describe Piece, type: :model do
   end
 
   describe 'capturable?' do
+    before(:each) do
+      @game = FactoryGirl.create :empty_chess_board
+    end
+
     it 'should return false if coordinates not occupied by any piece' do
-      game = FactoryGirl.create(:game)
-      white_pawn = FactoryGirl.create(:pawn, :white, game_id: game.id)
+      white_pawn = FactoryGirl.create(:pawn, :white, game_id: @game.id)
 
       expect(white_pawn.capturable?(4, 5)).to eq false
     end
 
     it 'should return false if coordinates occupied by same color piece' do
-      game = empty_game
       white_pawn = FactoryGirl.create(
         :pawn,
         :white,
-        game_id: game.id,
+        game_id: @game.id,
         x_position: 3,
         y_position: 0,
         captured: false
@@ -38,7 +40,7 @@ RSpec.describe Piece, type: :model do
       other_white_pawn = FactoryGirl.create(
         :pawn,
         :white,
-        game_id: game.id,
+        game_id: @game.id,
         x_position: 4,
         y_position: 1,
         captured: false
@@ -50,12 +52,11 @@ RSpec.describe Piece, type: :model do
       )).to eq false
     end
 
-    it 'should return true if oordinates occupied by target piece' do
-      game = empty_game
+    it 'should return true if coordinates occupied by target piece' do
       black_rook = FactoryGirl.create(
         :rook,
         :black,
-        game_id: game.id,
+        game_id: @game.id,
         x_position: 4,
         y_position: 0,
         captured: false
@@ -63,7 +64,7 @@ RSpec.describe Piece, type: :model do
       white_pawn = FactoryGirl.create(
         :pawn,
         :white,
-        game_id: game.id,
+        game_id: @game.id,
         x_position: 4,
         y_position: 1,
         captured: false
@@ -77,12 +78,15 @@ RSpec.describe Piece, type: :model do
   end
 
   describe 'capture!' do
+    before(:each) do
+      @game = FactoryGirl.create :empty_chess_board
+    end
+
     it 'should update target piece attributes' do
-      game = empty_game
       black_rook = FactoryGirl.create(
         :rook,
         :black,
-        game_id: game.id,
+        game_id: @game.id,
         x_position: 3,
         y_position: 1,
         captured: false
@@ -90,7 +94,7 @@ RSpec.describe Piece, type: :model do
       white_pawn = FactoryGirl.create(
         :pawn,
         :white,
-        game_id: game.id,
+        game_id: @game.id,
         x_position: 4,
         y_position: 1,
         captured: false
@@ -106,11 +110,10 @@ RSpec.describe Piece, type: :model do
     end
 
     it 'should update our piece attributes' do
-      game = empty_game
       black_rook = FactoryGirl.create(
         :rook,
         :black,
-        game_id: game.id,
+        game_id: @game.id,
         x_position: 3,
         y_position: 1,
         captured: false
@@ -118,7 +121,7 @@ RSpec.describe Piece, type: :model do
       white_pawn = FactoryGirl.create(
         :pawn,
         :white,
-        game_id: game.id,
+        game_id: @game.id,
         x_position: 4,
         y_position: 1,
         captured: false
@@ -132,12 +135,15 @@ RSpec.describe Piece, type: :model do
   end
 
   describe 'friendly_piece?' do
+    before(:each) do
+      @game = FactoryGirl.create :empty_chess_board
+    end
+
     it 'should return true if target piece have the same color' do
-      game = empty_game
       white_pawn = FactoryGirl.create(
         :pawn,
         :white,
-        game_id: game.id,
+        game_id: @game.id,
         x_position: 3,
         y_position: 0,
         captured: false
@@ -145,7 +151,7 @@ RSpec.describe Piece, type: :model do
       other_white_pawn = FactoryGirl.create(
         :pawn,
         :white,
-        game_id: game.id,
+        game_id: @game.id,
         x_position: 4,
         y_position: 1,
         captured: false
@@ -156,13 +162,5 @@ RSpec.describe Piece, type: :model do
                white_pawn.y_position
       )).to eq true
     end
-  end
-
-  # before create a new game, destory all pieces pre-populated from game model
-  def empty_game
-    game = FactoryGirl.create(:game)
-    game.pieces.destroy_all
-    game.reload
-    game
   end
 end
