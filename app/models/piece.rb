@@ -6,6 +6,8 @@ class Piece < ActiveRecord::Base
   validates :color, inclusion: { in: %w(black white) }
   validates :type, inclusion: { in: %w(Pawn Rook Bishop Knight King Queen) }
 
+  # Class constants used to determine path direction
+  # for obstruction logic.
   RIGHT = 1
   LEFT = -1
   DOWN = 1
@@ -70,13 +72,18 @@ class Piece < ActiveRecord::Base
 
   # Returns true if the coordinates provided
   # are the same distance away from the
-  # origin point along both axis.
+  # origin point along both axis and there are no
+  # pieces in between.
   def clear_diagonal_move?(x, y)
     return false unless x_distance(x) == y_distance(y)
     distance = x_distance(x)
     path_clear?(x, y, distance)
   end
 
+  # Returns a hash with 1 or -1 values for
+  # x and y based on whether those values are
+  # increasing or decreasing towards destination
+  # to determine direction of path along both axis.
   def path_direction(x, y)
     direction = {}
     direction[:x] = if x_position < x then RIGHT
@@ -90,6 +97,8 @@ class Piece < ActiveRecord::Base
     direction
   end
 
+  # Returns an array of x-y coordinate subarrays
+  # between origin and destination.
   def generate_path_coordinates(x, y, distance)
     coordinate_sets = []
     direction = path_direction(x, y)
@@ -103,6 +112,9 @@ class Piece < ActiveRecord::Base
     coordinate_sets
   end
 
+  # Returns true if no x-y coordinate pairs
+  # between origin and destination have a piece
+  # present.
   def path_clear?(x, y, distance)
     coordinates = generate_path_coordinates(x, y, distance)
     coordinates.each do |coordinate|

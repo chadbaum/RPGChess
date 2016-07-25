@@ -1,9 +1,10 @@
 # Pawn behavior.
 class Pawn < Piece
   # Returns true if the pawn made a valid upgraded forward
-  # move on its first move, or else a regular forward move.
-  # Capture, collision, check, and checkmate logic are not
-  # implemented yet and thus ignored.
+  # move on its first move, or else a regular forward move,
+  # and ensure no capture takes place by moving forward.
+  # Check, and checkmate logic are not implemented yet
+  # and thus ignored.
   def valid_move?(x, y)
     (moved ? one_forward_move?(x, y) : first_forward_move?(x, y)) &&
       !forward_capture?(x, y)
@@ -45,6 +46,9 @@ class Pawn < Piece
     one_forward_move?(x, y) || clear_two_forward_move?(x, y)
   end
 
+  # Returns true if there is any piece present
+  # in the tile provided.  Will be refactored when
+  # merged with capture logic.
   def forward_capture?(x, y)
     game.pieces.find_by(
       x_position: x,

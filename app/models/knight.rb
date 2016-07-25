@@ -1,7 +1,6 @@
 # Knight behavior.
 class Knight < Piece
-  # Capture, collision, check, and checkmate logic are not
-  # implemented yet and thus ignored.
+  # There is no obstruction logic necessary for the knight.
   def valid_move?(x, y)
     moved?(x, y) && l_shaped_move?(x, y)
   end
