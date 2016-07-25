@@ -2,8 +2,22 @@ require 'rails_helper'
 
 RSpec.describe Bishop, type: :model do
   let(:game) { FactoryGirl.create(:game) }
-  let(:bishop) { game.pieces.find_by(type: 'Bishop', color: 'white', x_position: 2, y_position: 7) }
-  let(:moved_bishop) { game.pieces.create(type: 'Bishop', color: 'white', x_position: 3, y_position: 3) }
+  let(:bishop) do
+    game.pieces.find_by(
+      type: 'Bishop',
+      color: 'white',
+      x_position: 2,
+      y_position: 7
+    )
+  end
+  let(:moved_bishop) do
+    game.pieces.create(
+      type: 'Bishop',
+      color: 'white',
+      x_position: 3,
+      y_position: 3
+    )
+  end
 
   describe 'creation validation' do
     it 'should create a white bishop' do
@@ -55,7 +69,6 @@ RSpec.describe Bishop, type: :model do
       expect(moved_bishop.x_position).to eq 4
       expect(moved_bishop.y_position).to eq 2
     end
-
   end
 
   describe 'obstructed move' do
@@ -82,6 +95,5 @@ RSpec.describe Bishop, type: :model do
       expect(moved_bishop.x_position).to eq 3
       expect(moved_bishop.y_position).to eq 3
     end
-
   end
 end

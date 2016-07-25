@@ -2,8 +2,23 @@ require 'rails_helper'
 
 RSpec.describe Pawn, type: :model do
   let(:game) { FactoryGirl.create(:game) }
-  let(:pawn) { game.pieces.find_by(type: 'Pawn', color: 'white', x_position: 5, y_position: 6) }
-  let(:moved_pawn) { game.pieces.create(type: 'Pawn', color: 'white', x_position: 3, y_position: 4, moved: true) }
+  let(:pawn) do
+    game.pieces.find_by(
+      type: 'Pawn',
+      color: 'white',
+      x_position: 5,
+      y_position: 6
+    )
+  end
+  let(:moved_pawn) do
+    game.pieces.create(
+      type: 'Pawn',
+      color: 'white',
+      x_position: 3,
+      y_position: 4,
+      moved: true
+    )
+  end
 
   describe 'creation' do
     it 'should create a white pawn' do
@@ -67,14 +82,24 @@ RSpec.describe Pawn, type: :model do
 
   describe 'obstructed move' do
     it 'should return false and not update position on obstructed move' do
-      game.pieces.create(type: 'Rook', color: 'white', x_position: 5, y_position: 5)
+      game.pieces.create(
+        type: 'Rook',
+        color: 'white',
+        x_position: 5,
+        y_position: 5
+      )
       expect(pawn.move!(5, 4)).to eq false
       expect(pawn.x_position).to eq 5
       expect(pawn.y_position).to eq 6
     end
 
     it 'should return false and not update position on obstructed move' do
-      game.pieces.create(type: 'Rook', color: 'white', x_position: 5, y_position: 5)
+      game.pieces.create(
+        type: 'Rook',
+        color: 'white',
+        x_position: 5,
+        y_position: 5
+      )
       expect(pawn.move!(5, 5)).to eq false
       expect(pawn.x_position).to eq 5
       expect(pawn.y_position).to eq 6

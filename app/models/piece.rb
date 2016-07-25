@@ -6,7 +6,10 @@ class Piece < ActiveRecord::Base
   validates :color, inclusion: { in: %w(black white) }
   validates :type, inclusion: { in: %w(Pawn Rook Bishop Knight King Queen) }
 
-  RIGHT, LEFT, DOWN, UP = 1, -1, 1, -1
+  RIGHT = 1
+  LEFT = -1
+  DOWN = 1
+  UP = -1
 
   # Returns true, updates the piece's x and y position
   # to provided coordinates if move is valid, and sets

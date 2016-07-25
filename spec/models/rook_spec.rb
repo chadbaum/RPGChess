@@ -2,8 +2,22 @@ require 'rails_helper'
 
 RSpec.describe Rook, type: :model do
   let(:game) { FactoryGirl.create(:game) }
-  let(:rook) { game.pieces.find_by(type: 'Rook', color: 'white', x_position: 7, y_position: 7) }
-  let(:moved_rook) { game.pieces.create(type: 'Rook', color: 'white', x_position: 3, y_position: 3) }
+  let(:rook) do
+    game.pieces.find_by(
+      type: 'Rook',
+      color: 'white',
+      x_position: 7,
+      y_position: 7
+    )
+  end
+  let(:moved_rook) do
+    game.pieces.create(
+      type: 'Rook',
+      color: 'white',
+      x_position: 3,
+      y_position: 3
+    )
+  end
 
   describe 'creation' do
     it 'should create a white rook' do
@@ -75,7 +89,6 @@ RSpec.describe Rook, type: :model do
       expect(moved_rook.x_position).to eq 2
       expect(moved_rook.y_position).to eq 3
     end
-
   end
 
   describe 'obstructed move' do

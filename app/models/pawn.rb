@@ -5,9 +5,8 @@ class Pawn < Piece
   # Capture, collision, check, and checkmate logic are not
   # implemented yet and thus ignored.
   def valid_move?(x, y)
-    moved ?
-      one_forward_move?(x, y) && ! forward_capture?(x, y) :
-      first_forward_move?(x, y) && ! forward_capture?(x, y)
+    (moved ? one_forward_move?(x, y) : first_forward_move?(x, y)) &&
+      !forward_capture?(x, y)
   end
 
   # Updates the piece's type from Pawn to the new type
