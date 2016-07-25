@@ -6,7 +6,7 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.new
+    @game = current_user.game.create(game_params)
   end
 
   def show
