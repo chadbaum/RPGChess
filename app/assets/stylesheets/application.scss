@@ -8,6 +8,9 @@
 hr {
   margin-top: 0;
   margin-bottom: 0;
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 }
 
 body {
@@ -19,10 +22,28 @@ body {
   clear: both;
 }
 
+/*Footer*/
+.Site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.Site-content {
+  flex: 1;
+}
+
+footer {
+  background-color: #979A9C;
+  height: 60px;
+}
+
 /* INDEX */
 
 .navbar-inverse {
   background-color: #979A9C;
+  border: none;
+  box-shadow: 3px 3px 3px;
 }
 
 .navbar-header .navbar-brand {
