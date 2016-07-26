@@ -1,1 +1,166 @@
-<h1>StoicChess</h1>
+<br />
+<section id="register">
+  <div class="col-sm-5 col-sm-offset-1">
+    <%= image_tag 'chess.jpg', class: 'img-responsive feature_pic' %>
+    <br />
+  </div>
+  <div class="col-sm-3 col-sm-offset-1">
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= f.error_notification %>
+        <div class="form-inputs">
+          <br />
+          <br />
+          <br />
+          <%= f.input :email, required: true, autofocus: true, class: 'form-inputs' %>
+          <br />
+          <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+          <br />
+          <%= f.input :password_confirmation, required: true %>
+          <br />
+        </div>
+        <div class="form-actions">
+          <%= f.button :submit, "Create an account", class: 'btn btn-success account' %>
+        </div>
+    <% end %>
+  </div>
+</section>
+<br class="clr" />
+<hr class="col-sm-offset-1 col-sm-10"/>
+<br />
+<section id="features">
+  <div class="col-sm-offset-2 col-sm-8 text-center">
+    <h4>Description of the project and fact that it is our final project for FHP</h4>
+    <h4>Description of the project and fact that it is our final project for FHP</h4>
+    <h4>Description of the project and fact that it is our final project for FHP</h4>
+    <br />
+  </div>
+  <div class="col-sm-offset-2 col-sm-2 col-xs-offset-2 col-xs-8 text-center"/>
+    <%= image_tag 'chess.jpg', class: 'img-responsive feature_pic' %>
+    <h3>Feature 1</h3>
+    <p>Words words words, words words. Words words words, words words. Words words words, words words. Words words words, words words.</p>
+  </div>
+  <div class="col-sm-offset-1 col-sm-2 col-xs-offset-2 col-xs-8 text-center"/>
+    <%= image_tag 'chess.jpg', class: 'img-responsive feature_pic' %>
+    <h3>Feature 2</h3>
+    <p>Words words words, words words. Words words words, words words. Words words words, words words. Words words words, words words.</p>
+  </div>
+  <div class="col-sm-offset-1 col-sm-2 col-xs-offset-2 col-xs-8 text-center"/>
+    <%= image_tag 'chess.jpg', class: 'img-responsive feature_pic' %>
+    <h3>Feature 3</h3>
+    <p>Words words words, words words. Words words words, words words. Words words words, words words. Words words words, words words.</p>
+  </div>
+  <br class="clr" />
+</section>
+<hr class="col-sm-offset-1 col-sm-10"/>
+<section id="team">
+  <div class="text-center">
+    <h2>THE TEAM</h2>
+    <br />
+  </div>
+  <div class="col-sm-offset-1 col-sm-2"/>
+    <%= image_tag 'chad.png', class: 'img-responsive team_profile' %>
+    <h5 class="text-center">Chad</h5>
+    <%= image_tag 'linked_in.png', class: 'link_icon' %>
+    <%= link_to 'https://github.com/chadbaum' do %>
+      <%= image_tag 'github.png', class: 'git_icon' %>
+    <% end %>
+  </div>
+  <div class="col-sm-2"/>
+    <%= image_tag 'ethan.png', class: 'img-responsive team_profile' %>
+    <h5 class="text-center">Ethan</h5>
+    <%= link_to 'https://www.linkedin.com/in/ethan-he-640082124' do %>
+      <%= image_tag 'linked_in.png', class: 'link_icon' %>
+    <% end %>
+    <%= link_to 'https://github.com/Se7enB2st' do %>
+      <%= image_tag 'github.png', class: 'git_icon' %>
+    <% end %>
+  </div>
+  <div class="col-sm-2"/>
+    <%= image_tag 'zach.png', class: 'img-responsive team_profile' %>
+    <h5 class="text-center">Zach</h5>
+    <%= link_to 'https://www.linkedin.com/in/ZachBDev' do %>
+      <%= image_tag 'linked_in.png', class: 'link_icon' %>
+    <% end %>
+    <%= link_to 'https://github.com/ZachBerman' do %>
+      <%= image_tag 'github.png', class: 'git_icon' %>
+    <% end %>
+  </div>
+  <div class="col-sm-2"/>
+    <%= image_tag 'george.png', class: 'img-responsive team_profile' %>
+    <h5 class="text-center">George</h5> 
+    <%= image_tag 'linked_in.png', class: 'link_icon' %>
+    <%= link_to 'https://github.com/GeorgeFourikis' do %>
+      <%= image_tag 'github.png', class: 'git_icon' %>
+    <% end %>
+  </div>
+  <div class="col-sm-2"/>
+    <%= image_tag 'aleks.png', class: 'img-responsive team_profile' %>
+    <h5 class="text-center">Aleks</h5> 
+    <%= image_tag 'linked_in.png', class: 'link_icon' %>
+    <%= link_to 'https://github.com/aleksgorbenko' do %>
+      <%= image_tag 'github.png', class: 'git_icon' %>
+    <% end %>
+    <br />
+  </div>
+  <br class="clr" />
+  <br />
+  <h2 class="text-center">Led by the Jedi Master</h2>
+  <br />
+  <div class="col-sm-offset-5 col-sm-2">
+    <%= image_tag 'yoda.jpg', class: 'img-responsive feature_pic' %>
+    <h5 class="text-center">Dave</h5>
+    <%= link_to 'https://www.linkedin.com/in/dave-lasley-a0103abb' do %>
+      <%= image_tag 'linked_in.png', class: 'link_icon' %>
+    <% end %>
+    <%= link_to 'https://github.com/lasley' do %>
+      <%= image_tag 'github.png', class: 'git_icon' %>
+    <% end %>
+  </div>
+</section>
+<hr class="col-sm-offset-1 col-sm-10 hr">
+<br class="clr">
+<section id="team">
+    <h2 class="text-center">Technologies used...</h2>
+    <br />
+  <div class="col-sm-offset-3 col-sm-1">
+    <%= image_tag 'ruby.png', class: 'img-responsive center-block' %>
+  </div>
+  <div class="col-sm-1">
+    <%= image_tag 'rails.png', class: 'img-responsive center-block' %>
+  </div>
+  <div class="col-sm-1">
+    <%= image_tag 'jquery.png', class: 'img-responsive center-block' %>
+  </div>
+  <div class="col-sm-1">
+    <%= image_tag 'html5.png', class: 'img-responsive center-block' %>
+  </div>
+  <div class="col-sm-1">
+    <%= image_tag 'css3.png', class: 'img-responsive center-block' %>
+  </div>
+  <div class="col-sm-1">
+    <%= image_tag 'gitbig.png', class: 'img-responsive center-block' %>
+  </div>
+  <br class="clr" />
+  <hr class="col-sm-offset-1 col-sm-10" />
+</section>
+<section id="solutions">
+  <div class="col-sm-offset-2 col-sm-8 text-center">
+    <h2>Solutions Applied</h2>
+    <h4>Simple solutions for complex problems...</h4>
+  </div>
+  <div class="col-sm-offset-2 col-sm-2 col-xs-offset-2 col-xs-8 text-center"/>
+    <h3>Stuff</h3>
+    <p>Words words words, words words. Words words words, words words. Words words words, words words. Words words words, words words.</p>
+  </div>
+  <div class="col-sm-offset-1 col-sm-2 col-xs-offset-2 col-xs-8 text-center"/>
+    <h3>Things</h3>
+    <p>Words words words, words words. Words words words, words words. Words words words, words words. Words words words, words words.</p>
+  </div>
+  <div class="col-sm-offset-1 col-sm-2 col-xs-offset-2 col-xs-8 text-center"/>
+    <h3>Stuff</h3>
+    <p>Words words words, words words. Words words words, words words. Words words words, words words. Words words words, words words.</p>
+    <br />
+    <br />
+  </div>
+</section>
+  

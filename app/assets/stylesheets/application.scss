@@ -9,6 +9,51 @@ hr {
   margin-bottom: 0;
 }
 
+.clr {
+  clear: both;
+}
+
+/* INDEX */
+
+.navbar-inverse {
+  background-color: #D7DBDB;
+}
+
+.navbar-header .navbar-brand {
+  text-decoration: none;
+}
+
+input {
+  width: 100%;
+}
+
+.account {
+  width: 100%;
+}
+
+.git_icon {
+  padding-left: 15%;
+}
+
+.link_icon {
+  padding-left: 30%;
+}
+
+.team_profile {
+  border-radius: 5px;
+}
+
+.feature_pic {
+  border-radius: 5px;
+}
+
+p {
+  text-align: justify;
+}
+
+.hr {
+  margin-top: 15px;
+}
 /* CHESS BOARD */
 
 #chess-board {
