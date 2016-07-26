@@ -13,5 +13,6 @@
 ..[GitHub](https://github.com/aleksgorbenko)
 ..[LinkedIn](https://uk.linkedin.com/in/aleks-gorbenko-web-developer)
 
-* Ethan He - ethanhe1992@gmail.com
+* Ethan He - ethanhe.dev@gmail.com,[GitHub](https://github.com/Se7enB2st) 
+
 * George Fourikis - https://github.com/GeorgeFourikis - georgefourikis@hotmail.gr

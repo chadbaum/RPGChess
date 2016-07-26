@@ -27,8 +27,8 @@ ActiveRecord::Schema.define(version: 20160719140518) do
   end
 
   create_table "pieces", force: :cascade do |t|
-    t.string   "color"
-    t.string   "type"
+    t.string   "color",      limit: 255
+    t.string   "type",       limit: 255
     t.integer  "x_position"
     t.integer  "y_position"
     t.integer  "game_id"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20160719140518) do
     t.boolean  "checkmate"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "moved",      default: false
+    t.boolean  "moved",                  default: false
   end
 
   create_table "users", force: :cascade do |t|
