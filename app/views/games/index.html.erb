@@ -5,21 +5,21 @@
     <br />
   </div>
   <div class="col-sm-3 col-sm-offset-1">
-    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-      <%= f.error_notification %>
+    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="form-inputs">
           <br />
           <br />
           <br />
-          <%= f.input :email, required: true, autofocus: true, class: 'form-inputs' %>
+          <%= f.input :email, required: false, autofocus: true %>
           <br />
-          <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+          <%= f.input :password, required: false %>
           <br />
-          <%= f.input :password_confirmation, required: true %>
+          </div>
+          <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+          <%= render "devise/shared/forgotpassword" %>
           <br />
-        </div>
-        <div class="form-actions">
-          <%= f.button :submit, "Create an account", class: 'btn btn-success account' %>
+        <div class="form-inputs">
+          <%= f.button :submit, "LOG IN", class: 'btn btn-success login' %>
         </div>
     <% end %>
   </div>
@@ -29,8 +29,7 @@
 <br />
 <section id="features">
   <div class="col-sm-offset-2 col-sm-8 text-center">
-    <h4>Description of the project and fact that it is our final project for FHP</h4>
-    <h4>Description of the project and fact that it is our final project for FHP</h4>
+    <h2>CHESS APP - FINAL PROJECT</h2>
     <h4>Description of the project and fact that it is our final project for FHP</h4>
     <br />
   </div>
@@ -55,7 +54,7 @@
 <section id="team">
   <div class="text-center">
     <h2>THE TEAM</h2>
-    <br />
+    <br class="clr" />
   </div>
   <div class="col-sm-offset-1 col-sm-2"/>
     <%= image_tag 'chad.png', class: 'img-responsive team_profile' %>
@@ -65,7 +64,7 @@
       <%= image_tag 'github.png', class: 'git_icon' %>
     <% end %>
   </div>
-  <div class="col-sm-2"/>
+  <div class="col-sm-2 col-xs-8"/>
     <%= image_tag 'ethan.png', class: 'img-responsive team_profile' %>
     <h5 class="text-center">Ethan</h5>
     <%= link_to 'https://www.linkedin.com/in/ethan-he-640082124' do %>
@@ -75,7 +74,7 @@
       <%= image_tag 'github.png', class: 'git_icon' %>
     <% end %>
   </div>
-  <div class="col-sm-2"/>
+  <div class="col-sm-2 col-xs-8"/>
     <%= image_tag 'zach.png', class: 'img-responsive team_profile' %>
     <h5 class="text-center">Zach</h5>
     <%= link_to 'https://www.linkedin.com/in/ZachBDev' do %>
@@ -85,7 +84,7 @@
       <%= image_tag 'github.png', class: 'git_icon' %>
     <% end %>
   </div>
-  <div class="col-sm-2"/>
+  <div class="col-sm-2 col-xs-8"/>
     <%= image_tag 'george.png', class: 'img-responsive team_profile' %>
     <h5 class="text-center">George</h5> 
     <%= image_tag 'linked_in.png', class: 'link_icon' %>
@@ -93,7 +92,7 @@
       <%= image_tag 'github.png', class: 'git_icon' %>
     <% end %>
   </div>
-  <div class="col-sm-2"/>
+  <div class="col-sm-2 col-xs-8"/>
     <%= image_tag 'aleks.png', class: 'img-responsive team_profile' %>
     <h5 class="text-center">Aleks</h5> 
     <%= image_tag 'linked_in.png', class: 'link_icon' %>
@@ -104,7 +103,7 @@
   </div>
   <br class="clr" />
   <br />
-  <h2 class="text-center">Led by the Jedi Master</h2>
+  <h3 class="text-center">Led by the Jedi Master</h3>
   <br />
   <div class="col-sm-offset-5 col-sm-2">
     <%= image_tag 'yoda.jpg', class: 'img-responsive feature_pic' %>
@@ -120,7 +119,7 @@
 <hr class="col-sm-offset-1 col-sm-10 hr">
 <br class="clr">
 <section id="team">
-    <h2 class="text-center">Technologies used...</h2>
+    <h2 class="text-center">TECHNOLOGIES USED...</h2>
     <br />
   <div class="col-sm-offset-3 col-sm-1">
     <%= image_tag 'ruby.png', class: 'img-responsive center-block' %>
@@ -145,7 +144,7 @@
 </section>
 <section id="solutions">
   <div class="col-sm-offset-2 col-sm-8 text-center">
-    <h2>Solutions Applied</h2>
+    <h2>SOLUTIONS APPLIED</h2>
     <h4>Simple solutions for complex problems...</h4>
   </div>
   <div class="col-sm-offset-2 col-sm-2 col-xs-offset-2 col-xs-8 text-center"/>

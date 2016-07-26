@@ -22,7 +22,8 @@ body {
   clear: both;
 }
 
-/*Footer*/
+/*FOOTER*/
+
 .Site {
   display: flex;
   min-height: 100vh;
@@ -35,7 +36,16 @@ body {
 
 footer {
   background-color: #979A9C;
-  height: 60px;
+  height: 70px;
+}
+
+.footer_links li {
+  list-style-type: none;
+}
+
+.footer_links li a {
+  color: white;
+  text-decoration: none;
 }
 
 /* INDEX */
@@ -55,13 +65,22 @@ footer {
 
 ul.nav.navbar-nav.navbar-right li a {
   color: white;
+  padding-top: 15px;
 }
 
-input {
+.nav .navbar-nav .navbar-right {
+  margin-right: 50px;
+}
+
+.login {
   width: 100%;
 }
 
-.account {
+.remember {
+  padding-left: 10px;
+}
+
+.form-inputs input {
   width: 100%;
 }
 
@@ -75,6 +94,7 @@ input {
 
 .team_profile {
   border-radius: 5px;
+  margin-top: 10px;
 }
 
 .feature_pic {
@@ -88,6 +108,7 @@ p {
 .hr {
   margin-top: 15px;
 }
+
 /* CHESS BOARD */
 
 #chess-board {
