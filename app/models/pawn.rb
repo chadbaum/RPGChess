@@ -11,7 +11,7 @@ class Pawn < Piece
   end
 
   # Updates the piece's type from Pawn to the new type
-  # provided. Will need to be updated to check captured.
+  # provided.
   def promote!(new_type)
     options = %w(Bishop Knight Queen Rook)
     raise ArgumentError unless options.include?(new_type)
