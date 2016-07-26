@@ -1,12 +1,18 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "mixins";
+@import 'https://fonts.googleapis.com/css?family=Balthazar';
 
 /* Global */
 
 hr {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+body {
+  background: url('/assets/concrete.png');
+  font-family: 'Balthazar', serif;
 }
 
 .clr {
@@ -16,11 +22,18 @@ hr {
 /* INDEX */
 
 .navbar-inverse {
-  background-color: #D7DBDB;
+  background-color: #979A9C;
 }
 
 .navbar-header .navbar-brand {
+  color: white;
   text-decoration: none;
+  font-size: 28px;
+  font-weight: bold; 
+}
+
+ul.nav.navbar-nav.navbar-right li a {
+  color: white;
 }
 
 input {
