@@ -6,21 +6,12 @@ class Piece < ActiveRecord::Base
   validates :color, inclusion: { in: %w(black white) }
   validates :type, inclusion: { in: %w(Pawn Rook Bishop Knight King Queen) }
 
-  # Class constants used to determine path direction
-  # for obstruction logic.
-  RIGHT = 1
-  LEFT = -1
-  DOWN = 1
-  UP = -1
+
 
   # Returns true, updates the piece's x and y position
   # to provided coordinates if move is valid, and sets
   # the moved flag to true otherwise do nothing and
   # return false.
-
-  # Returns true and updates the piece's x and
-  # y position to provided coordinates if move is valid,
-  # otherwise do nothing and return false.
   def move!(x, y)
     return false unless valid_move?(x, y)
     self.x_position = x
@@ -29,18 +20,21 @@ class Piece < ActiveRecord::Base
     true
   end
 
+  # All validation assumes white player is on the
+  # 6-7 rows of the array, and black player is on
+  # 0-1 rows of the array.
+  private
+
   # Return false if coordinates is taken but belongs to friendly piece
   # otherwise return true
   def capturable?(x, y)
-    return false unless position_taken?(x, y) && !friendly_piece?(x, y)
-    true
+    position_taken?(x, y) && !friendly_piece?(x, y)
   end
 
   # if piece is capturable change piece's attributes
   def capture!(x, y)
     return false unless capturable?(x, y)
-    move!(x, y)
-    target_piece(x, y).update_attributes!(
+    target_piece(x, y).update_attributes(
       x_position: nil,
       y_position: nil,
       captured: true
@@ -57,12 +51,6 @@ class Piece < ActiveRecord::Base
   def target_piece(x, y)
     game.pieces.find_by(x_position: x, y_position: y)
   end
-
-  # All validation assumes white player is on the
-  # 6-7 rows of the array, and black player is on
-  # 0-1 rows of the array.
-
-  private
 
   # check if position is taken by any piece
   def position_taken?(x, y)
@@ -117,6 +105,13 @@ class Piece < ActiveRecord::Base
     distance = x_distance(x)
     path_clear?(x, y, distance)
   end
+
+  # Class constants used to determine path direction
+  # for obstruction logic.
+  RIGHT = 1
+  LEFT = -1
+  DOWN = 1
+  UP = -1
 
   # Returns a hash with 1 or -1 values for
   # x and y based on whether those values are
