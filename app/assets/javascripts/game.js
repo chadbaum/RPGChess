@@ -1,4 +1,10 @@
 $(function() {
+    // Picks up all the lates positions from
+    // the database
+    var currentPositions = $('.piece_pos').data('positions');
+    $.each(currentPositions, function(key, value) {
+      console.log(key + ":    " + value.x_position + "," + value.y_position);
+    });
     // Makes all cells that have <i> elements
     // draggble. If move is invalid, the piece will
     // return to its cell
@@ -14,6 +20,7 @@ $(function() {
     $('#chess-board td').droppable( {
       accept: 'i',
       tolerance: 'pointer',
+      hoverClass: 'highlighted-cell',
       drop: function(event, ui) {
         // gets the x_y coords of the place where to
         // drop the piece
@@ -24,20 +31,30 @@ $(function() {
         var droppedItem = ui.draggable;
 
         // sends the new coords update to DB
+        var current_url = window.location.pathname;
+        var game_id = current_url.substring(current_url.lastIndexOf('/') + 1);
+        var thisCell = this
         $.ajax( {
           type: 'PATCH',
-          url: 'games/game/id', // needs the currect url,
+          // headers: {
+          //   'Content-Type': 'application/json',
+          //   'Accept': 'application/json'
+          // },
+          url: '../games/' + game_id,
           dataType: 'json',
           data: {
-            'x_position': pos_x,
-            'y_position': pos_y
+
+              piece_id: droppedItem.attr('id'),
+              x_position: pos_x,
+              y_position: pos_y
+
           }
         })
         // If move is valid - removes draggable
         // element from old cell and appends to
         // new coordinates - 'this'.
         .success( function() {
-            $(droppedItem).detach().css({top: 0, left: 0}).appendTo(this);
+            $(droppedItem).detach().css({top: 0, left: 0}).appendTo(thisCell);
         });
       }
     });

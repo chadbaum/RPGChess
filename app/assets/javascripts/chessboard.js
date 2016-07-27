@@ -15,9 +15,9 @@ $(function() {
     }
 
     // draw black pawns
-    for (var i = 0; i <= 7; i++) {
+    for (var i = 0, c = 9; i <= 7; i++, c++) {
         $('td[data-x="' + i + '"][data-y="1"]').append(
-          '<i class="black-pcs glyphicon glyphicon-pawn">');
+          '<i id="' + c + '" class="black-pcs glyphicon glyphicon-pawn">');
         }
     // draw white pawns
     for (var i = 0; i <= 7; i++) {
@@ -78,3 +78,11 @@ $(function() {
         '<i class="white-pcs glyphicon glyphicon-king">');
 
     });
+
+// in the future here is the logic to use to assign classes.
+// It will just swith predefined classes in CSS
+// write in ERB if player has black pieces do
+// <script>
+// $('.white-pcs').removeClass('white-pcs').addClass('black-pcs');
+// $('black-pcs').addClass('white-pcs').removeClass('black-pcs');
+// </script>
