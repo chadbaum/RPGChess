@@ -15,7 +15,8 @@ RSpec.describe Knight, type: :model do
       type: 'Knight',
       color: 'white',
       x_position: 3,
-      y_position: 3
+      y_position: 3,
+      moved: true
     )
   end
 
@@ -36,6 +37,7 @@ RSpec.describe Knight, type: :model do
       expect(knight.move!(6, 7)).to eq false
       expect(knight.x_position).to eq 6
       expect(knight.y_position).to eq 7
+      expect(knight.moved).to eq false
     end
   end
 
@@ -44,18 +46,21 @@ RSpec.describe Knight, type: :model do
       expect(moved_knight.move!(6, 3)).to eq false
       expect(moved_knight.x_position).to eq 3
       expect(moved_knight.y_position).to eq 3
+      expect(moved_knight.moved).to eq true
     end
 
     it 'should return false and not update position on invalid move' do
       expect(moved_knight.move!(3, 4)).to eq false
       expect(moved_knight.x_position).to eq 3
       expect(moved_knight.y_position).to eq 3
+      expect(moved_knight.moved).to eq true
     end
 
     it 'should return false and not update position on invalid move' do
       expect(moved_knight.move!(0, 5)).to eq false
       expect(moved_knight.x_position).to eq 3
       expect(moved_knight.y_position).to eq 3
+      expect(moved_knight.moved).to eq true
     end
   end
 
@@ -64,30 +69,35 @@ RSpec.describe Knight, type: :model do
       expect(moved_knight.move!(5, 4)).to eq true
       expect(moved_knight.x_position).to eq 5
       expect(moved_knight.y_position).to eq 4
+      expect(moved_knight.moved).to eq true
     end
 
     it 'should return true and update position on non-obstructed move' do
       expect(moved_knight.move!(1, 4)).to eq true
       expect(moved_knight.x_position).to eq 1
       expect(moved_knight.y_position).to eq 4
+      expect(moved_knight.moved).to eq true
     end
 
     it 'should return true and update position on non-obstructed move' do
       expect(moved_knight.move!(4, 5)).to eq true
       expect(moved_knight.x_position).to eq 4
       expect(moved_knight.y_position).to eq 5
+      expect(moved_knight.moved).to eq true
     end
 
     it 'should return true and update position on non-obstructed move' do
       expect(knight.move!(5, 5)).to eq true
       expect(knight.x_position).to eq 5
       expect(knight.y_position).to eq 5
+      expect(knight.moved).to eq true
     end
 
     it 'should return true and update position on non-obstructed move' do
       expect(knight.move!(7, 5)).to eq true
       expect(knight.x_position).to eq 7
       expect(knight.y_position).to eq 5
+      expect(knight.moved).to eq true
     end
   end
 end

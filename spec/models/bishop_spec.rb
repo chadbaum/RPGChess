@@ -15,7 +15,8 @@ RSpec.describe Bishop, type: :model do
       type: 'Bishop',
       color: 'white',
       x_position: 3,
-      y_position: 3
+      y_position: 3,
+      moved: true
     )
   end
 
@@ -31,12 +32,35 @@ RSpec.describe Bishop, type: :model do
     end
   end
 
-  describe 'moved detection' do
+  describe 'moved' do
     it 'should return false if not moved' do
       expect(bishop.move!(2, 7)).to eq false
       expect(bishop.x_position).to eq 2
       expect(bishop.y_position).to eq 7
       expect(bishop.moved).to eq false
+    end
+  end
+
+  describe 'invalid moveset' do
+    it 'should return false and not update position on invalid move' do
+      expect(moved_bishop.move!(6, 3)).to eq false
+      expect(moved_bishop.x_position).to eq 3
+      expect(moved_bishop.y_position).to eq 3
+      expect(moved_bishop.moved).to eq true
+    end
+
+    it 'should return false and not update position on invalid move' do
+      expect(moved_bishop.move!(0, 4)).to eq false
+      expect(moved_bishop.x_position).to eq 3
+      expect(moved_bishop.y_position).to eq 3
+      expect(moved_bishop.moved).to eq true
+    end
+
+    it 'should return false and not update position on invalid move' do
+      expect(moved_bishop.move!(6, 5)).to eq false
+      expect(moved_bishop.x_position).to eq 3
+      expect(moved_bishop.y_position).to eq 3
+      expect(moved_bishop.moved).to eq true
     end
   end
 
@@ -96,12 +120,14 @@ RSpec.describe Bishop, type: :model do
       expect(moved_bishop.move!(5, 0)).to eq false
       expect(moved_bishop.x_position).to eq 3
       expect(moved_bishop.y_position).to eq 3
+      expect(moved_bishop.moved).to eq true
     end
 
     it 'should return false and not update position on obstructed move' do
       expect(moved_bishop.move!(6, 7)).to eq false
       expect(moved_bishop.x_position).to eq 3
       expect(moved_bishop.y_position).to eq 3
+      expect(moved_bishop.moved).to eq true
     end
   end
 end

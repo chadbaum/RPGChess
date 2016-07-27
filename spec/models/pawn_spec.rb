@@ -37,6 +37,7 @@ RSpec.describe Pawn, type: :model do
       expect(pawn.move!(5, 6)).to eq false
       expect(pawn.x_position).to eq 5
       expect(pawn.y_position).to eq 6
+      expect(pawn.moved).to eq false
     end
   end
 
@@ -45,18 +46,21 @@ RSpec.describe Pawn, type: :model do
       expect(moved_pawn.move!(3, 2)).to eq false
       expect(moved_pawn.x_position).to eq 3
       expect(moved_pawn.y_position).to eq 4
+      expect(moved_pawn.moved).to eq true
     end
 
     it 'should return false and not update position on invalid move' do
       expect(moved_pawn.move!(2, 3)).to eq false
       expect(moved_pawn.x_position).to eq 3
       expect(moved_pawn.y_position).to eq 4
+      expect(moved_pawn.moved).to eq true
     end
 
     it 'should return false and not update position on invalid move' do
       expect(moved_pawn.move!(3, 5)).to eq false
       expect(moved_pawn.x_position).to eq 3
       expect(moved_pawn.y_position).to eq 4
+      expect(moved_pawn.moved).to eq true
     end
   end
 
@@ -65,18 +69,21 @@ RSpec.describe Pawn, type: :model do
       expect(moved_pawn.move!(3, 3)).to eq true
       expect(moved_pawn.x_position).to eq 3
       expect(moved_pawn.y_position).to eq 3
+      expect(moved_pawn.moved).to eq true
     end
 
     it 'should return true and update position on non-obstructed move' do
       expect(pawn.move!(5, 5)).to eq true
       expect(pawn.x_position).to eq 5
       expect(pawn.y_position).to eq 5
+      expect(pawn.moved).to eq true
     end
 
     it 'should return true and update position on non-obstructed move' do
       expect(pawn.move!(5, 4)).to eq true
       expect(pawn.x_position).to eq 5
       expect(pawn.y_position).to eq 4
+      expect(pawn.moved).to eq true
     end
   end
 
@@ -91,6 +98,7 @@ RSpec.describe Pawn, type: :model do
       expect(pawn.move!(5, 4)).to eq false
       expect(pawn.x_position).to eq 5
       expect(pawn.y_position).to eq 6
+      expect(pawn.moved).to eq false
     end
 
     it 'should return false and not update position on obstructed move' do
@@ -103,6 +111,7 @@ RSpec.describe Pawn, type: :model do
       expect(pawn.move!(5, 5)).to eq false
       expect(pawn.x_position).to eq 5
       expect(pawn.y_position).to eq 6
+      expect(pawn.moved).to eq false
     end
   end
 end
