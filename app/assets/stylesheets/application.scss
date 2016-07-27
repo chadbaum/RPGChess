@@ -24,13 +24,13 @@ body {
 
 /*FOOTER*/
 
-.Site {
+.site {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
 }
 
-.Site-content {
+.site-content {
   flex: 1;
 }
 
@@ -39,13 +39,19 @@ footer {
   height: 70px;
 }
 
-.footer_links li {
+.footer-links li {
   list-style-type: none;
 }
 
-.footer_links li a {
+.footer-links li a {
   color: white;
   text-decoration: none;
+}
+
+@media (max-width: 400px) {
+  .footer-links li a {
+    font-size: 10px;
+  }
 }
 
 /* INDEX */
@@ -84,20 +90,20 @@ ul.nav.navbar-nav.navbar-right li a {
   width: 100%;
 }
 
-.git_icon {
+.git-icon {
   padding-left: 15%;
 }
 
-.link_icon {
+.link-icon {
   padding-left: 30%;
 }
 
-.team_profile {
+.team-profile {
   border-radius: 5px;
   margin-top: 10px;
 }
 
-.feature_pic {
+.feature-pic {
   border-radius: 5px;
 }
 

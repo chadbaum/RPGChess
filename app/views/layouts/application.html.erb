@@ -7,8 +7,8 @@
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-  <body class="Site">
-    <main class="Site-content">
+  <body class="site">
+    <main class="site-content">
       <nav class="navbar navbar-inverse" role="navigation">
         <div class="container-fluid">
           <!-- Brand and toggle get grouped for better mobile display -->
@@ -40,25 +40,27 @@
     <%= yield %>
     </main>
     <footer>
-      <div class="col-xs-offset-2 col-xs-4 text-center">
-        <ul class="footer_links">
-          <% if user_signed_in? %>
-            <li><%= link_to 'HOME', root_path %></li>
-            <li><%= link_to 'MY PROFILE', root_path %></li>
-            <li><%= link_to 'SIGN OUT', destroy_user_session_path, method: :delete %></li>
-          <% else %>
-            <li><%= link_to 'HOME', root_path %></li>
-            <li><%= link_to 'SIGN IN', new_user_session_path %></li>
-            <li><%= link_to 'SIGN UP', new_user_registration_path %></li>
-          <% end %>
-        </ul>
-      </div>
-      <div class="col-xs-4 text-center">
-        <ul class="footer_links">
-          <li><%= link_to 'TEAM STOIC ON GITHUB', 'https://github.com/TeamStoic' %></li>
-          <li><%= link_to 'THE FIREHOSE PROJECT', 'https://www.thefirehoseproject.com/' %></li>
-          <li><%= link_to 'COPYRIGHT', '#' %></li>
-        </ul>
+      <div class="row">
+        <div class="col-xs-6 text-center">
+          <ul class="footer-links">
+            <% if user_signed_in? %>
+              <li><%= link_to 'HOME', root_path %></li>
+              <li><%= link_to 'MY PROFILE', root_path %></li>
+              <li><%= link_to 'SIGN OUT', destroy_user_session_path, method: :delete %></li>
+            <% else %>
+              <li><%= link_to 'HOME', root_path %></li>
+              <li><%= link_to 'SIGN IN', new_user_session_path %></li>
+              <li><%= link_to 'SIGN UP', new_user_registration_path %></li>
+            <% end %>
+          </ul>
+        </div>
+        <div class="col-xs-6 text-center">
+          <ul class="footer-links">
+            <li><%= link_to 'TEAM STOIC', 'https://github.com/TeamStoic' %></li>
+            <li><%= link_to 'FIREHOSE PROJECT', 'https://www.thefirehoseproject.com/' %></li>
+            <li><%= link_to 'COPYRIGHT', '#' %></li>
+          </ul>
+        </div>
       </div>
     </footer>
   </body>
