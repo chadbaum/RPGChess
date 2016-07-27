@@ -12,7 +12,11 @@ class Piece < ActiveRecord::Base
   # return false.
   def move!(x, y)
     return false unless valid_move?(x, y)
-    capture!(x, y) if capturable?(x, y)
+    victim = occupied?(x, y)
+    if victim
+      return false unless capturable?(victim)
+      capture!(victim)
+    end
     update(x_position: x, y_position: y, moved: true)
     true
   end
@@ -23,15 +27,17 @@ class Piece < ActiveRecord::Base
   private
 
   # if piece is capturable change piece's attributes
-  def capture!(x, y)
-    victim = game.pieces.find_by(x_position: x, y_position: y)
+  def capture!(victim)
     victim.update(x_position: nil, y_position: nil, captured: true)
   end
 
   # Returns true if position is occupied by a hostile piece.
-  def capturable?(x, y)
-    victim = game.pieces.find_by(x_position: x, y_position: y)
-    victim && color != victim.color
+  def capturable?(victim)
+    color != victim.color
+  end
+
+  def occupied?(x, y)
+    game.pieces.find_by(x_position: x, y_position: y)
   end
 
   # Compares a piece's x_position with the
