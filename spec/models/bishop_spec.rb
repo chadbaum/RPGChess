@@ -45,35 +45,35 @@ RSpec.describe Bishop, type: :model do
       expect(moved_bishop.move!(5, 5)).to eq true
       expect(moved_bishop.x_position).to eq 5
       expect(moved_bishop.y_position).to eq 5
-      expect(bishop.moved).to eq true
+      expect(moved_bishop.moved).to eq true
     end
 
     it 'should return true and update position on non-obstructed move' do
       expect(moved_bishop.move!(2, 2)).to eq true
       expect(moved_bishop.x_position).to eq 2
       expect(moved_bishop.y_position).to eq 2
-      expect(bishop.moved).to eq true
+      expect(moved_bishop.moved).to eq true
     end
 
     it 'should return true and update position on non-obstructed move' do
       expect(moved_bishop.move!(5, 5)).to eq true
       expect(moved_bishop.x_position).to eq 5
       expect(moved_bishop.y_position).to eq 5
-      expect(bishop.moved).to eq true
+      expect(moved_bishop.moved).to eq true
     end
 
     it 'should return true and update position on non-obstructed move' do
       expect(moved_bishop.move!(2, 4)).to eq true
       expect(moved_bishop.x_position).to eq 2
       expect(moved_bishop.y_position).to eq 4
-      expect(bishop.moved).to eq true
+      expect(moved_bishop.moved).to eq true
     end
 
     it 'should return true and update position on non-obstructed move' do
       expect(moved_bishop.move!(4, 2)).to eq true
       expect(moved_bishop.x_position).to eq 4
       expect(moved_bishop.y_position).to eq 2
-      expect(bishop.moved).to eq true
+      expect(moved_bishop.moved).to eq true
     end
   end
 
