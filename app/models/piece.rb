@@ -6,15 +6,16 @@ class Piece < ActiveRecord::Base
   validates :color, inclusion: { in: %w(black white) }
   validates :type, inclusion: { in: %w(Pawn Rook Bishop Knight King Queen) }
 
-  # Returns true, updates the piece's x and y position
-  # to provided coordinates if move is valid, and sets
-  # the moved flag to true otherwise do nothing and
-  # return false.
+  # Returns true and upates the piece's coordinates and moved
+  # flag on a valid move where the tile is either empty or
+  # occupied by an enemy piece.  Executes capture method
+  # on enemy occupying piece.  Otherwise returns false
+  # and no further changes are made.
   def move!(x, y)
     return false unless valid_move?(x, y)
     victim = occupied?(x, y)
     if victim
-      return false unless capturable?(victim)
+      return false unless enemy?(victim)
       capture!(victim)
     end
     update(x_position: x, y_position: y, moved: true)
@@ -26,16 +27,18 @@ class Piece < ActiveRecord::Base
   # 0-1 rows of the array.
   private
 
-  # if piece is capturable change piece's attributes
+  # Updates a victim piece to nil coordinates and sets
+  # captured flag to true.
   def capture!(victim)
     victim.update(x_position: nil, y_position: nil, captured: true)
   end
 
   # Returns true if position is occupied by a hostile piece.
-  def capturable?(victim)
+  def enemy?(victim)
     color != victim.color
   end
 
+  # Returns the piece occupying the coordinates.
   def occupied?(x, y)
     game.pieces.find_by(x_position: x, y_position: y)
   end
