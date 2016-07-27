@@ -36,8 +36,8 @@ $(function() {
     var white_knights = 'td[data-x="1"][data-y="0"],' +
                           'td[data-x="6"][data-y="0"]';
 
-    var white_queen = 'td[data-x="4"][data-y="0"]';
-    var white_king = 'td[data-x="3"][data-y="0"]';
+    var white_queen = 'td[data-x="3"][data-y="0"]';
+    var white_king = 'td[data-x="4"][data-y="0"]';
 
     // black piece variables
     var black_rooks = 'td[data-x="0"][data-y="7"],' +
