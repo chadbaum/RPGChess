@@ -20,7 +20,7 @@ class Piece < ActiveRecord::Base
   # All validation assumes white player is on the
   # 6-7 rows of the array, and black player is on
   # 0-1 rows of the array.
-  #private
+  private
 
   # if piece is capturable change piece's attributes
   def capture!(x, y)
@@ -31,7 +31,7 @@ class Piece < ActiveRecord::Base
   # Returns true if position is occupied by a hostile piece.
   def capturable?(x, y)
     victim = game.pieces.find_by(x_position: x, y_position: y)
-    victim && self.color != victim.color
+    victim && color != victim.color
   end
 
   # Compares a piece's x_position with the

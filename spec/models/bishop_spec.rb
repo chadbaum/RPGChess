@@ -7,7 +7,7 @@ RSpec.describe Bishop, type: :model do
       type: 'Bishop',
       color: 'white',
       x_position: 2,
-      y_position: 7,
+      y_position: 7
     )
   end
   let(:moved_bishop) do
