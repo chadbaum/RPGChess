@@ -1,25 +1,50 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "mixins";
-@import 'https://fonts.googleapis.com/css?family=Balthazar';
+@import 'https://fonts.googleapis.com/css?family=Rakkas';
 
 /* Global */
 
 hr {
-  margin-top: 0;
-  margin-bottom: 0;
-  border: 0;
-  height: 1px;
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+border: 0;
+height: 1px;
+background: #333;
+background-image: linear-gradient(to right, #ccc, #333, #ccc);
 }
 
 body {
   background: url('/assets/concrete.png');
-  font-family: 'Balthazar', serif;
+  font-family: 'Rakkas', cursive;
 }
 
 .clr {
   clear: both;
+}
+
+@media (min-width: 768px) {
+  .navbar-inverse {
+  height: 80px;
+  }
+
+  a.navbar-brand {
+    font-size: 60px !important;
+    margin-top: 15px !important;
+  }
+
+  .form-inline{
+    padding-top: 10px;
+  }
+  .navbar-checkbox {
+    padding-left: 35px;
+  }
+  .navbar-forgot-password {
+    padding-left: 125px;
+  }
+  ul.nav.navbar-nav.navbar-right li a {
+    color: white;
+    padding-top: 40px;
+    font-size: 20px;
+  }
 }
 
 /*FOOTER*/
@@ -71,7 +96,6 @@ footer {
 
 ul.nav.navbar-nav.navbar-right li a {
   color: white;
-  padding-top: 15px;
 }
 
 .nav .navbar-nav .navbar-right {
@@ -86,10 +110,6 @@ ul.nav.navbar-nav.navbar-right li a {
   padding-left: 10px;
 }
 
-/*.form-inputs input {
-  width: 100%;
-}
-*/
 .git-icon {
   padding-left: 15%;
 }
