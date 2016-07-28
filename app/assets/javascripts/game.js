@@ -25,7 +25,17 @@ $(function() {
     // Only when pointer hovers over the cell
     // the drop will occur.
     $('#chess-board td').droppable( {
-      accept: 'i',
+      accept: function(item) {
+        if ( (item.hasClass('black-pcs') &&
+            $(this).children().hasClass('black-pcs') ) ) {
+          return false;
+        } else if ( (item.hasClass('white-pcs') &&
+            $(this).children().hasClass('white-pcs') ) ) {
+          return false;
+        } else {
+          return true;
+        }
+      },
       tolerance: 'pointer',
       hoverClass: 'highlighted-cell',
       drop: function(event, ui) {
@@ -42,7 +52,7 @@ $(function() {
         var gameId = currentUrl.substring(currentUrl.lastIndexOf('/') + 1);
         var thisCell = this;
         var pieceIdInDB = Number( droppedItem.attr('id') ) +
-                                ( (gameId - 1) * 32 )
+                                ( (gameId - 1) * 32 );
         $.ajax( {
           type: 'PATCH',
           url: '../games/' + gameId,

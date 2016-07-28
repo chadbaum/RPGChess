@@ -29,11 +29,13 @@ class Game < ActiveRecord::Base
   def populate_black_pawns!
     (0..7).each do |i|
       pieces.create(type: 'Pawn', x_position: i, y_position: 1, color: 'black')
+    end
   end
 
   def populate_white_pawns!
     (0..7).each do |j|
       pieces.create(type: 'Pawn', x_position: j, y_position: 6, color: 'white')
+    end
   end
 
   def populate_left_white_half!
@@ -49,6 +51,4 @@ class Game < ActiveRecord::Base
     pieces.create(type: 'Knight', x_position: 6, y_position: 7, color: 'white')
     pieces.create(type: 'Rook', x_position: 7, y_position: 7, color: 'white')
   end
-end
-end
 end

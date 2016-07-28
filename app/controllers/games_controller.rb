@@ -21,7 +21,7 @@ class GamesController < ApplicationController
     STDERR.puts params.inspect
 
     @game = Game.find(params[:id])
-    @piece =  @game.pieces.find(params[:piece_id])
+    @piece = @game.pieces.find(params[:piece_id])
     @piece.update_attributes(:x_position => params[:x_position],\
                              :y_position => params[:y_position])
 
