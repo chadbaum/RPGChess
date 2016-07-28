@@ -56,12 +56,12 @@ $(function() {
     // right side
     $(blackKing).append(
         '<i id="5" class="black-pcs glyphicon glyphicon-king">');
-    $(blackRookRight).append(
-        '<i id="6" class="black-pcs glyphicon glyphicon-tower">');
+    $(blackBishopRight).append(
+        '<i id="6" class="black-pcs glyphicon glyphicon-bishop">');
     $(blackKnightRight).append(
         '<i id="7" class="black-pcs glyphicon glyphicon-knight">');
-    $(blackBishopRight).append(
-        '<i id="8" class="black-pcs glyphicon glyphicon-bishop">');
+    $(blackRookRight).append(
+        '<i id="8" class="black-pcs glyphicon glyphicon-tower">');
 
 
     // draw black pawns
@@ -88,12 +88,12 @@ $(function() {
     // right side
     $(whiteKing).append(
         '<i id="29" class="white-pcs glyphicon glyphicon-king">');
-    $(whiteRookRight).append(
-        '<i id="30" class="white-pcs glyphicon glyphicon-tower">');
+    $(whiteBishopRight).append(
+        '<i id="30" class="white-pcs glyphicon glyphicon-bishop">');
     $(whiteKnightRight).append(
         '<i id="31" class="white-pcs glyphicon glyphicon-knight">');
-    $(whiteBishopRight).append(
-        '<i id="32" class="white-pcs glyphicon glyphicon-bishop">');
+    $(whiteRookRight).append(
+        '<i id="32" class="white-pcs glyphicon glyphicon-tower">');
 
     });
 

@@ -42,9 +42,9 @@ class Game < ActiveRecord::Base
   end
 
   def populate_right_white_half!
-    pieces.create(type: 'Knight', x_position: 6, y_position: 7, color: 'white')
     pieces.create(type: 'King', x_position: 4, y_position: 7, color: 'white')
     pieces.create(type: 'Bishop', x_position: 5, y_position: 7, color: 'white')
+    pieces.create(type: 'Knight', x_position: 6, y_position: 7, color: 'white')
     pieces.create(type: 'Rook', x_position: 7, y_position: 7, color: 'white')
   end
 end

@@ -22,7 +22,8 @@ class GamesController < ApplicationController
 
     @game = Game.find(params[:id])
     @piece =  @game.pieces.find(params[:piece_id])
-    @piece.update_attributes(:x_position => params[:x_position], :y_position => params[:y_position])
+    @piece.update_attributes(:x_position => params[:x_position],\
+                             :y_position => params[:y_position])
 
     render json: @piece
   end
@@ -33,7 +34,4 @@ class GamesController < ApplicationController
   #   params.require(:game)
   # end
 
-  # def piece_params
-  #   params.require(:piece).permit(:id, :x_position, :y_position)
-  # end
 end
