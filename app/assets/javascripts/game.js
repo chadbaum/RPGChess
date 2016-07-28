@@ -33,7 +33,8 @@ $(function() {
         // sends the new coords update to DB
         var current_url = window.location.pathname;
         var game_id = current_url.substring(current_url.lastIndexOf('/') + 1);
-        var thisCell = this
+        var thisCell = this;
+        var pieceIdInDB = Number( droppedItem.attr('id') ) + ((game_id - 1) * 32)
         $.ajax( {
           type: 'PATCH',
           // headers: {
@@ -44,7 +45,7 @@ $(function() {
           dataType: 'json',
           data: {
 
-              piece_id: droppedItem.attr('id'),
+              piece_id: pieceIdInDB,
               x_position: pos_x,
               y_position: pos_y
 
