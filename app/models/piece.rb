@@ -11,9 +11,8 @@ class Piece < ActiveRecord::Base
   # otherwise do nothing and return false.
   def move!(x, y)
     return false unless valid_move?(x, y)
-    self.x_position = x
-    self.y_position = y
-    self.moved = true
+    self.update_attributes(x_position: x, y_position: y)
+    self.update_attributes(moved: true)
     true
   end
 
