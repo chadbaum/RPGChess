@@ -14,7 +14,6 @@ $(function() {
           "</tr>");
     }
 
-
     // assign variables to initial positions based on
     // their data attributes
     // black piece variables
@@ -28,7 +27,6 @@ $(function() {
     var blackKnightRight = 'td[data-x="6"][data-y="0"]';
     var blackRookRight = 'td[data-x="7"][data-y="0"]';
 
-
     // white piece variables
     var whiteRookLeft = 'td[data-x="0"][data-y="7"]';
     var whiteKnightLeft = 'td[data-x="1"][data-y="7"]';
@@ -39,7 +37,6 @@ $(function() {
     var whiteBishopRight = 'td[data-x="5"][data-y="7"]';
     var whiteKnightRight = 'td[data-x="6"][data-y="7"]';
     var whiteRookRight = 'td[data-x="7"][data-y="7"]';
-
 
     // append BS glyphicons to each <td> elements with IDs
     // matching the IDs in database

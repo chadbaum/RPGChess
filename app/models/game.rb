@@ -1,4 +1,6 @@
 # model Game,piece creation inside
+# DO NOT chnage the sequence of methods
+# or you will break the front end view
 class Game < ActiveRecord::Base
   has_many :pieces
   has_many :players
