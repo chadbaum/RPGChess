@@ -2,6 +2,7 @@
 # logic for our app
 class GamesController < ApplicationController
   before_action :authenticate_user!, only: [:create, :new]
+
   def index
   end
 
@@ -18,20 +19,15 @@ class GamesController < ApplicationController
   end
 
   def update
-    STDERR.puts params.inspect
-
     @game = Game.find(params[:id])
     @piece = @game.pieces.find(params[:piece_id])
-    @piece.update_attributes(:x_position => params[:x_position],\
-                             :y_position => params[:y_position])
-
-    render json: @piece
+    @piece.update_attributes(x_position: params[:x_position],\
+                             y_position: params[:y_position])
   end
 
   private
 
-  # def game_params
-  #   params.require(:game)
-  # end
-
+  def game_params
+    params.require(:game)
+  end
 end
