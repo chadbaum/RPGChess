@@ -25,6 +25,9 @@ $(function() {
     // Only when pointer hovers over the cell
     // the drop will occur.
     $('#chess-board td').droppable( {
+      // white cannot be dropped on white and vice versa
+      // this logic can be removed when move! method works
+      // properly
       accept: function(item) {
         if ( (item.hasClass('black-pcs') &&
             $(this).children().hasClass('black-pcs') ) ) {

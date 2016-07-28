@@ -21,8 +21,9 @@ class GamesController < ApplicationController
   def update
     @game = Game.find(params[:id])
     @piece = @game.pieces.find(params[:piece_id])
-    @piece.update_attributes(x_position: params[:x_position],\
-                             y_position: params[:y_position])
+    x = params[:x_position].to_i
+    y = params[:y_position].to_i
+    @piece.move!(x, y)
   end
 
   private
