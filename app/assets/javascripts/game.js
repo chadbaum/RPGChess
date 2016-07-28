@@ -3,7 +3,12 @@ $(function() {
     // the database
     var currentPositions = $('.piece_pos').data('positions');
     $.each(currentPositions, function(key, value) {
-      console.log(key + ":    " + value.x_position + "," + value.y_position);
+      console.log(value.id + ":    " + value.x_position + "," + value.y_position);
+
+      var currentCell = 'td[data-x="' + value.x_position + '"][data-y="' + value.y_position + '"]';
+      var pieceIdOnBoard = value.id % 32;
+
+      $('#' + pieceIdOnBoard).appendTo(currentCell);
     });
     // Makes all cells that have <i> elements
     // draggble. If move is invalid, the piece will
@@ -11,7 +16,7 @@ $(function() {
     $('#chess-board td i').draggable({
       containment: "#chess-board",
       cursor: "all-scroll",
-      opacity: 0.7,
+      opacity: 0.6,
       revert: 'invalid'
     });
     // Each cell will accept only <i> elements.

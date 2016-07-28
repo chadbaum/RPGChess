@@ -21,10 +21,10 @@ class GamesController < ApplicationController
     STDERR.puts params.inspect
 
     @game = Game.find(params[:id])
-    @piece_positions =  @game.pieces.find(params[:piece_id])
-    @piece_positions.update_attributes(:x_position => params[:x_position], :y_position => params[:y_position])
+    @piece =  @game.pieces.find(params[:piece_id])
+    @piece.update_attributes(:x_position => params[:x_position], :y_position => params[:y_position])
 
-    # render json: @piece_positions
+    render json: @piece
   end
 
   private
