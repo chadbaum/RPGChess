@@ -18,7 +18,7 @@ describe 'the sign-in process', type: :feature do
 
   it 'should sign me in' do
     visit '/users/sign_in'
-    within('.deviseNewLogIn') do
+    within('.deviseNewLogIn') do 
       fill_in 'Email', with: 'user@example.com'
       fill_in 'Password', with: 'password'
       click_button 'Log in'
