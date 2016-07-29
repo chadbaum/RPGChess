@@ -137,7 +137,7 @@ class Piece < ActiveRecord::Base
   def path_clear?(x, y, distance)
     coordinates = generate_path_coordinates(x, y, distance)
     coordinates.each do |coordinate|
-      return false if game.pieces.find_by(
+      return false if game.pieces.exists?(
         x_position: coordinate[0],
         y_position: coordinate[1]
       )
