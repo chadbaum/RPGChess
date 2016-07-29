@@ -49,4 +49,20 @@ class Pawn < Piece
   def forward_capture?(x, y)
     game.pieces.exists?(x_position: x, y_position: y)
   end
+
+  # En Passant Logic:
+  # 1)target pawn just moved 2 space forward
+  # 2)only capture within the next turn
+  # 3)can only capture by opponent's pawn
+  # 4)opponent pawn must be on the left or right of target piece's y axis
+  def en_passant?(x, y)
+    return false unless clear_two_forward_move(x, y)
+  end
+
+  def en_passant_pawn?(x, y)
+    side_piece = find_piece(x, y)
+    return false if side_piece.nil?
+    return true if side_piece.type == 'Pawn' && side_piece.color != color
+    false
+  end
 end
