@@ -21,14 +21,22 @@ body {
   clear: both;
 }
 
+.navbar-forgot-password a {
+  color: white;
+}
+
+.form-inline {
+  color: white;
+}
+
 @media (min-width: 768px) {
   .navbar-inverse {
     height: 80px;
   }
 
   a.navbar-brand {
-    font-size: 60px !important;
-    margin-top: 15px !important;
+    font-size: 35px !important;
+    margin-top: 20px !important;
   }
 
   .form-inline{
@@ -109,17 +117,9 @@ ul.nav.navbar-nav.navbar-right li a {
   width: 100%;
 }
 
-.remember {
-  padding-left: 10px;
+.new-account {
+  padding-top: 45px;
 }
-
-/*.git-icon {
-  padding-left: 10%;
-}
-
-.link-icon {
-  padding-left: 35%;
-}*/
 
 .team-profile {
   border-radius: 5px;
