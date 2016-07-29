@@ -6,6 +6,13 @@ class Piece < ActiveRecord::Base
   validates :color, inclusion: { in: %w(black white) }
   validates :type, inclusion: { in: %w(Pawn Rook Bishop Knight King Queen) }
 
+  # Class constants used to determine path direction
+  # for obstruction logic.
+  RIGHT = 1
+  LEFT = -1
+  DOWN = 1
+  UP = -1
+
   # Returns true and upates the piece's coordinates and moved
   # flag on a valid move where the tile is either empty or
   # occupied by an enemy piece.  Executes capture method
@@ -13,7 +20,7 @@ class Piece < ActiveRecord::Base
   # and no further changes are made.
   def move!(x, y)
     return false unless valid_move?(x, y)
-    victim = occupied?(x, y)
+    victim = occupant_piece(x, y)
     if victim
       return false unless enemy?(victim)
       capture!(victim)
@@ -39,7 +46,7 @@ class Piece < ActiveRecord::Base
   end
 
   # Returns the piece occupying the coordinates.
-  def occupied?(x, y)
+  def occupant_piece(x, y)
     game.pieces.find_by(x_position: x, y_position: y)
   end
 
@@ -91,13 +98,6 @@ class Piece < ActiveRecord::Base
     distance = x_distance(x)
     path_clear?(x, y, distance)
   end
-
-  # Class constants used to determine path direction
-  # for obstruction logic.
-  RIGHT = 1
-  LEFT = -1
-  DOWN = 1
-  UP = -1
 
   # Returns a hash with 1 or -1 values for
   # x and y based on whether those values are
