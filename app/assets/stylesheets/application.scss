@@ -23,7 +23,7 @@ body {
 
 @media (min-width: 768px) {
   .navbar-inverse {
-  height: 80px;
+    height: 80px;
   }
 
   a.navbar-brand {
@@ -34,12 +34,15 @@ body {
   .form-inline{
     padding-top: 10px;
   }
+
   .navbar-checkbox {
     padding-left: 35px;
   }
+  
   .navbar-forgot-password {
     padding-left: 125px;
   }
+  
   ul.nav.navbar-nav.navbar-right li a {
     color: white;
     padding-top: 40px;
@@ -110,13 +113,13 @@ ul.nav.navbar-nav.navbar-right li a {
   padding-left: 10px;
 }
 
-.git-icon {
-  padding-left: 15%;
+/*.git-icon {
+  padding-left: 10%;
 }
 
 .link-icon {
-  padding-left: 30%;
-}
+  padding-left: 35%;
+}*/
 
 .team-profile {
   border-radius: 5px;
