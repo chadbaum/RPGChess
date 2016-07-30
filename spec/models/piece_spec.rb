@@ -31,6 +31,8 @@ RSpec.describe Piece, type: :model do
       expect(victim.x_position).to eq nil
       expect(victim.y_position).to eq nil
       expect(victim.captured).to eq true
+      expect(game.move_number).to eq 2
+      expect(game.turn).to eq 'black'
     end
 
     it 'should return false on a move against a friendly piece' do
@@ -43,6 +45,8 @@ RSpec.describe Piece, type: :model do
       expect(victim.x_position).to eq 3
       expect(victim.y_position).to eq 6
       expect(victim.captured).to eq nil
+      expect(game.move_number).to eq 1
+      expect(game.turn).to eq 'white'
     end
   end
 end

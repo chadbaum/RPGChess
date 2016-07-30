@@ -46,4 +46,9 @@ class Game < ActiveRecord::Base
   def first_turn!
     update(turn: 'white', move_number: 1)
   end
+
+  def end_turn!
+    increment!(:move_number)
+    move_number % 2 == 0 ? update(turn: 'black') : update(turn: 'white')
+  end
 end

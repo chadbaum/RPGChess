@@ -26,6 +26,7 @@ class Piece < ActiveRecord::Base
       capture!(victim)
     end
     update(x_position: x, y_position: y, moved: true)
+    game.end_turn!
     true
   end
 
