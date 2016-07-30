@@ -4,31 +4,32 @@ RSpec.describe Pawn, type: :model do
   let(:game) { FactoryGirl.create(:game) }
   let(:pawn) do
     game.pieces.find_by(
-      type: 'Pawn',
-      color: 'white',
-      x_position: 5,
-      y_position: 6
+    type: 'Pawn',
+    color: 'white',
+    x_position: 5,
+    y_position: 6
     )
   end
   let(:moved_pawn) do
     game.pieces.create(
-      type: 'Pawn',
-      color: 'white',
-      x_position: 3,
-      y_position: 4,
-      moved: true
+    type: 'Pawn',
+    color: 'white',
+    x_position: 3,
+    y_position: 4,
+    moved: true
     )
   end
 
   describe 'creation' do
     it 'should create a white pawn' do
       pawn = FactoryGirl.create(:pawn, color: 'white')
+
       expect(pawn.type).to eq('Pawn')
     end
 
     it 'should fail to create a red pawn' do
       expect { FactoryGirl.create(:pawn, color: 'red') }.to\
-        raise_error(ActiveRecord::RecordInvalid)
+      raise_error(ActiveRecord::RecordInvalid)
     end
   end
 
@@ -90,11 +91,12 @@ RSpec.describe Pawn, type: :model do
   describe 'obstructed move' do
     it 'should return false and not update position on obstructed move' do
       game.pieces.create(
-        type: 'Rook',
-        color: 'white',
-        x_position: 5,
-        y_position: 5
+      type: 'Rook',
+      color: 'white',
+      x_position: 5,
+      y_position: 5
       )
+
       expect(pawn.move!(5, 4)).to eq false
       expect(pawn.x_position).to eq 5
       expect(pawn.y_position).to eq 6
@@ -103,15 +105,22 @@ RSpec.describe Pawn, type: :model do
 
     it 'should return false and not update position on obstructed move' do
       game.pieces.create(
-        type: 'Rook',
-        color: 'white',
-        x_position: 5,
-        y_position: 5
+      type: 'Rook',
+      color: 'white',
+      x_position: 5,
+      y_position: 5
       )
+
       expect(pawn.move!(5, 5)).to eq false
       expect(pawn.x_position).to eq 5
       expect(pawn.y_position).to eq 6
       expect(pawn.moved).to eq false
+    end
+  end
+
+  describe "en_passant?" do
+    it 'should return false if no piece is found adjacent to the piece' do
+      expect(pawn.en_passant?(3, 4)).to eq false
     end
   end
 end
