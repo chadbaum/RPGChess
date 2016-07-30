@@ -56,13 +56,17 @@ class Pawn < Piece
   # 3)can only capture by opponent's pawn
   # 4)opponent pawn must be on the left or right of target piece's y axis
   def en_passant?(x, y)
-    return false unless clear_two_forward_move(x, y)
+    return false unless en_passant_pawn?(x, y)
   end
 
-  def en_passant_pawn?(x, y)
+  def en_passant_pawn?(x, y, horizontal)
     side_piece = find_piece(x, y)
     return false if side_piece.nil?
     return true if side_piece.type == 'Pawn' && side_piece.color != color
     false
+  end
+
+  def last_moved_piece
+    game.pieces.find_by(game.move_number - 1)
   end
 end
