@@ -7,7 +7,14 @@ class Pawn < Piece
   # and thus ignored. Diagonal attack not implemented.
   def valid_move?(x, y)
     (moved ? one_forward_move?(x, y) : first_forward_move?(x, y)) &&
-      !forward_capture?(x, y)
+    !forward_capture?(x, y)
+  end
+
+  def en_passant?(x, y)
+    return false unless last_moved_piece.y_distance(y) == 2 && type == 'Pawn'
+    return false unless valid_en_passant_pawn?(x, y, horizontal_difference)
+    update(en_passant: true)
+    true
   end
 
   # Updates the piece's type from Pawn to the new type
@@ -55,18 +62,15 @@ class Pawn < Piece
   # 2)only capture within the next turn
   # 3)can only capture by opponent's pawn
   # 4)opponent pawn must be on the left or right of target piece's y axis
-  def en_passant?(x, y)
-    return false unless en_passant_pawn?(x, y)
-  end
 
-  def en_passant_pawn?(x, y, horizontal)
-    side_piece = find_piece(x, y)
+  def valid_passant_pawn?(x, y, horizontal_difference)
+    side_piece = occupant_piece(x, y + (horizontal_difference ? -1 : 1))
     return false if side_piece.nil?
     return true if side_piece.type == 'Pawn' && side_piece.color != color
     false
   end
 
   def last_moved_piece
-    game.pieces.find_by(game.move_number - 1)
+    game.pieces.find_by(game.move_number - 1 || game.move_number == 0)
   end
 end
