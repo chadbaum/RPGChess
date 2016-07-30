@@ -32,4 +32,21 @@ RSpec.describe Game, type: :model do
       expect(game.move_number).to eq 1
     end
   end
+
+  describe "end_turn!" do
+    game = FactoryGirl.create(:game)
+
+    it 'should increment move_number by 1 once the turn ended' do
+      game.end_turn!
+
+      expect(game.move_number).to eq 2
+    end
+
+    it 'should switch turn between black and white player' do
+      game.reload
+      game.end_turn!
+
+      expect(game.turn).to eq 'black'
+    end
+  end
 end
