@@ -4,7 +4,7 @@ class Game < ActiveRecord::Base
   has_many :players
 
   after_create :populate_bishops!, :populate_rooks!, :populate_pawns!,\
-               :populate_knights!, :populate_queens_kings!
+  :populate_knights!, :populate_queens_kings!, :first_turn!
 
   def populate_bishops!
     pieces.create(type: 'Bishop', x_position: 2, y_position: 7, color: 'white')
@@ -41,5 +41,9 @@ class Game < ActiveRecord::Base
     pieces.create(type: 'King', x_position: 4, y_position: 7, color: 'white')
     pieces.create(type: 'Queen', x_position: 3, y_position: 0, color: 'black')
     pieces.create(type: 'King', x_position: 4, y_position: 0, color: 'black')
+  end
+
+  def first_turn!
+    update(turn: 'white', move_number: 1)
   end
 end
