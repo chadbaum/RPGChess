@@ -1,4 +1,5 @@
 # Pawn behavior.
+require 'pry'
 class Pawn < Piece
   # Returns true if the pawn made a valid upgraded forward
   # move on its first move, or else a regular forward move,
@@ -71,6 +72,7 @@ class Pawn < Piece
   end
 
   def last_moved_piece
-    game.pieces.find_by(game.move_number - 1 || game.move_number == 0)
+    binding.pry
+    game.pieces.find_by(game.move_number - 1)
   end
 end
