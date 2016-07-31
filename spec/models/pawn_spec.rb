@@ -1,41 +1,40 @@
 require 'rails_helper'
-require 'pry'
 RSpec.describe Pawn, type: :model do
   let(:game) { FactoryGirl.create(:game) }
   let(:pawn) do
     game.pieces.find_by(
-    type: 'Pawn',
-    color: 'white',
-    x_position: 5,
-    y_position: 6
+      type: 'Pawn',
+      color: 'white',
+      x_position: 5,
+      y_position: 6
     )
   end
 
   let(:moved_pawn) do
     game.pieces.create(
-    type: 'Pawn',
-    color: 'white',
-    x_position: 3,
-    y_position: 4,
-    moved: true
+      type: 'Pawn',
+      color: 'white',
+      x_position: 3,
+      y_position: 4,
+      moved: true
     )
   end
 
   let(:white_pawn) do
     game.pieces.create(
-    type: 'Pawn',
-    color: 'white',
-    x_position: 7,
-    y_position: 4
+      type: 'Pawn',
+      color: 'white',
+      x_position: 7,
+      y_position: 4
     )
   end
 
   let(:black_pawn) do
     game.pieces.find_by(
-    type: 'Pawn',
-    color: 'black',
-    x_position: 6,
-    y_position: 1
+      type: 'Pawn',
+      color: 'black',
+      x_position: 6,
+      y_position: 1
     )
   end
 
@@ -48,7 +47,7 @@ RSpec.describe Pawn, type: :model do
 
     it 'should fail to create a red pawn' do
       expect { FactoryGirl.create(:pawn, color: 'red') }.to\
-      raise_error(ActiveRecord::RecordInvalid)
+        raise_error(ActiveRecord::RecordInvalid)
     end
   end
 
@@ -110,10 +109,10 @@ RSpec.describe Pawn, type: :model do
   describe 'obstructed move' do
     it 'should return false and not update position on obstructed move' do
       game.pieces.create(
-      type: 'Rook',
-      color: 'white',
-      x_position: 5,
-      y_position: 5
+        type: 'Rook',
+        color: 'white',
+        x_position: 5,
+        y_position: 5
       )
 
       expect(pawn.move!(5, 4)).to eq false
@@ -124,10 +123,10 @@ RSpec.describe Pawn, type: :model do
 
     it 'should return false and not update position on obstructed move' do
       game.pieces.create(
-      type: 'Rook',
-      color: 'white',
-      x_position: 5,
-      y_position: 5
+        type: 'Rook',
+        color: 'white',
+        x_position: 5,
+        y_position: 5
       )
 
       expect(pawn.move!(5, 5)).to eq false
@@ -137,7 +136,7 @@ RSpec.describe Pawn, type: :model do
     end
   end
 
-  describe "en_passant?" do
+  describe 'en_passant?' do
     it 'should return false if no piece is found adjacent to the piece' do
       expect(pawn.en_passant?(3, 4)).to eq false
     end
@@ -148,31 +147,44 @@ RSpec.describe Pawn, type: :model do
     end
 
     it 'should return true if opponent pawn move 2 space in last turn' do
-      white_pawn.move!(7,3)
-      black_pawn.move!(6,3)
+      white_pawn.move!(7, 3)
+      black_pawn.move!(6, 3)
 
-      expect(black_pawn.en_passant?(6,3)).to eq true
+      expect(black_pawn.en_passant?(6, 3)).to eq true
     end
 
     it 'should return false if opponent piece is not pawn' do
-      white_Rook = game.pieces.create(
-      type: 'Rook',
-      color: 'white',
-      x_position: 7,
-      y_position: 4
+      white_rook = game.pieces.create(
+        type: 'Rook',
+        color: 'white',
+        x_position: 7,
+        y_position: 4
       )
 
-      white_Rook.move!(7,3)
-      black_pawn.move!(6,3)
+      white_rook.move!(7, 3)
+      black_pawn.move!(6, 3)
 
-      expect(black_pawn.en_passant?(6,3)).to eq false
+      expect(black_pawn.en_passant?(6, 3)).to eq false
     end
 
     it 'should return false if opponent pawn only move 1 space in last turn' do
-      white_pawn.move!(7,3)
-      black_pawn.move!(6,2)
+      white_pawn.move!(7, 3)
+      black_pawn.move!(6, 2)
 
-      expect(black_pawn.en_passant?(6,2)).to eq false
+      expect(black_pawn.en_passant?(6, 2)).to eq false
+    end
+
+    it 'should return false if adjacent pawn is the same color' do
+      another_white_pawn = game.pieces.create(
+        type: 'Pawn',
+        color: 'white',
+        x_position: 6,
+        y_position: 3
+      )
+
+      white_pawn.move!(7, 3)
+
+      expect(another_white_pawn.en_passant?(6, 3)).to eq false
     end
   end
 end

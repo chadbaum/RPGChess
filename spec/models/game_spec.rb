@@ -33,7 +33,7 @@ RSpec.describe Game, type: :model do
     end
   end
 
-  describe "end_turn!" do
+  describe 'end_turn!' do
     game = FactoryGirl.create(:game)
 
     it 'should increment move_number by 1 once the turn ended' do

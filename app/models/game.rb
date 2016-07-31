@@ -4,7 +4,7 @@ class Game < ActiveRecord::Base
   has_many :players
 
   after_create :populate_bishops!, :populate_rooks!, :populate_pawns!,\
-  :populate_knights!, :populate_queens_kings!, :first_turn!
+               :populate_knights!, :populate_queens_kings!, :first_turn!
 
   def populate_bishops!
     pieces.create(type: 'Bishop', x_position: 2, y_position: 7, color: 'white')
@@ -49,6 +49,6 @@ class Game < ActiveRecord::Base
 
   def end_turn!
     increment!(:move_number)
-    move_number % 2 == 0 ? update(turn: 'black') : update(turn: 'white')
+    move_number.even? ? update(turn: 'black') : update(turn: 'white')
   end
 end
