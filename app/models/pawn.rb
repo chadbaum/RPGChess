@@ -12,10 +12,41 @@ class Pawn < Piece
   end
 
   def en_passant?(x, y)
+    return false if last_moved_piece.nil?
     return false unless last_moved_piece.y_distance(y) == 2 && type == 'Pawn'
-    return false unless valid_en_passant_pawn?(x, y, horizontal_difference)
+    return false unless valid_en_passant_pawn?(x, y)
     update(en_passant: true)
     true
+  end
+
+  def valid_en_passant_pawn?(x, y)
+    return false unless valid_passant_pawn_left?(x, y)
+    return false unless valid_passant_pawn_right?(x. y)
+    false
+  end
+
+  def valid_passant_pawn_left?(x, y)
+    left_piece = find_piece(x - 1, y)
+    return false if left_piece.nil?
+    return true if left_piece.type == 'Pawn' && side_piece.color != color
+    false
+  end
+
+  def valid_passant_pawn_right?(x, y)
+    right_piece = find_piece(x + 1, y)
+    return false if right_piece.nil?
+    return true if right_piece.type == 'Pawn' && side_piece.color != color
+    false
+  end
+
+  # En Passant Logic:
+  # 1)target pawn just moved 2 space forward
+  # 2)only capture within the next turn
+  # 3)can only capture by opponent's pawn
+  # 4)opponent pawn must be on the left or right of target piece's y axis
+
+  def last_moved_piece
+    game.pieces.where(last_moved_piece: game.move_number - 1).take
   end
 
   # Updates the piece's type from Pawn to the new type
@@ -56,23 +87,5 @@ class Pawn < Piece
 
   def forward_capture?(x, y)
     game.pieces.exists?(x_position: x, y_position: y)
-  end
-
-  # En Passant Logic:
-  # 1)target pawn just moved 2 space forward
-  # 2)only capture within the next turn
-  # 3)can only capture by opponent's pawn
-  # 4)opponent pawn must be on the left or right of target piece's y axis
-
-  def valid_passant_pawn?(x, y, horizontal_difference)
-    side_piece = occupant_piece(x, y + (horizontal_difference ? -1 : 1))
-    return false if side_piece.nil?
-    return true if side_piece.type == 'Pawn' && side_piece.color != color
-    false
-  end
-
-  def last_moved_piece
-    binding.pry
-    game.pieces.find_by(game.move_number - 1)
   end
 end
