@@ -25,7 +25,8 @@ class Piece < ActiveRecord::Base
       return false unless enemy?(victim)
       capture!(victim)
     end
-    update(x_position: x, y_position: y, moved: true, last_moved_piece: game.move_number)
+    update(x_position: x, y_position: y, moved: true,
+           last_moved_piece: game.move_number)
     game.end_turn!
     true
   end
