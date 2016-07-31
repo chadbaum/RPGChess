@@ -10,6 +10,7 @@ RSpec.describe Pawn, type: :model do
     y_position: 6
     )
   end
+
   let(:moved_pawn) do
     game.pieces.create(
     type: 'Pawn',
@@ -17,6 +18,24 @@ RSpec.describe Pawn, type: :model do
     x_position: 3,
     y_position: 4,
     moved: true
+    )
+  end
+
+  let(:white_pawn) do
+    game.pieces.create(
+    type: 'Pawn',
+    color: 'white',
+    x_position: 7,
+    y_position: 4
+    )
+  end
+
+  let(:black_pawn) do
+    game.pieces.find_by(
+    type: 'Pawn',
+    color: 'black',
+    x_position: 6,
+    y_position: 1
     )
   end
 
@@ -123,25 +142,12 @@ RSpec.describe Pawn, type: :model do
       expect(pawn.en_passant?(3, 4)).to eq false
     end
 
+    # Check edge case at the start of game
     it 'should return false if last moved piece is nil' do
       expect(pawn.en_passant?(3, 4)).to eq false
     end
 
     it 'should return true if opponent pawn move 2 space in last turn' do
-      white_pawn = game.pieces.create(
-      type: 'Pawn',
-      color: 'white',
-      x_position: 7,
-      y_position: 4
-      )
-
-      black_pawn = game.pieces.find_by(
-      type: 'Pawn',
-      color: 'black',
-      x_position: 6,
-      y_position: 1
-      )
-
       white_pawn.move!(7,3)
       black_pawn.move!(6,3)
 
@@ -156,13 +162,6 @@ RSpec.describe Pawn, type: :model do
       y_position: 4
       )
 
-      black_pawn = game.pieces.find_by(
-      type: 'Pawn',
-      color: 'black',
-      x_position: 6,
-      y_position: 1
-      )
-
       white_Rook.move!(7,3)
       black_pawn.move!(6,3)
 
@@ -170,20 +169,6 @@ RSpec.describe Pawn, type: :model do
     end
 
     it 'should return false if opponent pawn only move 1 space in last turn' do
-      white_pawn = game.pieces.create(
-      type: 'Pawn',
-      color: 'white',
-      x_position: 7,
-      y_position: 4
-      )
-
-      black_pawn = game.pieces.find_by(
-      type: 'Pawn',
-      color: 'black',
-      x_position: 6,
-      y_position: 1
-      )
-
       white_pawn.move!(7,3)
       black_pawn.move!(6,2)
 
