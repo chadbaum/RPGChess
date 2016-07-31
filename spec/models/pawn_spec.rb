@@ -123,23 +123,26 @@ RSpec.describe Pawn, type: :model do
       expect(pawn.en_passant?(3, 4)).to eq false
     end
 
-    it 'should return true if opponent pawn did not move 2 space in last turn' do
+    it 'should return false if last moved piece is nil' do
+      expect(pawn.en_passant?(3, 4)).to eq false
+    end
+
+    it 'should return true if opponent pawn move 2 space in last turn' do
       white_pawn = game.pieces.find_by(
-        type: 'Pawn',
-        color: 'white',
-        x_position: 7,
-        y_position: 6
+      type: 'Pawn',
+      color: 'white',
+      x_position: 7,
+      y_position: 6
       )
 
       black_pawn = game.pieces.create(
-        type: 'Pawn',
-        color: 'black',
-        x_position: 6,
-        y_position: 4
+      type: 'Pawn',
+      color: 'black',
+      x_position: 6,
+      y_position: 4
       )
-
-      white_pawn.move!(7,4)
       binding.pry
+      white_pawn.move!(7,4)
       expect(black_pawn.en_passant?(7,4)).to eq true
     end
   end
