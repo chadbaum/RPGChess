@@ -7,10 +7,10 @@ class Pawn < Piece
   # and thus ignored. Diagonal attack not implemented.
   def valid_move?(x, y)
     if moved
-      one_forward_move?(x, y) || diagonal_attack?(x, y)
+      one_fwd_move?(x, y) || fwd_diagonal_attack?(x, y)
     else
-      (first_forward_move?(x, y)) && !forward_capture?(x, y)) ||
-        diagonal_attack(x, y)
+      (first_fwd_move?(x, y)) && !fwd_capture?(x, y)) ||
+        fwd_diagonal_attack(x, y)
     end
   end
 
@@ -26,7 +26,7 @@ class Pawn < Piece
 
   # Returns true if the coordinates provided are 1 tile forward
   # from the piece's origin and no capture occured.
-  def one_forward_move?(x, y)
+  def one_fwd_move?(x, y)
     if color == 'black'
       x_distance(x) == 0 && y == y_position + 1
     else
@@ -36,7 +36,7 @@ class Pawn < Piece
 
   # Returns true if coordinates provided are 2 tiles forward
   # from the piece's origin and no capture occurred.
-  def clear_two_forward_move?(x, y)
+  def clear_two_fwd_move?(x, y)
     if color == 'black'
       x_distance(x) == 0 && y == y_position + 2 && path_clear?(x, y, 2)
     else
@@ -46,19 +46,17 @@ class Pawn < Piece
 
   # Returns true if the coordinates provided
   # are 1-2 tiles forward from the piece's origin.
-  def first_forward_move?(x, y)
-    one_forward_move?(x, y) || clear_two_forward_move?(x, y)
+  def first_fwd_move?(x, y)
+    one_fwd_move?(x, y) || clear_two_fwd_move?(x, y)
   end
 
-  def forward_capture?(x, y)
+  def fwd_capture?(x, y)
     game.pieces.exists?(x_position: x, y_position: y)
   end
 
-  def diagonal_attack?(x, y)
-    victim = occupant_piece(x, y)
-    if victim && clear_diagonal_move(x, y)
-      return true
-    else
-      return false
+  def fwd_diagonal_attack?(x, y)
+    return false unless occupant_piece(x, y)
+    (x == x_position + 1 || x == x_position - 1) &&
+      color == black ? y = y_position + 1 : y = y_position - 1
   end
 end
