@@ -21,9 +21,25 @@ RSpec.describe GamesController, type: :controller do
       expect(response).to redirect_to new_user_session_path
     end
   end
+
   describe 'games#create' do
     it 'should create a new game in the database' do
       process :create, method: :post, game: { turn: nil }
+    end
+  end
+
+  describe 'games#update' do
+    it 'should update the coords of the white pawn in the database' do
+      game = FactoryGirl.create(:game)
+      # test not working currently, something is wrong with its params. To be fixed.
+      patch :update, id: game.id, game: { piece_id: 24, x_position: 7, y_position: 5 }
+
+      piece = game.pieces.find_by_id(24)
+      piece_x_pos = piece.x_position
+      piece_y_pos = piece.y_position
+      expect(response).to have_http_status(:success)
+      expect(piece_x_pos).to eq(7)
+      expect(piece_y_pos).to eq(5)
     end
   end
 end

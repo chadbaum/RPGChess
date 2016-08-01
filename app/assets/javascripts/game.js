@@ -1,9 +1,9 @@
 $(function() {
     // Picks up all the latest positions from
     // the database
-    var currentPositions = $('.piece_pos').data('positions');
+    var $currentPositions = $('#piece_pos').data('positions');
 
-    $.each(currentPositions, function(key, value) {
+    $.each( $currentPositions, function(key, value) {
       var currentCell = 'td[data-x="' + value.x_position + '"]' +
                         '[data-y="' + value.y_position + '"]';
       //formula to map DB pieace IDs to the IDs in view
@@ -14,7 +14,7 @@ $(function() {
     // Makes all cells that have <i> elements
     // draggble. If move is invalid, the piece will
     // return to its cell
-    $('#chess-board td i').draggable({
+    $('#chess-board td > i').draggable({
       containment: "#chess-board",
       cursor: "all-scroll",
       opacity: 0.6,
@@ -30,10 +30,10 @@ $(function() {
       // properly
       accept: function(item) {
         if ( (item.hasClass('black-pcs') &&
-            $(this).children().hasClass('black-pcs') ) ) {
+            $(this).children('i').hasClass('black-pcs') ) ) {
           return false;
         } else if ( (item.hasClass('white-pcs') &&
-            $(this).children().hasClass('white-pcs') ) ) {
+            $(this).children('i').hasClass('white-pcs') ) ) {
           return false;
         } else {
           return true;
@@ -44,33 +44,41 @@ $(function() {
       drop: function(event, ui) {
         // gets the x_y coords of the place where to
         // drop the piece
-        var posX = $(event.target).data('x');
-        var posY = $(event.target).data('y');
+        var $posX = $(event.target).data('x');
+        var $posY = $(event.target).data('y');
 
         // get which item is being dragged
-        var droppedItem = ui.draggable;
+        var $droppedItem = ui.draggable;
 
+        // gets the ID of the game and removed th last slash
+        // char if needed
+        var $currentUri = (window.location.pathname)//.replace(/\/$/, '');
+
+        var $gameId = $currentUri.substring($currentUri.lastIndexOf('/') + 1);
+
+        // get the current host
+        var $currentHost = window.location.protocol + '//' + window.location.host;
+        var $thisCell = this;
+
+        // formula to calculate the current piece ID in DB
+        var $pieceIdInDB = Number( $droppedItem.attr('id') ) +
+                                ( ($gameId - 1) * 32 );
         // sends the new coords update to DB
-        var currentUrl = window.location.pathname;
-        var gameId = currentUrl.substring(currentUrl.lastIndexOf('/') + 1);
-        var thisCell = this;
-        var pieceIdInDB = Number( droppedItem.attr('id') ) +
-                                ( (gameId - 1) * 32 );
         $.ajax( {
           type: 'PATCH',
-          url: '../games/' + gameId,
+          url: $currentHost + '/games/' + $gameId,
           dataType: 'json',
           data: {
-            piece_id: pieceIdInDB,
-            x_position: posX,
-            y_position: posY
+            piece_id: $pieceIdInDB,
+            x_position: $posX,
+            y_position: $posY
           }
         })
         // If move is valid - removes draggable
         // element from old cell and appends to
         // new coordinates - 'thisCell'.
         .success( function() {
-            $(droppedItem).detach().css({top: 0, left: 0}).appendTo(thisCell);
+            $droppedItem.detach().css({top: 0, left: 0}).appendTo($thisCell);
         });
       }
     });
