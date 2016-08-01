@@ -57,6 +57,6 @@ class Pawn < Piece
   def fwd_diagonal_attack?(x, y)
     return false unless occupant_piece(x, y)
     (x == x_position + 1 || x == x_position - 1) &&
-      color == black ? y = y_position + 1 : y = y_position - 1
+      color == black ? y == y_position + 1 : y == y_position - 1
   end
 end
