@@ -149,5 +149,12 @@ RSpec.describe Pawn, type: :model do
       expect(victim.y_position).to eq nil
       expect(victim.captured).to eq true
     end
+
+    it 'should return false when moving but not capturing diagonally' do
+      expect(moved_pawn.move!(4, 3)).to eq false
+      expect(moved_pawn.x_position).to eq 3
+      expect(moved_pawn.y_position).to eq 4
+      expect(moved_pawn.moved).to eq true
+    end
   end
 end

@@ -1,10 +1,10 @@
 # Pawn behavior.
 class Pawn < Piece
   # Returns true if the pawn made a valid upgraded forward
-  # move on its first move, or else a regular forward move,
-  # and ensure no capture takes place by moving forward.
-  # Check, and checkmate logic are not implemented yet
-  # and thus ignored. Diagonal attack not implemented.
+  # move on its first move, or a regular forward move, or
+  # a capture by attacking diagonally. Ensures no capture
+  # takes place by moving forward. Check, and checkmate logic
+  # are not implemented yet and thus ignored.
   def valid_move?(x, y)
     return true if fwd_diagonal_attack?(x, y)
     moved ? one_fwd_move?(x, y) : first_fwd_move?(x, y) && !fwd_attack?(x, y)
@@ -46,11 +46,14 @@ class Pawn < Piece
     one_fwd_move?(x, y) || clear_two_fwd_move?(x, y)
   end
 
-  # Ensures pawn does not attempt to
+  # Returns true if a piece exists in pawn's forward path.
   def fwd_attack?(x, y)
     game.pieces.exists?(x_position: x, y_position: y)
   end
 
+  # Returns true if pawn is moving into an enemy-occupied tile
+  # that is one space diagonally forward to the left or right
+  # of the pawn's starting position.
   def fwd_diagonal_attack?(x, y)
     return false unless occupant_piece(x, y)
     return false unless x == x_position + 1 || x == x_position - 1
