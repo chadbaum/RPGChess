@@ -1,74 +1,29 @@
 require 'rails_helper'
 
 RSpec.describe King, type: :model do
-  describe 'white king movement validation' do
-    it 'should return false if not moved' do
-      king = FactoryGirl.create(:king, :white)
-      expect(king.valid_move?(3, 7)).to eq false
-    end
-
-    it 'should return false if moved 2 spaces right' do
-      king = FactoryGirl.create(:king, :white)
-      expect(king.valid_move?(5, 7)).to eq false
-    end
-
-    it 'should return false if moved 3 spaces forward and 3 spaces right' do
-      king = FactoryGirl.create(:king, :white)
-      expect(king.valid_move?(6, 4)).to eq false
-    end
-
-    it 'should return true if moved 1 space forward and 1 space right' do
-      king = FactoryGirl.create(:king, :white)
-      expect(king.valid_move?(4, 6)).to eq true
-    end
-
-    it 'should return true if moved to 1 space left' do
-      king = FactoryGirl.create(:king, :white)
-      expect(king.valid_move?(2, 7)).to eq true
-    end
-
-    it 'should return true if moved 1 space forward' do
-      king = FactoryGirl.create(:king, :white)
-      expect(king.valid_move?(3, 6)).to eq true
-    end
+  let(:game) { FactoryGirl.create(:game) }
+  let(:king) do
+    game.pieces.find_by(
+      type: 'King',
+      color: 'white',
+      x_position: 4,
+      y_position: 7
+    )
+  end
+  let(:moved_king) do
+    game.pieces.create(
+      type: 'King',
+      color: 'white',
+      x_position: 3,
+      y_position: 3,
+      moved: true
+    )
   end
 
-  describe 'black king movement validation' do
-    it 'should return false if not moved' do
-      king = FactoryGirl.create(:king, :black)
-      expect(king.valid_move?(3, 0)).to eq false
-    end
-
-    it 'should return false if moved 2 spaces right' do
-      king = FactoryGirl.create(:king, :black)
-      expect(king.valid_move?(5, 0)).to eq false
-    end
-
-    it 'should return false if moved 3 spaces forward and 3 spaces right' do
-      king = FactoryGirl.create(:king, :black)
-      expect(king.valid_move?(6, 3)).to eq false
-    end
-
-    it 'should return true if moved 1 space forward and 1 space right' do
-      king = FactoryGirl.create(:king, :black)
-      expect(king.valid_move?(4, 1)).to eq true
-    end
-
-    it 'should return true if moved 1 space left' do
-      king = FactoryGirl.create(:king, :black)
-      expect(king.valid_move?(2, 0)).to eq true
-    end
-
-    it 'should return true if moved 1 space forward' do
-      king = FactoryGirl.create(:king, :black)
-      expect(king.valid_move?(3, 1)).to eq true
-    end
-  end
-
-  describe 'king creation validation' do
+  describe 'creation' do
     it 'should create a white king' do
-      r = FactoryGirl.create(:king, color: 'white')
-      expect(r.type).to eq('King')
+      king = FactoryGirl.create(:king, color: 'white')
+      expect(king.type).to eq('King')
     end
 
     it 'should fail to create a red king' do
@@ -77,19 +32,65 @@ RSpec.describe King, type: :model do
     end
   end
 
-  describe 'king move method' do
-    it 'should return true and update position on valid move' do
-      king = FactoryGirl.create(:king, :white)
-      expect(king.move!(4, 6)).to eq true
+  describe 'moved' do
+    it 'should return false if not moved' do
+      expect(king.move!(4, 7)).to eq false
       expect(king.x_position).to eq 4
-      expect(king.y_position).to eq 6
+      expect(king.y_position).to eq 7
+      expect(king.moved).to eq false
+    end
+  end
+
+  describe 'invalid moveset' do
+    it 'should return false and not update position on invalid move' do
+      expect(moved_king.move!(1, 4)).to eq false
+      expect(moved_king.x_position).to eq 3
+      expect(moved_king.y_position).to eq 3
+      expect(moved_king.moved).to eq true
     end
 
-    it 'should return nil and not update position on invalid move' do
-      king = FactoryGirl.create(:king, :black)
-      expect(king.move!(5, 0)).to eq false
-      expect(king.x_position).to eq 3
-      expect(king.y_position).to eq 0
+    it 'should return false and not update position on invalid move' do
+      expect(moved_king.move!(7, 3)).to eq false
+      expect(moved_king.x_position).to eq 3
+      expect(moved_king.y_position).to eq 3
+      expect(moved_king.moved).to eq true
+    end
+
+    it 'should return false and not update position on invalid move' do
+      expect(moved_king.move!(5, 5)).to eq false
+      expect(moved_king.x_position).to eq 3
+      expect(moved_king.y_position).to eq 3
+      expect(moved_king.moved).to eq true
+    end
+  end
+
+  describe 'non-obstructed move' do
+    it 'should return true and update position on non-obstructed move' do
+      expect(moved_king.move!(3, 4)).to eq true
+      expect(moved_king.x_position).to eq 3
+      expect(moved_king.y_position).to eq 4
+      expect(moved_king.moved).to eq true
+    end
+
+    it 'should return true and update position on non-obstructed move' do
+      expect(moved_king.move!(2, 4)).to eq true
+      expect(moved_king.x_position).to eq 2
+      expect(moved_king.y_position).to eq 4
+      expect(moved_king.moved).to eq true
+    end
+
+    it 'should return true and update position on non-obstructed move' do
+      expect(moved_king.move!(4, 4)).to eq true
+      expect(moved_king.x_position).to eq 4
+      expect(moved_king.y_position).to eq 4
+      expect(moved_king.moved).to eq true
+    end
+
+    it 'should return true and update position on non-obstructed move' do
+      expect(moved_king.move!(4, 3)).to eq true
+      expect(moved_king.x_position).to eq 4
+      expect(moved_king.y_position).to eq 3
+      expect(moved_king.moved).to eq true
     end
   end
 end

@@ -1,166 +1,48 @@
 require 'rails_helper'
 
 RSpec.describe Piece, type: :model do
-  describe 'moved flag for piece' do
-    it 'should return false if piece has never moved' do
-      bishop = FactoryGirl.create(:bishop, :white)
-
-      expect(bishop.moved).to eq false
-    end
-
-    it 'should return true if piece has moved' do
-      bishop = FactoryGirl.create(:bishop, :white)
-
-      bishop.move!(3, 6)
-
-      expect(bishop.moved).to eq true
-    end
+  let(:game) { FactoryGirl.create(:game) }
+  let(:queen) do
+    game.pieces.find_by(
+      type: 'Queen',
+      color: 'white',
+      x_position: 4,
+      y_position: 7
+    )
+  end
+  let(:moved_queen) do
+    game.pieces.create(
+      type: 'Queen',
+      color: 'white',
+      x_position: 3,
+      y_position: 3,
+      moved: true
+    )
   end
 
-  describe 'capturable?' do
-    before(:each) do
-      @game = FactoryGirl.create :empty_chess_board
+  describe 'move with capture' do
+    it 'should return true on move against a hostile piece' do
+      victim = game.pieces.find_by(x_position: 3, y_position: 1)
+      expect(moved_queen.move!(3, 1)).to eq true
+      expect(moved_queen.x_position).to eq 3
+      expect(moved_queen.y_position).to eq 1
+      expect(moved_queen.moved).to eq true
+      victim.reload
+      expect(victim.x_position).to eq nil
+      expect(victim.y_position).to eq nil
+      expect(victim.captured).to eq true
     end
 
-    it 'should return false if coordinates not occupied by any piece' do
-      white_pawn = FactoryGirl.create(:pawn, :white, game_id: @game.id)
-
-      expect(white_pawn.capturable?(4, 5)).to eq false
-    end
-
-    it 'should return false if coordinates occupied by same color piece' do
-      white_pawn = FactoryGirl.create(
-        :pawn,
-        :white,
-        game_id: @game.id,
-        x_position: 3,
-        y_position: 0,
-        captured: false
-      )
-      other_white_pawn = FactoryGirl.create(
-        :pawn,
-        :white,
-        game_id: @game.id,
-        x_position: 4,
-        y_position: 1,
-        captured: false
-      )
-
-      expect(other_white_pawn.capturable?(
-               white_pawn.x_position,
-               white_pawn.y_position
-      )).to eq false
-    end
-
-    it 'should return true if coordinates occupied by target piece' do
-      black_rook = FactoryGirl.create(
-        :rook,
-        :black,
-        game_id: @game.id,
-        x_position: 4,
-        y_position: 0,
-        captured: false
-      )
-      white_pawn = FactoryGirl.create(
-        :pawn,
-        :white,
-        game_id: @game.id,
-        x_position: 4,
-        y_position: 1,
-        captured: false
-      )
-
-      expect(white_pawn.capturable?(
-               black_rook.x_position,
-               black_rook.y_position
-      )).to eq true
-    end
-  end
-
-  describe 'capture!' do
-    before(:each) do
-      @game = FactoryGirl.create :empty_chess_board
-    end
-
-    it 'should update target piece attributes' do
-      black_rook = FactoryGirl.create(
-        :rook,
-        :black,
-        game_id: @game.id,
-        x_position: 3,
-        y_position: 1,
-        captured: false
-      )
-      white_pawn = FactoryGirl.create(
-        :pawn,
-        :white,
-        game_id: @game.id,
-        x_position: 4,
-        y_position: 1,
-        captured: false
-      )
-
-      black_rook.capture!(white_pawn.x_position, white_pawn.y_position)
-
-      white_pawn.reload
-
-      expect(white_pawn.x_position).to eq nil
-      expect(white_pawn.y_position).to eq nil
-      expect(white_pawn.captured).to eq true
-    end
-
-    it 'should update our piece attributes' do
-      black_rook = FactoryGirl.create(
-        :rook,
-        :black,
-        game_id: @game.id,
-        x_position: 3,
-        y_position: 1,
-        captured: false
-      )
-      white_pawn = FactoryGirl.create(
-        :pawn,
-        :white,
-        game_id: @game.id,
-        x_position: 4,
-        y_position: 1,
-        captured: false
-      )
-
-      black_rook.capture!(white_pawn.x_position, white_pawn.y_position)
-
-      expect(black_rook.x_position).to eq 4
-      expect(black_rook.y_position).to eq 1
-    end
-  end
-
-  describe 'friendly_piece?' do
-    before(:each) do
-      @game = FactoryGirl.create :empty_chess_board
-    end
-
-    it 'should return true if target piece have the same color' do
-      white_pawn = FactoryGirl.create(
-        :pawn,
-        :white,
-        game_id: @game.id,
-        x_position: 3,
-        y_position: 0,
-        captured: false
-      )
-      other_white_pawn = FactoryGirl.create(
-        :pawn,
-        :white,
-        game_id: @game.id,
-        x_position: 4,
-        y_position: 1,
-        captured: false
-      )
-
-      expect(other_white_pawn.friendly_piece?(
-               white_pawn.x_position,
-               white_pawn.y_position
-      )).to eq true
+    it 'should return false on a move against a friendly piece' do
+      victim = game.pieces.find_by(x_position: 3, y_position: 6)
+      expect(moved_queen.move!(3, 6)).to eq false
+      expect(moved_queen.x_position).to eq 3
+      expect(moved_queen.y_position).to eq 3
+      expect(moved_queen.moved).to eq true
+      victim.reload
+      expect(victim.x_position).to eq 3
+      expect(victim.y_position).to eq 6
+      expect(victim.captured).to eq nil
     end
   end
 end
