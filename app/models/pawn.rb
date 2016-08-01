@@ -6,12 +6,8 @@ class Pawn < Piece
   # Check, and checkmate logic are not implemented yet
   # and thus ignored. Diagonal attack not implemented.
   def valid_move?(x, y)
-    if moved
-      one_fwd_move?(x, y) || fwd_diagonal_attack?(x, y)
-    else
-      (first_fwd_move?(x, y) && !fwd_attack?(x, y)) ||
-        fwd_diagonal_attack?(x, y)
-    end
+    return true if fwd_diagonal_attack?(x, y)
+    moved ? one_fwd_move?(x, y) : first_fwd_move?(x, y) && !fwd_attack?(x, y)
   end
 
   # Updates the piece's type from Pawn to the new type
