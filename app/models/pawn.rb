@@ -6,8 +6,12 @@ class Pawn < Piece
   # Check, and checkmate logic are not implemented yet
   # and thus ignored. Diagonal attack not implemented.
   def valid_move?(x, y)
-    (moved ? one_forward_move?(x, y) : first_forward_move?(x, y)) &&
-      !forward_capture?(x, y)
+    if moved
+      one_forward_move?(x, y) || diagonal_attack?(x, y)
+    else
+      (first_forward_move?(x, y)) && !forward_capture?(x, y)) ||
+        diagonal_attack(x, y)
+    end
   end
 
   # Updates the piece's type from Pawn to the new type
@@ -15,7 +19,7 @@ class Pawn < Piece
   def promote!(new_type)
     options = %w(Bishop Knight Queen Rook)
     raise ArgumentError unless options.include?(new_type)
-    type == new_type
+    update(type: new_type)
   end
 
   private
@@ -48,5 +52,13 @@ class Pawn < Piece
 
   def forward_capture?(x, y)
     game.pieces.exists?(x_position: x, y_position: y)
+  end
+
+  def diagonal_attack?(x, y)
+    victim = occupant_piece(x, y)
+    if victim && clear_diagonal_move(x, y)
+      return true
+    else
+      return false
   end
 end
