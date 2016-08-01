@@ -9,8 +9,8 @@ class Pawn < Piece
     if moved
       one_fwd_move?(x, y) || fwd_diagonal_attack?(x, y)
     else
-      (first_fwd_move?(x, y)) && !fwd_capture?(x, y)) ||
-        fwd_diagonal_attack(x, y)
+      (first_fwd_move?(x, y) && !fwd_attack?(x, y)) ||
+        fwd_diagonal_attack?(x, y)
     end
   end
 
@@ -50,13 +50,18 @@ class Pawn < Piece
     one_fwd_move?(x, y) || clear_two_fwd_move?(x, y)
   end
 
-  def fwd_capture?(x, y)
+  # Ensures pawn does not attempt to
+  def fwd_attack?(x, y)
     game.pieces.exists?(x_position: x, y_position: y)
   end
 
   def fwd_diagonal_attack?(x, y)
     return false unless occupant_piece(x, y)
-    (x == x_position + 1 || x == x_position - 1) &&
-      color == 'black' ? y == y_position + 1 : y == y_position - 1
+    return false unless x == x_position + 1 || x == x_position - 1
+    y == if color == 'black'
+           y_position + 1
+         else
+           y_position - 1
+         end
   end
 end

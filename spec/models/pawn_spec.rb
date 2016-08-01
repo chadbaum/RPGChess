@@ -114,4 +114,40 @@ RSpec.describe Pawn, type: :model do
       expect(pawn.moved).to eq false
     end
   end
+
+  describe 'diagonal capture' do
+    it 'should return false and not update position on capturing friendly' do
+      victim = game.pieces.create(
+        type: 'Rook',
+        color: 'white',
+        x_position: 2,
+        y_position: 3
+      )
+      expect(moved_pawn.move!(2, 3)).to eq false
+      expect(moved_pawn.x_position).to eq 3
+      expect(moved_pawn.y_position).to eq 4
+      expect(moved_pawn.moved).to eq true
+      victim.reload
+      expect(victim.x_position).to eq 2
+      expect(victim.y_position).to eq 3
+      expect(victim.captured).to eq nil
+    end
+
+    it 'should return true and update position on capturing enemy' do
+      victim = game.pieces.create(
+        type: 'Rook',
+        color: 'black',
+        x_position: 2,
+        y_position: 3
+      )
+      expect(moved_pawn.move!(2, 3)).to eq true
+      expect(moved_pawn.x_position).to eq 2
+      expect(moved_pawn.y_position).to eq 3
+      expect(moved_pawn.moved).to eq true
+      victim.reload
+      expect(victim.x_position).to eq nil
+      expect(victim.y_position).to eq nil
+      expect(victim.captured).to eq true
+    end
+  end
 end
