@@ -27,8 +27,8 @@ StoicChess is a chess web application built on Ruby on Rails by an Agile team of
 
 * [Zach Berman](mailto:zberms@gmail.com) - [GitHub](https://github.com/ZachBerman)
 
+* [George Fourikis](mailto:georgefourikis@hotmail.gr) - [GitHub](https://github.com/GeorgeFourikis)
+
 * [Aleks Gorbenko](mailto:aleksedgorbenko@gmail.com) - [GitHub](https://github.com/aleksgorbenko) | [LinkedIn](https://uk.linkedin.com/in/aleks-gorbenko-web-developer) | [Website](https://aleksgorbenko.com)
 
 * [Ethan He](mailto:ethanhe.dev@gmail.com) - [GitHub](https://github.com/Se7enB2st)
-
-* [George Fourikis](mailto:georgefourikis@hotmail.gr) - [GitHub](https://github.com/GeorgeFourikis)
