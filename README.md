@@ -5,9 +5,9 @@
 
 == Contributors
 
-* [Chad Baum](chadbaum@gmail.com) - [Github](https://github.com/chadbaum) | [LinkedIn](https://linkedin.com/in/chadbaum)
+* [Chad Baum](mailto:chadbaum@gmail.com>) - [Github](https://github.com/chadbaum) | [LinkedIn](https://linkedin.com/in/chadbaum)
 
-* [Zach Berman](zberms@gmail.com) - [GitHub](https://github.com/ZachBerman)
+* [Zach Berman](<zberms@gmail.com>) - [GitHub](https://github.com/ZachBerman)
 
 * [Aleks Gorbenko](aleksedgorbenko@gmail.com) - [GitHub](https://github.com/aleksgorbenko) | [LinkedIn](https://uk.linkedin.com/in/aleks-gorbenko-web-developer) | [Website](https://aleksgorbenko.com)
 
