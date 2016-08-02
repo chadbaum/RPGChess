@@ -5,12 +5,12 @@
 
 == Contributors
 
-* [Chad Baum](mailto:chadbaum@gmail.com>) - [Github](https://github.com/chadbaum) | [LinkedIn](https://linkedin.com/in/chadbaum)
+* [Chad Baum](mailto:chadbaum@gmail.com) - [Github](https://github.com/chadbaum) | [LinkedIn](https://linkedin.com/in/chadbaum)
 
-* [Zach Berman](<zberms@gmail.com>) - [GitHub](https://github.com/ZachBerman)
+* [Zach Berman](mailto:zberms@gmail.com) - [GitHub](https://github.com/ZachBerman)
 
-* [Aleks Gorbenko](aleksedgorbenko@gmail.com) - [GitHub](https://github.com/aleksgorbenko) | [LinkedIn](https://uk.linkedin.com/in/aleks-gorbenko-web-developer) | [Website](https://aleksgorbenko.com)
+* [Aleks Gorbenko](mailto:aleksedgorbenko@gmail.com) - [GitHub](https://github.com/aleksgorbenko) | [LinkedIn](https://uk.linkedin.com/in/aleks-gorbenko-web-developer) | [Website](https://aleksgorbenko.com)
 
-* [Ethan He](ethanhe.dev@gmail.com) - [GitHub](https://github.com/Se7enB2st)
+* [Ethan He](mailto:ethanhe.dev@gmail.com) - [GitHub](https://github.com/Se7enB2st)
 
-* [George Fourikis](georgefourikis@hotmail.gr) - [GitHub](https://github.com/GeorgeFourikis)
+* [George Fourikis](mailto:georgefourikis@hotmail.gr) - [GitHub](https://github.com/GeorgeFourikis)
