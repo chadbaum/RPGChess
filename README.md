@@ -5,14 +5,12 @@
 
 == Contributors
 
+* [Chad Baum](chadbaum@gmail.com) - [Github](https://github.com/chadbaum) | [LinkedIn](https://linkedin.com/in/chadbaum)
 
-* Zach Berman - zberms@gmail.com
+* [Zach Berman](zberms@gmail.com) - [GitHub](https://github.com/ZachBerman)
 
-* Aleks Gorbenko - AleksEdGorbenko@gmail.com
-..[Personal Blog](https://aleksgorbenko.com)
-..[GitHub](https://github.com/aleksgorbenko)
-..[LinkedIn](https://uk.linkedin.com/in/aleks-gorbenko-web-developer)
+* [Aleks Gorbenko](aleksedgorbenko@gmail.com) - [GitHub](https://github.com/aleksgorbenko) | [LinkedIn](https://uk.linkedin.com/in/aleks-gorbenko-web-developer) | [Website](https://aleksgorbenko.com)
 
-* Ethan He - ethanhe.dev@gmail.com,[GitHub](https://github.com/Se7enB2st) 
+* [Ethan He](ethanhe.dev@gmail.com) - [GitHub](https://github.com/Se7enB2st)
 
-* George Fourikis - https://github.com/GeorgeFourikis - georgefourikis@hotmail.gr
+* [George Fourikis](georgefourikis@hotmail.gr) - [GitHub](https://github.com/GeorgeFourikis)
