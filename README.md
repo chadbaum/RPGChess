@@ -1,8 +1,8 @@
+[![Codeship Status for TeamStoic/StoicChess](https://codeship.com/projects/8443e920-1f83-0134-0385-3ae309bf0e43/status?branch=master)](https://codeship.com/projects/160373) [![Coverage Status](https://coveralls.io/repos/github/TeamStoic/StoicChess/badge.svg?branch=master)](https://coveralls.io/github/TeamStoic/StoicChess?branch=master) [![GPL Licence](https://badges.frapsoft.com/os/gpl/gpl.png?v=103)](https://opensource.org/licenses/GPL-3.0/)  
+
 ==========
 StoicChess
 ==========
-
-[![Codeship Status for TeamStoic/StoicChess](https://codeship.com/projects/8443e920-1f83-0134-0385-3ae309bf0e43/status?branch=master)](https://codeship.com/projects/160373) [![Coverage Status](https://coveralls.io/repos/github/TeamStoic/StoicChess/badge.svg?branch=master)](https://coveralls.io/github/TeamStoic/StoicChess?branch=master)
 
 StoicChess is a chess web application built on Ruby on Rails by an Agile team of 5 developers as a capstone project for [The Firehose Project](http://www.thefirehoseproject.com).  The business logic of the application includes enforcing all of the rules of chess, including: moves, obstruction, capture, promotion, castling, en passant, check, and checkmate.  
 
