@@ -90,7 +90,7 @@ footer {
   }
 }
 
-/* INDEX */
+/* STATIC_PAGES INDEX */
 
 .navbar-inverse {
   background-color: #979A9C;
@@ -140,6 +140,38 @@ p {
 
 #solutions {
   margin-bottom: 15px;
+}
+
+/* GAMES INDEX*/
+
+#games-list {
+  padding-top: 20px;
+}
+
+#profile {
+  padding-bottom: 30px;
+}
+
+.join-headline {
+  padding-bottom: 20px;
+  margin-top: 0px;
+}
+
+.stats {
+  padding-top: 20px;
+}
+
+.boxed {
+  border: 1px solid black;
+}
+
+.boxed h4 {
+  padding-left: 25px;
+  padding-bottom: 26px;
+}
+
+.boxed .top {
+  padding-top: 25px;
 }
 
 /* CHESS BOARD */
