@@ -30,7 +30,7 @@ Contributors
 
 * [Chad Baum](mailto:chadbaum@gmail.com) | [Github](https://github.com/chadbaum) | [LinkedIn](https://linkedin.com/in/chadbaum)
 
-* [Zach Berman](mailto:zberms@gmail.com) | [GitHub](https://github.com/ZachBerman)
+* [Zach Berman](mailto:zberms@gmail.com) | [GitHub](https://github.com/ZachBerman) | [LinkedIn](https://ca.linkedin.com/in/zachbdev) | [Portfolio](http://zachberman.github.io/)
 
 * [George Fourikis](mailto:georgefourikis@hotmail.gr) | [GitHub](https://github.com/GeorgeFourikis)
 
