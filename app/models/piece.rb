@@ -144,4 +144,12 @@ class Piece < ActiveRecord::Base
     end
     true
   end
+
+  def check_state
+    white_king = game.pieces.find_by(type: 'King', color: "white")
+    black_king = game.pieces.find_by(type: 'King', color: "black")
+
+    game.pieces do |piece|
+
+  end
 end
