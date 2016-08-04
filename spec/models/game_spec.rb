@@ -1,10 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Game, type: :model do
-  g = FactoryGirl.create(:game)
   describe 'populate the board' do
+    game = FactoryGirl.create(:game)
+
     it 'should give us 32 pieces upon board population' do
-      expect(g.pieces.count).to eq 32
+      expect(game.pieces.count).to eq 32
     end
     it 'should give me the last x position of population' do
       expect(g.pieces.last.x_position).to eq 7

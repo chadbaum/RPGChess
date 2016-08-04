@@ -10,5 +10,6 @@ FactoryGirl.define do
       x_position 0
       y_position 0
     end
+    game
   end
 end

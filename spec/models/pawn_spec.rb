@@ -1,84 +1,29 @@
 require 'rails_helper'
 
 RSpec.describe Pawn, type: :model do
-  describe 'white pawn movement validation' do
-    it 'should return false if not moved' do
-      pawn = FactoryGirl.create(:pawn, :white)
-      expect(pawn.valid_move?(5, 6)).to eq false
-    end
-
-    it 'should return false if moved 3 spaces left' do
-      pawn = FactoryGirl.create(:pawn, :white)
-      expect(pawn.valid_move?(2, 6)).to eq false
-    end
-
-    it 'should return false if moved 1 space backward' do
-      pawn = FactoryGirl.create(:pawn, :white)
-      expect(pawn.valid_move?(5, 7)).to eq false
-    end
-
-    it 'should return true if moved 1 space forward' do
-      pawn = FactoryGirl.create(:pawn, :white, :moved)
-      expect(pawn.valid_move?(5, 4)).to eq true
-    end
-
-    it 'should return false if moved 2 spaces not on first move' do
-      pawn = FactoryGirl.create(:pawn, :white, :moved)
-      expect(pawn.valid_move?(5, 3)).to eq false
-    end
-
-    it 'should return true if moved 2 spaces forward on first move' do
-      pawn = FactoryGirl.create(:pawn, :white)
-      expect(pawn.valid_move?(5, 4)).to eq true
-    end
-
-    it 'should return true if moved 1 space forward on first move' do
-      pawn = FactoryGirl.create(:pawn, :white)
-      expect(pawn.valid_move?(5, 5)).to eq true
-    end
+  let(:game) { FactoryGirl.create(:game) }
+  let(:pawn) do
+    game.pieces.find_by(
+      type: 'Pawn',
+      color: 'white',
+      x_position: 5,
+      y_position: 6
+    )
+  end
+  let(:moved_pawn) do
+    game.pieces.create(
+      type: 'Pawn',
+      color: 'white',
+      x_position: 3,
+      y_position: 4,
+      moved: true
+    )
   end
 
-  describe 'black pawn movement validation' do
-    it 'should return false if not moved' do
-      pawn = FactoryGirl.create(:pawn, :black)
-      expect(pawn.valid_move?(5, 1)).to eq false
-    end
-
-    it 'should return false if moved 3 spaces left' do
-      pawn = FactoryGirl.create(:pawn, :black)
-      expect(pawn.valid_move?(2, 1)).to eq false
-    end
-
-    it 'should return false if moved 1 space backward' do
-      pawn = FactoryGirl.create(:pawn, :black)
-      expect(pawn.valid_move?(5, 0)).to eq false
-    end
-
-    it 'should return true if moved 1 space forward' do
-      pawn = FactoryGirl.create(:pawn, :black, :moved)
-      expect(pawn.valid_move?(5, 6)).to eq true
-    end
-
-    it 'should return false if moved 2 spaces forward not on first move' do
-      pawn = FactoryGirl.create(:pawn, :black, :moved)
-      expect(pawn.valid_move?(5, 5)).to eq false
-    end
-
-    it 'should return true if moved 2 spaces forward on first move' do
-      pawn = FactoryGirl.create(:pawn, :black)
-      expect(pawn.valid_move?(5, 3)).to eq true
-    end
-
-    it 'should return true if moved 1 space forward on first move' do
-      pawn = FactoryGirl.create(:pawn, :black)
-      expect(pawn.valid_move?(5, 2)).to eq true
-    end
-  end
-
-  describe 'pawn creation validation' do
+  describe 'creation' do
     it 'should create a white pawn' do
-      r = FactoryGirl.create(:pawn, color: 'white')
-      expect(r.type).to eq('Pawn')
+      pawn = FactoryGirl.create(:pawn, color: 'white')
+      expect(pawn.type).to eq('Pawn')
     end
 
     it 'should fail to create a red pawn' do
@@ -87,19 +32,86 @@ RSpec.describe Pawn, type: :model do
     end
   end
 
-  describe 'pawn move method' do
-    it 'should return true and update position on valid move' do
-      pawn = FactoryGirl.create(:pawn, :white)
+  describe 'moved' do
+    it 'should return false if not moved' do
+      expect(pawn.move!(5, 6)).to eq false
+      expect(pawn.x_position).to eq 5
+      expect(pawn.y_position).to eq 6
+      expect(pawn.moved).to eq false
+    end
+  end
+
+  describe 'invalid moveset' do
+    it 'should return false and not update position on invalid move' do
+      expect(moved_pawn.move!(3, 2)).to eq false
+      expect(moved_pawn.x_position).to eq 3
+      expect(moved_pawn.y_position).to eq 4
+      expect(moved_pawn.moved).to eq true
+    end
+
+    it 'should return false and not update position on invalid move' do
+      expect(moved_pawn.move!(2, 3)).to eq false
+      expect(moved_pawn.x_position).to eq 3
+      expect(moved_pawn.y_position).to eq 4
+      expect(moved_pawn.moved).to eq true
+    end
+
+    it 'should return false and not update position on invalid move' do
+      expect(moved_pawn.move!(3, 5)).to eq false
+      expect(moved_pawn.x_position).to eq 3
+      expect(moved_pawn.y_position).to eq 4
+      expect(moved_pawn.moved).to eq true
+    end
+  end
+
+  describe 'non-obstructed move' do
+    it 'should return true and update position on non-obstructed move' do
+      expect(moved_pawn.move!(3, 3)).to eq true
+      expect(moved_pawn.x_position).to eq 3
+      expect(moved_pawn.y_position).to eq 3
+      expect(moved_pawn.moved).to eq true
+    end
+
+    it 'should return true and update position on non-obstructed move' do
       expect(pawn.move!(5, 5)).to eq true
       expect(pawn.x_position).to eq 5
       expect(pawn.y_position).to eq 5
+      expect(pawn.moved).to eq true
     end
 
-    it 'should return nil and not update position on invalid move' do
-      pawn = FactoryGirl.create(:pawn, :black)
-      expect(pawn.move!(5, 0)).to eq false
+    it 'should return true and update position on non-obstructed move' do
+      expect(pawn.move!(5, 4)).to eq true
       expect(pawn.x_position).to eq 5
-      expect(pawn.y_position).to eq 1
+      expect(pawn.y_position).to eq 4
+      expect(pawn.moved).to eq true
+    end
+  end
+
+  describe 'obstructed move' do
+    it 'should return false and not update position on obstructed move' do
+      game.pieces.create(
+        type: 'Rook',
+        color: 'white',
+        x_position: 5,
+        y_position: 5
+      )
+      expect(pawn.move!(5, 4)).to eq false
+      expect(pawn.x_position).to eq 5
+      expect(pawn.y_position).to eq 6
+      expect(pawn.moved).to eq false
+    end
+
+    it 'should return false and not update position on obstructed move' do
+      game.pieces.create(
+        type: 'Rook',
+        color: 'white',
+        x_position: 5,
+        y_position: 5
+      )
+      expect(pawn.move!(5, 5)).to eq false
+      expect(pawn.x_position).to eq 5
+      expect(pawn.y_position).to eq 6
+      expect(pawn.moved).to eq false
     end
   end
 end
