@@ -14,8 +14,9 @@
           <%= f.input :password, class: 'form-control', required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
           <%= f.input :password_confirmation, class: 'form-control', required: true %>
         </div>
+        <br />
         <div class="form-group">
-          <%= f.button :submit, "CREATE AN ACCOUNT", class: "btn btn-success form-control" %>
+          <%= f.button :submit, "Create An Account", class: "btn btn-info form-control" %>
         </div>
       <% end %>
       </div>
