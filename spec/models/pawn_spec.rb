@@ -130,7 +130,7 @@ RSpec.describe Pawn, type: :model do
       victim.reload
       expect(victim.x_position).to eq 2
       expect(victim.y_position).to eq 3
-      expect(victim.captured).to eq nil
+      expect(victim.captured).to eq false
     end
 
     it 'should return true and update position on capturing enemy' do
