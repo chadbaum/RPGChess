@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :game do
     trait :populated do
-      after(:create) { |game| game.populate! }
+      after(:create, &:populate!)
     end
   end
 end
