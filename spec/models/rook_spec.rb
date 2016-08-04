@@ -1,51 +1,26 @@
 require 'rails_helper'
 
 RSpec.describe Rook, type: :model do
-  describe 'white rook movement validation' do
-    it 'should return false if not being moved' do
-      rook = FactoryGirl.create(:rook, :white)
-      expect(rook.valid_move?(7, 7)).to eq false
-    end
-
-    it 'should return false if moved 3 spaces diagonally' do
-      rook = FactoryGirl.create(:rook, :white)
-      expect(rook.valid_move?(4, 4)).to eq false
-    end
-
-    it 'should return true if moved 3 spaces forward' do
-      rook = FactoryGirl.create(:rook, :white)
-      expect(rook.valid_move?(7, 4)).to eq true
-    end
-
-    it 'should return true if moved 3 spaces left' do
-      rook = FactoryGirl.create(:rook, :white)
-      expect(rook.valid_move?(4, 7)).to eq true
-    end
+  let(:game) { FactoryGirl.create(:game) }
+  let(:rook) do
+    game.pieces.find_by(
+      type: 'Rook',
+      color: 'white',
+      x_position: 7,
+      y_position: 7
+    )
+  end
+  let(:moved_rook) do
+    game.pieces.create(
+      type: 'Rook',
+      color: 'white',
+      x_position: 3,
+      y_position: 3,
+      moved: true
+    )
   end
 
-  describe 'black rook movement validation' do
-    it 'should return false if not being moved' do
-      rook = FactoryGirl.create(:rook, :black)
-      expect(rook.valid_move?(0, 0)).to eq false
-    end
-
-    it 'should return false if moved 3 spaces forward and 3 spaces right' do
-      rook = FactoryGirl.create(:rook, :black)
-      expect(rook.valid_move?(3, 3)).to eq false
-    end
-
-    it 'should return true if moved 3 spaces forward' do
-      rook = FactoryGirl.create(:rook, :black)
-      expect(rook.valid_move?(0, 3)).to eq true
-    end
-
-    it 'should return true if moved 3 spaces right' do
-      rook = FactoryGirl.create(:rook, :black)
-      expect(rook.valid_move?(3, 0)).to eq true
-    end
-  end
-
-  describe 'rook creation validation' do
+  describe 'creation' do
     it 'should create a white rook' do
       rook = FactoryGirl.create(:rook, color: 'white')
       expect(rook.type).to eq('Rook')
@@ -57,19 +32,102 @@ RSpec.describe Rook, type: :model do
     end
   end
 
-  describe 'rook move method' do
-    it 'should return true and update position on valid move' do
-      rook = FactoryGirl.create(:rook, :white)
-      expect(rook.move!(0, 7)).to eq true
-      expect(rook.x_position).to eq 0
+  describe 'moved' do
+    it 'should return false if not moved' do
+      expect(rook.move!(7, 7)).to eq false
+      expect(rook.x_position).to eq 7
       expect(rook.y_position).to eq 7
+      expect(rook.moved).to eq false
+    end
+  end
+
+  describe 'invalid moveset' do
+    it 'should return false and not update position on invalid move' do
+      expect(moved_rook.move!(4, 4)).to eq false
+      expect(moved_rook.x_position).to eq 3
+      expect(moved_rook.y_position).to eq 3
+      expect(moved_rook.moved).to eq true
     end
 
-    it 'should return nil and not update position on invalid move' do
-      rook = FactoryGirl.create(:rook, :black)
-      expect(rook.move!(3, 7)).to eq false
-      expect(rook.x_position).to eq 0
-      expect(rook.y_position).to eq 0
+    it 'should return false and not update position on invalid move' do
+      expect(moved_rook.move!(5, 4)).to eq false
+      expect(moved_rook.x_position).to eq 3
+      expect(moved_rook.y_position).to eq 3
+      expect(moved_rook.moved).to eq true
+    end
+
+    it 'should return false and not update position on invalid move' do
+      expect(moved_rook.move!(6, 2)).to eq false
+      expect(moved_rook.x_position).to eq 3
+      expect(moved_rook.y_position).to eq 3
+      expect(moved_rook.moved).to eq true
+    end
+  end
+
+  describe 'non-obstructed move' do
+    it 'should return true and update position on non-obstructed move' do
+      expect(moved_rook.move!(7, 3)).to eq true
+      expect(moved_rook.x_position).to eq 7
+      expect(moved_rook.y_position).to eq 3
+      expect(moved_rook.moved).to eq true
+    end
+
+    it 'should return true and update position on non-obstructed move' do
+      expect(moved_rook.move!(3, 2)).to eq true
+      expect(moved_rook.x_position).to eq 3
+      expect(moved_rook.y_position).to eq 2
+      expect(moved_rook.moved).to eq true
+    end
+
+    it 'should return true and update position on non-obstructed move' do
+      expect(moved_rook.move!(0, 3)).to eq true
+      expect(moved_rook.x_position).to eq 0
+      expect(moved_rook.y_position).to eq 3
+      expect(moved_rook.moved).to eq true
+    end
+
+    it 'should return true and update position on non-obstructed move' do
+      expect(moved_rook.move!(3, 5)).to eq true
+      expect(moved_rook.x_position).to eq 3
+      expect(moved_rook.y_position).to eq 5
+      expect(moved_rook.moved).to eq true
+    end
+
+    it 'should return true and update position on non-obstructed move' do
+      expect(moved_rook.move!(2, 3)).to eq true
+      expect(moved_rook.x_position).to eq 2
+      expect(moved_rook.y_position).to eq 3
+      expect(moved_rook.moved).to eq true
+    end
+  end
+
+  describe 'obstructed move' do
+    it 'should return false and not update position on obstructed move' do
+      expect(rook.move!(7, 3)).to eq false
+      expect(rook.x_position).to eq 7
+      expect(rook.y_position).to eq 7
+      expect(rook.moved).to eq false
+    end
+
+    it 'should return false and not update position on obstructed move' do
+      expect(rook.move!(0, 7)).to eq false
+      expect(rook.x_position).to eq 7
+      expect(rook.y_position).to eq 7
+      expect(rook.moved).to eq false
+    end
+
+    it 'should return false and not update position on obstructed move' do
+      expect(moved_rook.move!(3, 7)).to eq false
+      expect(moved_rook.x_position).to eq 3
+      expect(moved_rook.y_position).to eq 3
+      expect(moved_rook.moved).to eq true
+    end
+
+    it 'should return false and not update position on obstructed move' do
+      expect(moved_rook.move!(3, 0)).to eq false
+      expect(moved_rook.x_position).to eq 3
+      expect(moved_rook.y_position).to eq 3
+      expect(moved_rook.moved).to eq true
     end
   end
 end

@@ -1,12 +1,145 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "mixins";
+@import 'https://fonts.googleapis.com/css?family=Rakkas';
 
 /* Global */
 
 hr {
-  margin-top: 0;
-  margin-bottom: 0;
+border: 0;
+height: 1px;
+background: #333;
+background-image: linear-gradient(to right, #ccc, #333, #ccc);
+}
+
+body {
+  background: url('/assets/concrete.png');
+  font-family: 'Rakkas', cursive;
+}
+
+.clr {
+  clear: both;
+}
+
+.navbar-forgot-password a {
+  color: white;
+}
+
+.form-inline {
+  color: white;
+}
+
+@media (min-width: 768px) {
+  .navbar-inverse {
+    height: 80px;
+  }
+
+  a.navbar-brand {
+    font-size: 35px !important;
+    margin-top: 20px !important;
+  }
+
+  .form-inline{
+    padding-top: 10px;
+  }
+
+  .navbar-checkbox {
+    padding-left: 35px;
+  }
+  
+  .navbar-forgot-password {
+    padding-left: 125px;
+  }
+  
+  ul.nav.navbar-nav.navbar-right li a {
+    color: white;
+    padding-top: 40px;
+    font-size: 20px;
+  }
+}
+
+/*FOOTER*/
+
+.site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.site-content {
+  flex: 1;
+}
+
+footer {
+  background-color: #979A9C;
+  height: 70px;
+}
+
+.footer-links li {
+  list-style-type: none;
+}
+
+.footer-links li a {
+  color: white;
+  text-decoration: none;
+}
+
+@media (max-width: 400px) {
+  .footer-links li a {
+    font-size: 10px;
+  }
+}
+
+/* INDEX */
+
+.navbar-inverse {
+  background-color: #979A9C;
+  border: none;
+  box-shadow: 3px 3px 3px;
+}
+
+.navbar-header .navbar-brand {
+  color: white;
+  text-decoration: none;
+  font-size: 28px;
+  font-weight: bold; 
+}
+
+ul.nav.navbar-nav.navbar-right li a {
+  color: white;
+}
+
+.nav .navbar-nav .navbar-right {
+  margin-right: 50px;
+}
+
+.login {
+  width: 100%;
+}
+
+.new-account {
+  padding-top: 45px;
+}
+
+.team-profile {
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.feature-pic {
+  border-radius: 5px;
+}
+
+p {
+  text-align: justify;
+}
+
+.hr {
+  margin-top: 15px;
+}
+
+#solutions {
+  margin-bottom: 15px;
 }
 
 /* CHESS BOARD */
