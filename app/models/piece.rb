@@ -37,6 +37,12 @@ class Piece < ActiveRecord::Base
   # All validation assumes white player is on the
   # 6-7 rows of the array, and black player is on
   # 0-1 rows of the array.
+
+  # Returns true if position is occupied by a hostile piece.
+  def enemy?(victim)
+    color != victim.color
+  end
+
   private
 
 
@@ -45,11 +51,6 @@ class Piece < ActiveRecord::Base
   # captured flag to true.
   def capture!(victim)
     victim.update(x_position: nil, y_position: nil, captured: true)
-  end
-
-  # Returns true if position is occupied by a hostile piece.
-  def enemy?(victim)
-    color != victim.color
   end
 
   # Returns the piece occupying the coordinates.

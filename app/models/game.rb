@@ -60,17 +60,14 @@ class Game < ActiveRecord::Base
    white_king = pieces.find_by(type: 'King', color: "white")
    black_king = pieces.find_by(type: 'King', color: "black")
 
-    wht_x = white_king.x_position
-    wht_y = white_king.y_position
-    blk_x = black_king.x_position
-    blk_y = black_king.y_position
-
     pieces.each do |piece|
       if piece.enemy?(white_king) &&
-         piece.valid_move?(wht_x, wht_y)
+         piece.valid_move?(white_king.x_position,
+                           white_king.y_position)
         return true
       elsif piece.enemy?(black_king) &&
-            piece.valid_move?(blk_x, blk_y)
+            piece.valid_move?(black_king.x_position,
+                              black_king.y_position)
         return true
       end
     end
