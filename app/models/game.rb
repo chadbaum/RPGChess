@@ -14,7 +14,7 @@ class Game < ActiveRecord::Base
     populate_right_white_half!
   end
 
-  # private
+  private
 
   def populate_left_black_half!
     pieces.create(type: 'Rook', x_position: 0, y_position: 0, color: 'black')
