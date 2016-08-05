@@ -14,17 +14,24 @@ class Game < ActiveRecord::Base
     populate_right_white_half!
   end
 
-  def check?
+  def white_check?
     white_king = pieces.find_by(type: 'King', color: 'white')
-    black_king = pieces.find_by(type: 'King', color: 'black')
     pieces.each do |piece|
       if piece.enemy?(white_king) &&
          piece.valid_move?(white_king.x_position,
                            white_king.y_position)
         return true
-      elsif piece.enemy?(black_king) &&
-            piece.valid_move?(black_king.x_position,
-                              black_king.y_position)
+      end
+    end
+    false
+  end
+
+  def black_check?
+    black_king = pieces.find_by(type: 'King', color: 'black')
+    pieces.each do |piece|
+      if piece.enemy?(black_king) &&
+         piece.valid_move?(black_king.x_position,
+                           black_king.y_position)
         return true
       end
     end
