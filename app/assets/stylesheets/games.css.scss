@@ -1,61 +1,6 @@
 // Place all the styles related to the games controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
-/* INDEX */
-
-.navbar-inverse {
-  background-color: #979A9C;
-  border: none;
-  box-shadow: 3px 3px 3px;
-}
-
-.navbar-header .navbar-brand {
-  color: white;
-  text-decoration: none;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-ul.nav.navbar-nav.navbar-right li a {
-  color: white;
-}
-
-.nav .navbar-nav .navbar-right {
-  margin-right: 50px;
-}
-
-.login {
-  width: 100%;
-}
-
-.new-account {
-  padding-top: 45px;
-}
-
-.team-profile {
-  border-radius: 5px;
-  margin-top: 10px;
-}
-
-.feature-pic {
-  border-radius: 5px;
-}
-
-p {
-  text-align: justify;
-}
-
-.hr {
-  margin-top: 15px;
-}
-
-#solutions {
-  margin-bottom: 15px;
-}
-
-/* CHESS BOARD */
-
 #chess-board {
   border: 7px solid #000;
   border-collapse: separate;
