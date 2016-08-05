@@ -5,11 +5,11 @@ class Game < ActiveRecord::Base
   has_many :pieces
   has_many :players
 
-  after_create :populate_left_black_half!,\
-               :populate_right_black_half!,\
-               :populate_black_pawns!,\
-               :populate_white_pawns!,\
-               :populate_left_white_half!,\
+  after_create :populate_left_black_half!,
+               :populate_right_black_half!,
+               :populate_black_pawns!,
+               :populate_white_pawns!,
+               :populate_left_white_half!,
                :populate_right_white_half!
 
   def populate_left_black_half!

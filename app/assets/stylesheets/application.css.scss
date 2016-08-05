@@ -1,7 +1,9 @@
 /*
  *= require jquery-ui
  */
-@import "mixins";
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "game";
+@import "mixins";
+@import "global";
+@import "games";
+@import "footer";
