@@ -1,12 +1,12 @@
 $(function() {
     // Picks up all the latest positions from
-    // the database
+    // the database and updates the view
     var $currentPositions = $('#piece_pos').data('positions');
 
     $.each( $currentPositions, function(key, value) {
       var currentCell = 'td[data-x="' + value.x_position + '"]' +
                         '[data-y="' + value.y_position + '"]';
-      //formula to map DB pieace IDs to the IDs in view
+      //formula to map DB piece IDs to the IDs in front view
       var pieceIdOnBoard = value.id % 32;
       $('#' + pieceIdOnBoard).appendTo(currentCell);
     });
@@ -51,13 +51,13 @@ $(function() {
         // is being dragged
         var $droppedItem = ui.draggable;
 
-        // gets the ID of the game and removed th last slash
+        // gets the ID of the game and removes the last slash
         // char if needed
         var $currentUri = (window.location.pathname)
 
         var $gameId = $currentUri.substring($currentUri.lastIndexOf('/') + 1);
 
-        // get the current host
+        // get the current host to use in AJAX
         var $currentHost = window.location.protocol + '//' + window.location.host;
         var $thisCell = this;
 
