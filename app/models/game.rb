@@ -15,9 +15,8 @@ class Game < ActiveRecord::Base
   end
 
   def check?
-   white_king = pieces.find_by(type: 'King', color: "white")
-   black_king = pieces.find_by(type: 'King', color: "black")
-
+    white_king = pieces.find_by(type: 'King', color: 'white')
+    black_king = pieces.find_by(type: 'King', color: 'black')
     pieces.each do |piece|
       if piece.enemy?(white_king) &&
          piece.valid_move?(white_king.x_position,
@@ -73,5 +72,4 @@ class Game < ActiveRecord::Base
     pieces.create(type: 'Knight', x_position: 6, y_position: 7, color: 'white')
     pieces.create(type: 'Rook', x_position: 7, y_position: 7, color: 'white')
   end
-
 end

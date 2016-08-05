@@ -21,47 +21,44 @@ RSpec.describe Game, type: :model do
     end
   end
 
-  let(:empty_game) { FactoryGirl.create(:game) }
-
   describe 'check?' do
+    let(:empty_game) { FactoryGirl.create(:game) }
     let(:blk_king) do
-    empty_game.pieces.create(
-      type: 'King',
-      color: 'black',
-      x_position: 3,
-      y_position: 4,
-      moved: true
-    )
-  end
-
-  let(:wht_king) do
-    empty_game.pieces.create(
-      type: 'King',
-      color: 'white',
-      x_position: 6,
-      y_position: 6,
-      moved: true
-    )
-  end
-
-  let(:queen) do
-    empty_game.pieces.create(
-      type: 'Queen',
-      color: 'white',
-      x_position: 1,
-      y_position: 5,
-      moved: true
-    )
-  end
-  let(:knight) do
-    empty_game.pieces.create(
-      type: 'Knight',
-      color: 'white',
-      x_position: 6,
-      y_position: 7,
-      moved: false
-    )
-  end
+      empty_game.pieces.create(
+        type: 'King',
+        color: 'black',
+        x_position: 3,
+        y_position: 4,
+        moved: true
+      )
+    end
+    let(:wht_king) do
+      empty_game.pieces.create(
+        type: 'King',
+        color: 'white',
+        x_position: 6,
+        y_position: 6,
+        moved: true
+      )
+    end
+    let(:queen) do
+      empty_game.pieces.create(
+        type: 'Queen',
+        color: 'white',
+        x_position: 1,
+        y_position: 5,
+        moved: true
+      )
+    end
+    let(:knight) do
+      empty_game.pieces.create(
+        type: 'Knight',
+        color: 'white',
+        x_position: 6,
+        y_position: 7,
+        moved: false
+      )
+    end
 
     it 'should return true if King is under check horizontally' do
       expect(queen.move!(1, 4)).to eq true
@@ -147,8 +144,5 @@ RSpec.describe Game, type: :model do
       expect(wht_king.moved).to eq true
       expect(empty_game.check?).to eq false
     end
-
-
   end
-
 end
