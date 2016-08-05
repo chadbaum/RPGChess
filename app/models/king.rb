@@ -8,7 +8,7 @@ class King < Piece
   end
 
   def checked?
-    game.check?
+
   end
 
   private
