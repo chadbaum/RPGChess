@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Game, type: :model do
   describe 'populate the board' do
-    game = FactoryGirl.create(:game)
+    let(:game) { FactoryGirl.create(:game, :populated) }
 
     it 'should give us 32 pieces upon board population' do
       expect(game.pieces.count).to eq 32
