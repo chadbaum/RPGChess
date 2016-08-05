@@ -1,18 +1,14 @@
 $(function() {
     // draw the chess board
-    for (var y = 0; y <= 7; y++) {
-        $("#chess-board").append(
-          "<tr>" +
-            "<td data-x='0' data-y='" + y + "'></td>" +
-            "<td data-x='1' data-y='" + y + "'></td>" +
-            "<td data-x='2' data-y='" + y + "'></td>" +
-            "<td data-x='3' data-y='" + y + "'></td>" +
-            "<td data-x='4' data-y='" + y + "'></td>" +
-            "<td data-x='5' data-y='" + y + "'></td>" +
-            "<td data-x='6' data-y='" + y + "'></td>" +
-            "<td data-x='7' data-y='" + y + "'></td>" +
-          "</tr>");
+    var result = [];
+    for (var i = 0; i <= 7; i++) {
+      result.push("<tr>");
+      for (var j = 0; j <= 7; j++) {
+        result.push("<td data-x='" + j + "data-y='" + i + "'></td>");
+      }
+      result.push("</tr>");
     }
+    $("#chess-board").append(result.join(""));
 
     // assign variables to initial positions based on
     // their data attributes
