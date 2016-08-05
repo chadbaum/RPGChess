@@ -14,7 +14,7 @@ class Game < ActiveRecord::Base
     populate_right_white_half!
   end
 
-  private
+  # private
 
   def populate_left_black_half!
     pieces.create(type: 'Rook', x_position: 0, y_position: 0, color: 'black')
@@ -67,14 +67,10 @@ class Game < ActiveRecord::Base
 
     pieces.each do |piece|
       if piece.enemy?(white_king) &&
-        piece.clear_diagonal_move?(wht_x, wht_y) ||
-        piece.clear_vertical_move?(wht_x, wht_y) ||
-        piece.clear_horizontal_move?(wht_x, wht_y)
+         piece.valid_move?(wht_x, wht_y)
         return true
-      elsif piece.enemy?(black_king)
-        piece.clear_diagonal_move?(blk_x, blk_y) ||
-        piece.clear_vertical_move?(blk_x, blk_y) ||
-        piece.clear_horizontal_move?(blk_x, blk_y)
+      elsif piece.enemy?(black_king) &&
+            piece.valid_move?(blk_x, blk_y)
         return true
       end
     end

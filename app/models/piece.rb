@@ -37,7 +37,7 @@ class Piece < ActiveRecord::Base
   # All validation assumes white player is on the
   # 6-7 rows of the array, and black player is on
   # 0-1 rows of the array.
-  # private
+  private
 
 
 
