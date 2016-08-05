@@ -4,11 +4,7 @@ class King < Piece
   # implemented yet and thus ignored. Obstruction
   # logic is not necessary for the king.
   def valid_move?(x, y)
-    moved?(x, y) && radial_move?(x, y)
-  end
-
-  def checked?
-
+    moved?(x, y) && radial_move?(x, y) && !game.check?
   end
 
   private
