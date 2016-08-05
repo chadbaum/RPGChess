@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Bishop, type: :model do
-  let(:game) { FactoryGirl.create(:game) }
+  let(:game) { FactoryGirl.create(:game, :populated) }
   let(:bishop) do
     game.pieces.find_by(
       type: 'Bishop',
