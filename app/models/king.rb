@@ -7,6 +7,10 @@ class King < Piece
     moved?(x, y) && radial_move?(x, y)
   end
 
+  def checked?
+    game.check?
+  end
+
   private
 
   # Returns true if the provided coordinates are within

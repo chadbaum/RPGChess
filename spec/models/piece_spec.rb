@@ -42,7 +42,55 @@ RSpec.describe Piece, type: :model do
       victim.reload
       expect(victim.x_position).to eq 3
       expect(victim.y_position).to eq 6
-      expect(victim.captured).to eq nil
+      expect(victim.captured).to eq false
     end
   end
+
+  # let(:king) do
+  #   game.pieces.find_by(
+  #     type: 'King',
+  #     color: 'white'
+  #   )
+  # end
+
+  # let(:moved_king) do
+  #   game.pieces.create(
+  #     type: 'King',
+  #     color: 'black',
+  #     x_position: 3,
+  #     y_position: 4,
+  #     moved: true
+  #   )
+  # end
+
+  # let(:rook) do
+  #   game.pieces.create(
+  #     type: 'Rook',
+  #     color: 'white',
+  #     x_position: 0,
+  #     y_position: 5,
+  #     moved: true
+  #   )
+  # end
+
+  # describe 'state of check' do
+  #   it 'should return true if black or white king is under check' do
+  #     expect(rook.move!(0, 4)).to eq true
+  #     expect(rook.x_position).to eq 0
+  #     expect(rook.y_position).to eq 4
+  #     expect(rook.moved).to eq true
+  #     expect(moved_king.checked?).to eq true
+  #   end
+  #   it "should return false if king is not under check" do
+
+  #     expect(rook.move!(0, 4)).to eq true
+  #     expect(rook.x_position).to eq 0
+  #     expect(rook.y_position).to eq 4
+  #     expect(rook.moved).to eq true
+  #     expect(king.checked?).to eq false
+  #   end
+
+  # end
+
+
 end

@@ -12,7 +12,6 @@ class Piece < ActiveRecord::Base
   LEFT = -1
   DOWN = 1
   UP = -1
-
   # Returns true and upates the piece's coordinates and moved
   # flag on a valid move where the tile is either empty or
   # occupied by an enemy piece.  Executes capture method
@@ -26,13 +25,21 @@ class Piece < ActiveRecord::Base
       capture!(victim)
     end
     update(x_position: x, y_position: y, moved: true)
+    # if checked_king(white_king)
+    # elsif checked_king(black_king)
+    # end
+
     true
   end
+
+
 
   # All validation assumes white player is on the
   # 6-7 rows of the array, and black player is on
   # 0-1 rows of the array.
-  private
+  # private
+
+
 
   # Updates a victim piece to nil coordinates and sets
   # captured flag to true.
@@ -145,11 +152,58 @@ class Piece < ActiveRecord::Base
     true
   end
 
-  def check_state
-    white_king = game.pieces.find_by(type: 'King', color: "white")
-    black_king = game.pieces.find_by(type: 'King', color: "black")
+     # white_king = game.pieces.find_by(type: 'King', color: "white")
+    # black_king = game.pieces.find_by(type: 'King', color: "black")
+  # def check?(checked_king)
+  #   game.pieces.each do |piece|
+  #     if piece.enemy?( checked_king ) &&
+  #        piece.move!(checked_king.x_position,\
+  #                    checked_king.y_position)
+  #       return true
+  #     end
+  #   end
+  #   return false
+  # end
 
-    game.pieces do |piece|
 
-  end
+  # def check_state?
+  #   white_king = game.pieces.find_by(type: 'King', color: "white")
+  #   black_king = game.pieces.find_by(type: 'King', color: "black")
+  #   # white_pieces = game.pieces.find_by(color: "white")
+  #   # black_pieces = game.pieces.find_by(color: "black")
+
+  #   wht_x = white_king.x_position
+  #   wht_y = white_king.y_position
+  #   blk_x = black_king.x_position
+  #   blk_y = black_king.y_position
+
+  # game.pieces.each do |piece|
+  #   if piece.enemy?(white_king) &&
+  #     ( piece.clear_diagonal_move?(wht_x, wht_y) ||
+  #       piece.clear_vertical_move?(wht_x, wht_y) ||
+  #       piece.clear_horizontal_move?(wht_x, wht_y) )
+  #     return true
+  #   elsif piece.enemy?(black_king)
+  #       piece.clear_diagonal_move?(blk_x, blk_y) ||
+  #       piece.clear_vertical_move?(blk_x, blk_y) ||
+  #       piece.clear_horizontal_move?(blk_x, blk_y)
+  #     return true
+  #   end
+  #   false
+
+  # game.pieces.each do |piece|
+  #   if piece.enemy?( white_king ) &&
+  #      piece.move!(wht_x, wht_y)
+  #     return true
+  #   elsif piece.enemy?( black_king ) &&
+  #         piece.move!(blk_x, blk_y)
+  #     return true
+  #   end
+  # end
+
+  # false
+  # end
+
+
+
 end
