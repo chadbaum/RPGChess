@@ -1,6 +1,5 @@
 <div class="border-form-div">
   <h2>Sign up</h2>
-
   <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= f.error_notification %>
       <%= f.email_field :email, required: true, autofocus: true, class:'devise-inputs', placeholder: 'Email Address' %>
@@ -10,5 +9,4 @@
   <% end %>
   <br />
   <%= render 'devise/shared/links' %>
-
 </div>
