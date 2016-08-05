@@ -14,6 +14,24 @@ class Game < ActiveRecord::Base
     populate_right_white_half!
   end
 
+  def check?
+   white_king = pieces.find_by(type: 'King', color: "white")
+   black_king = pieces.find_by(type: 'King', color: "black")
+
+    pieces.each do |piece|
+      if piece.enemy?(white_king) &&
+         piece.valid_move?(white_king.x_position,
+                           white_king.y_position)
+        return true
+      elsif piece.enemy?(black_king) &&
+            piece.valid_move?(black_king.x_position,
+                              black_king.y_position)
+        return true
+      end
+    end
+    false
+  end
+
   private
 
   def populate_left_black_half!
@@ -54,24 +72,6 @@ class Game < ActiveRecord::Base
     pieces.create(type: 'Bishop', x_position: 5, y_position: 7, color: 'white')
     pieces.create(type: 'Knight', x_position: 6, y_position: 7, color: 'white')
     pieces.create(type: 'Rook', x_position: 7, y_position: 7, color: 'white')
-  end
-
-  def check?
-   white_king = pieces.find_by(type: 'King', color: "white")
-   black_king = pieces.find_by(type: 'King', color: "black")
-
-    pieces.each do |piece|
-      if piece.enemy?(white_king) &&
-         piece.valid_move?(white_king.x_position,
-                           white_king.y_position)
-        return true
-      elsif piece.enemy?(black_king) &&
-            piece.valid_move?(black_king.x_position,
-                              black_king.y_position)
-        return true
-      end
-    end
-    false
   end
 
 end
