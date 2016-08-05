@@ -28,11 +28,11 @@ $(function() {
       // white cannot be dropped on white and vice versa
       // this logic can be removed when move! method works
       // properly
-      accept: function(item) {
-        if ( (item.hasClass('black-pcs') &&
+      accept: function(draggablePiece) {
+        if ( (draggablePiece.hasClass('black-pcs') &&
             $(this).children('i').hasClass('black-pcs') ) ) {
           return false;
-        } else if ( (item.hasClass('white-pcs') &&
+        } else if ( (draggablePiece.hasClass('white-pcs') &&
             $(this).children('i').hasClass('white-pcs') ) ) {
           return false;
         } else {
@@ -47,12 +47,13 @@ $(function() {
         var $posX = $(event.target).data('x');
         var $posY = $(event.target).data('y');
 
-        // get which item is being dragged
+        // get which HTML <i> element
+        // is being dragged
         var $droppedItem = ui.draggable;
 
         // gets the ID of the game and removed th last slash
         // char if needed
-        var $currentUri = (window.location.pathname)//.replace(/\/$/, '');
+        var $currentUri = (window.location.pathname)
 
         var $gameId = $currentUri.substring($currentUri.lastIndexOf('/') + 1);
 
@@ -78,7 +79,7 @@ $(function() {
         // element from old cell and appends to
         // new coordinates - 'thisCell'.
         .success( function() {
-            $droppedItem.detach().css({top: 0, left: 0}).appendTo($thisCell);
+          $droppedItem.detach().css({top: 0, left: 0}).appendTo($thisCell);
         });
       }
     });
