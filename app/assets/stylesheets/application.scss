@@ -114,7 +114,7 @@ ul.nav.navbar-nav.navbar-right li a {
 }
 
 .new-account {
-  padding-top: 45px;
+  padding-top: 20px;
 }
 
 .team-profile {
@@ -197,7 +197,7 @@ p {
 
 /* User sign in and sign forms. */
 
-.border-form-div {
+.border-form {
   max-width: 500px;
   padding: 19px 29px 29px;
   margin: 0 auto 20px;
@@ -211,14 +211,14 @@ p {
           box-shadow: 0 1px 2px rgba(0,0,0,.05);
 }
 
-.border-form-div .form-signin-heading,
-.border-form-div .checkbox {
+.border-form .form-signin-heading,
+.border-form .checkbox {
   margin-bottom: 10px;
 }
 
-.border-form-div input[type="text"],
-.border-form-div input[type="email"],
-.border-form-div input[type="password"] {
+.border-form input[type="text"],
+.border-form input[type="email"],
+.border-form input[type="password"] {
   font-size: 16px;
   height: auto;
   margin-bottom: 15px;
