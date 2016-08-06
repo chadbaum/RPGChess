@@ -36,7 +36,7 @@ RSpec.describe Game, type: :model do
     describe 'end_turn!' do
       it 'should increment move_number by 1 once the turn ended' do
         game.end_turn!
-        
+
         expect(game.move_number).to eq 2
       end
 
