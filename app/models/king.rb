@@ -5,7 +5,6 @@ class King < Piece
   # logic is not necessary for the king.
   def valid_move?(x, y)
     moved?(x, y) && radial_move?(x, y)
-      # (!game.black_check? || !game.white_check?)
   end
 
   private
