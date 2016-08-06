@@ -3,38 +3,38 @@ RSpec.describe Pawn, type: :model do
   let(:game) { FactoryGirl.create(:game, :populated) }
   let(:pawn) do
     game.pieces.find_by(
-      type: 'Pawn',
-      color: 'white',
-      x_position: 5,
-      y_position: 6
+    type: 'Pawn',
+    color: 'white',
+    x_position: 5,
+    y_position: 6
     )
   end
 
   let(:moved_pawn) do
     game.pieces.create(
-      type: 'Pawn',
-      color: 'white',
-      x_position: 3,
-      y_position: 4,
-      moved: true
+    type: 'Pawn',
+    color: 'white',
+    x_position: 3,
+    y_position: 4,
+    moved: true
     )
   end
 
   let(:white_pawn) do
     game.pieces.create(
-      type: 'Pawn',
-      color: 'white',
-      x_position: 7,
-      y_position: 4
+    type: 'Pawn',
+    color: 'white',
+    x_position: 7,
+    y_position: 4
     )
   end
 
   let(:black_pawn) do
     game.pieces.find_by(
-      type: 'Pawn',
-      color: 'black',
-      x_position: 6,
-      y_position: 1
+    type: 'Pawn',
+    color: 'black',
+    x_position: 6,
+    y_position: 1
     )
   end
 
@@ -47,7 +47,7 @@ RSpec.describe Pawn, type: :model do
 
     it 'should fail to create a red pawn' do
       expect { FactoryGirl.create(:pawn, color: 'red') }.to\
-        raise_error(ActiveRecord::RecordInvalid)
+      raise_error(ActiveRecord::RecordInvalid)
     end
   end
 
@@ -109,10 +109,10 @@ RSpec.describe Pawn, type: :model do
   describe 'obstructed move' do
     it 'should return false and not update position on obstructed move' do
       game.pieces.create(
-        type: 'Rook',
-        color: 'white',
-        x_position: 5,
-        y_position: 5
+      type: 'Rook',
+      color: 'white',
+      x_position: 5,
+      y_position: 5
       )
 
       expect(pawn.move!(5, 4)).to eq false
@@ -123,10 +123,10 @@ RSpec.describe Pawn, type: :model do
 
     it 'should return false and not update position on obstructed move' do
       game.pieces.create(
-        type: 'Rook',
-        color: 'white',
-        x_position: 5,
-        y_position: 5
+      type: 'Rook',
+      color: 'white',
+      x_position: 5,
+      y_position: 5
       )
 
       expect(pawn.move!(5, 5)).to eq false
@@ -136,6 +136,48 @@ RSpec.describe Pawn, type: :model do
     end
   end
 
+  describe 'diagonal capture' do
+    it 'should return false and not update position on capturing friendly' do
+      victim = game.pieces.create(
+      type: 'Rook',
+      color: 'white',
+      x_position: 2,
+      y_position: 3
+      )
+      expect(moved_pawn.move!(2, 3)).to eq false
+      expect(moved_pawn.x_position).to eq 3
+      expect(moved_pawn.y_position).to eq 4
+      expect(moved_pawn.moved).to eq true
+      victim.reload
+      expect(victim.x_position).to eq 2
+      expect(victim.y_position).to eq 3
+      expect(victim.captured).to eq false
+    end
+
+    it 'should return true and update position on capturing enemy' do
+      victim = game.pieces.create(
+      type: 'Rook',
+      color: 'black',
+      x_position: 2,
+      y_position: 3
+      )
+      expect(moved_pawn.move!(2, 3)).to eq true
+      expect(moved_pawn.x_position).to eq 2
+      expect(moved_pawn.y_position).to eq 3
+      expect(moved_pawn.moved).to eq true
+      victim.reload
+      expect(victim.x_position).to eq nil
+      expect(victim.y_position).to eq nil
+      expect(victim.captured).to eq true
+    end
+
+    it 'should return false when moving but not capturing diagonally' do
+      expect(moved_pawn.move!(4, 3)).to eq false
+      expect(moved_pawn.x_position).to eq 3
+      expect(moved_pawn.y_position).to eq 4
+      expect(moved_pawn.moved).to eq true
+    end
+  end
   describe 'en_passant?' do
     it 'should return false if no piece is found adjacent to the piece' do
       expect(pawn.en_passant?(3, 4)).to eq false
@@ -155,10 +197,10 @@ RSpec.describe Pawn, type: :model do
 
     it 'should return false if opponent piece is not pawn' do
       white_rook = game.pieces.create(
-        type: 'Rook',
-        color: 'white',
-        x_position: 7,
-        y_position: 4
+      type: 'Rook',
+      color: 'white',
+      x_position: 7,
+      y_position: 4
       )
 
       white_rook.move!(7, 3)
@@ -176,10 +218,10 @@ RSpec.describe Pawn, type: :model do
 
     it 'should return false if adjacent pawn is the same color' do
       another_white_pawn = game.pieces.create(
-        type: 'Pawn',
-        color: 'white',
-        x_position: 6,
-        y_position: 3
+      type: 'Pawn',
+      color: 'white',
+      x_position: 6,
+      y_position: 3
       )
 
       white_pawn.move!(7, 3)
