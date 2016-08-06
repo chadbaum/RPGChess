@@ -32,17 +32,17 @@
                 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
                   <div class="form-inline">
                     <div class="form-group">  
-                      <%= f.input :email, class: 'form-control', required: false, autofocus: true %>
+                      <%= f.email_field :email, class: 'form-control', required: false, autofocus: true, placeholder:'Email Address' %>
                     </div>
                     <div class="form-group">
-                      <%= f.input :password, class: 'form-control', required: false %>
+                      <%= f.password_field :password, class: 'form-control', required: false, placeholder: 'Password' %>
                     </div>
                     <div class="form-group">
-                      <%= f.button :submit, "LOG IN", class: "btn btn-success form-control" %>
+                      <%= f.button :submit, "Log In", class: 'btn btn-success form-control' %>
                     </div>
                   </div>
                   <div class="form-inline">
-                    <div class="checkbox navbar-checkbox">
+                    <div class="checkbox">
                       <label>
                         <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
                       </label>

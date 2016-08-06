@@ -1,7 +1,8 @@
 StoicChess::Application.routes.draw do
   devise_for :users
-  root 'static_pages#index'
-  resources :games, only: [:new, :create, :show, :index]
+  root 'games#index'
+
+  resources :games, only: [:new, :create, :show, :update]
 
   # The priority is based upon order of creation: first created ->
   # highest priority.
