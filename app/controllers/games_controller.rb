@@ -4,7 +4,7 @@ class GamesController < ApplicationController
   before_action :authenticate_user!, only: [:create, :new]
 
   def index
-    @user = User.find(params[:id])
+    # @user = User.find(params[:id])
   end
 
   def create
@@ -13,6 +13,7 @@ class GamesController < ApplicationController
 
   def show
     @piece_positions = Game.find(params[:id]).pieces
+    @user = User.find(params[:id])
   end
 
   def new
