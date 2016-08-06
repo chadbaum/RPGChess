@@ -19,8 +19,8 @@ class Game < ActiveRecord::Base
   private
 
   def create_players!
-    create_players(color: 'white')
-    create_players(color: 'black')
+    create_player(color: 'white')
+    create_player(color: 'black')
   end
 
   def white
