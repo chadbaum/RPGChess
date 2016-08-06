@@ -4,6 +4,7 @@ class GamesController < ApplicationController
   before_action :authenticate_user!, only: [:create, :new]
 
   def index
+    @user = User.find(params[:id])
   end
 
   def create
