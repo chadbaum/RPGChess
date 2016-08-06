@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Piece, type: :model do
-  let(:game) { FactoryGirl.create(:game) }
+  let(:game) { FactoryGirl.create(:game, :populated) }
   let(:queen) do
     game.pieces.find_by(
       type: 'Queen',
@@ -44,9 +44,9 @@ RSpec.describe Piece, type: :model do
       victim.reload
       expect(victim.x_position).to eq 3
       expect(victim.y_position).to eq 6
-      expect(victim.captured).to eq nil
       expect(game.move_number).to eq 1
       expect(game.turn).to eq 'white'
+      expect(victim.captured).to eq false
     end
   end
 end

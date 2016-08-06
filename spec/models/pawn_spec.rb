@@ -1,6 +1,6 @@
 require 'rails_helper'
 RSpec.describe Pawn, type: :model do
-  let(:game) { FactoryGirl.create(:game) }
+  let(:game) { FactoryGirl.create(:game, :populated) }
   let(:pawn) do
     game.pieces.find_by(
       type: 'Pawn',

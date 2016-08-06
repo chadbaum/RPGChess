@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160730194959) do
+ActiveRecord::Schema.define(version: 20160802123746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,8 +35,8 @@ ActiveRecord::Schema.define(version: 20160730194959) do
     t.integer  "y_position"
     t.integer  "game_id"
     t.integer  "player_id"
-    t.boolean  "captured"
-    t.boolean  "checkmate"
+    t.boolean  "captured",         default: false
+    t.boolean  "checkmate",        default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "moved",            default: false
