@@ -20,6 +20,15 @@ RSpec.describe King, type: :model do
       moved: true
     )
   end
+  let(:queen) do
+    empty_game.pieces.create(
+      type: 'Queen',
+      color: 'black',
+      x_position: 2,
+      y_position: 5,
+      moved: true
+    )
+  end
 
   describe 'creation' do
     it 'should create a white king' do
@@ -32,6 +41,8 @@ RSpec.describe King, type: :model do
         raise_error(ActiveRecord::RecordInvalid)
     end
   end
+
+
 
   describe 'moved' do
     it 'should return false if not moved' do
@@ -94,4 +105,9 @@ RSpec.describe King, type: :model do
       expect(moved_king.moved).to eq true
     end
   end
+  describe 'checked_cell?' do
+    it 'should return true and invalidate King move if new coords are checked' do
+
+    end
+end
 end
