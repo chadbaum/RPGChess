@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'pry'
 RSpec.describe Pawn, type: :model do
   let(:game) { FactoryGirl.create(:game, :populated) }
   let(:pawn) do
@@ -191,28 +192,7 @@ RSpec.describe Pawn, type: :model do
       white_pawn.move!(7, 3)
       black_pawn.move!(6, 3)
 
-      expect(black_pawn.en_passant?(6, 3)).to eq true
-    end
-
-    it 'should return false if opponent piece is not pawn' do
-      white_rook = game.pieces.create(
-      type: 'Rook',
-      color: 'white',
-      x_position: 7,
-      y_position: 4
-      )
-
-      white_rook.move!(7, 3)
-      black_pawn.move!(6, 3)
-
-      expect(black_pawn.en_passant?(6, 3)).to eq false
-    end
-
-    it 'should return false if opponent pawn only move 1 space in last turn' do
-      white_pawn.move!(7, 3)
-      black_pawn.move!(6, 2)
-
-      expect(black_pawn.en_passant?(6, 2)).to eq false
+      expect(white_pawn.en_passant_capture?(6, 2)).to eq true
     end
 
     it 'should return false if adjacent pawn is the same color' do
@@ -220,12 +200,13 @@ RSpec.describe Pawn, type: :model do
       type: 'Pawn',
       color: 'white',
       x_position: 6,
-      y_position: 3
+      y_position: 5
       )
 
       white_pawn.move!(7, 3)
-
-      expect(another_white_pawn.en_passant?(6, 3)).to eq false
+      another_white_pawn.move!(6, 3)
+      
+      expect(white_pawn.en_passant_capture?(6, 2)).to eq false
     end
   end
 end
