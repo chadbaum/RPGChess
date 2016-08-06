@@ -1,5 +1,4 @@
 # Pawn behavior.
-require 'pry'
 class Pawn < Piece
   # Returns true if the pawn made a valid upgraded forward
   # move on its first move, or a regular forward move, or
@@ -10,6 +9,24 @@ class Pawn < Piece
     return true if fwd_diagonal_attack?(x, y)
     moved ? one_fwd_move?(x, y) : first_fwd_move?(x, y) && !fwd_attack?(x, y)
   end
+
+  def en_passant_capture?(x, y)
+    victim = last_moved_piece
+    return true if en_passant?(x, y)
+    return false if victim.color == color
+    return true if x == victim.x_position &&
+                   (y == victim.y_position - 1 || y == victim.y_position + 1)
+  end
+
+  # Updates the piece's type from Pawn to the new type
+  # provided.
+  def promote!(new_type)
+    options = %w(Bishop Knight Queen Rook)
+    raise ArgumentError unless options.include?(new_type)
+    update(type: new_type)
+  end
+
+  private
 
   # En Passant Logic:
   # 1)target pawn just moved 2 space forward
@@ -24,31 +41,10 @@ class Pawn < Piece
   def en_passant?(x, y)
     return false if last_moved_piece.nil?
     return false unless last_moved_piece.y_distance(y - 2) == 2 &&
-    type == 'Pawn'
+                        type == 'Pawn'
     [valid_en_passant_pawn?(x, y, true), valid_en_passant_pawn?(x, y, false)]
-    .include?(true)
+      .include?(true)
   end
-
-  def en_passant_capture?(x, y)
-    victim = last_moved_piece
-    return true if en_passant?(x, y)
-    return false if victim.color == color
-    return true if x == victim.x_position && (y == victim.y_position - 1 || y == victim.y_position + 1)
-  end
-
-  def last_moved_piece
-    game.pieces.find_by(last_moved_piece: game.move_number - 1)
-  end
-
-  # Updates the piece's type from Pawn to the new type
-  # provided.
-  def promote!(new_type)
-    options = %w(Bishop Knight Queen Rook)
-    raise ArgumentError unless options.include?(new_type)
-    update(type: new_type)
-  end
-
-  private
 
   # check for any adjacent piece
   # return false if none if found
@@ -57,7 +53,7 @@ class Pawn < Piece
     adjacent_piece = occupant_piece(x + (adjacent ? 1 : -1), y)
     return false if adjacent_piece.nil?
     return true if adjacent_piece.type ==
-    'Pawn' && adjacent_piece.color != color
+                   'Pawn' && adjacent_piece.color != color
     false
   end
 
@@ -99,12 +95,14 @@ class Pawn < Piece
     return false unless occupant_piece(x, y)
     return false unless x == x_position + 1 || x == x_position - 1
     y == if color == 'black'
-      y_position + 1
-    else
-      y_position - 1
-    end
+           y_position + 1
+         else
+           y_position - 1
+         end
   end
 
   # find the last moved piece by subtracting current move number - 1
-
+  def last_moved_piece
+    game.pieces.find_by(last_moved_piece: game.move_number - 1)
+  end
 end
