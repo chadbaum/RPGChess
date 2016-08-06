@@ -29,7 +29,7 @@ RSpec.describe King, type: :model do
       moved: true
     )
   end
-   let(:wht_king) do
+  let(:wht_king) do
     empty_game.pieces.create(
       type: 'King',
       color: 'white',
@@ -50,8 +50,6 @@ RSpec.describe King, type: :model do
         raise_error(ActiveRecord::RecordInvalid)
     end
   end
-
-
 
   describe 'moved' do
     it 'should return false if not moved' do
@@ -114,6 +112,7 @@ RSpec.describe King, type: :model do
       expect(moved_king.moved).to eq true
     end
   end
+
   describe 'checked_cell?' do
     it 'should return true if new coords are in vertical enemy attack line' do
       expect(blk_queen.move!(2, 5)).to eq true
