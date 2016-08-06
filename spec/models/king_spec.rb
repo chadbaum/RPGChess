@@ -116,21 +116,13 @@ RSpec.describe King, type: :model do
   describe 'checked_cell?' do
     it 'should return true if new coords are in vertical enemy attack line' do
       expect(blk_queen.move!(2, 5)).to eq true
-      expect(blk_queen.x_position).to eq 2
-      expect(blk_queen.y_position).to eq 5
       expect(wht_king.move!(2, 3)).to eq false
       expect(wht_king.checked_cell?(2, 3)).to eq true
-      expect(wht_king.x_position).to eq 3
-      expect(wht_king.y_position).to eq 3
     end
     it 'should return true if new coords are in diagonal enemy attack line' do
       expect(blk_queen.move!(2, 5)).to eq true
-      expect(blk_queen.x_position).to eq 2
-      expect(blk_queen.y_position).to eq 5
       expect(wht_king.move!(4, 3)).to eq false
       expect(wht_king.checked_cell?(4, 3)).to eq true
-      expect(wht_king.x_position).to eq 3
-      expect(wht_king.y_position).to eq 3
     end
   end
 end
