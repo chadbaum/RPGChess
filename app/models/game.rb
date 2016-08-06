@@ -5,7 +5,7 @@ class Game < ActiveRecord::Base
   has_many :pieces
   has_many :players
   has_many :users, through: :players
-  after_create :create_players!
+  after_save :create_players!
 
   def populate!
     populate_left_black_half!
@@ -16,19 +16,19 @@ class Game < ActiveRecord::Base
     populate_right_white_half!
   end
 
-  private
-
-  def create_players!
-    create_player(color: 'white')
-    create_player(color: 'black')
-  end
-
   def white
     players.find_by(color: 'white')
   end
 
   def black
     players.find_by(color: 'black')
+  end
+
+  private
+
+  def create_players!
+    players.create(color: 'white')
+    players.create(color: 'black')
   end
 
   def populate_left_black_half!
