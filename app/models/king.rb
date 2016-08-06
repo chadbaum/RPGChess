@@ -8,15 +8,7 @@ class King < Piece
       (!game.black_check? || !game.white_check?)
   end
 
-  private
-
-  # Returns true if the provided coordinates are within
-  # 1 adjacent space of the king in any direction.
-  def radial_move?(x, y)
-    x_distance(x) <= 1 && y_distance(y) <= 1
-  end
-
-  # returns true if the provided coords are on the line of
+  # Returns true if the provided coords are on the line of
   # attack of any of the enemy piece.
   def checked_cell?(x, y)
     if color == 'white'
@@ -34,4 +26,13 @@ class King < Piece
     end
     false
   end
+
+  private
+
+  # Returns true if the provided coordinates are within
+  # 1 adjacent space of the king in any direction.
+  def radial_move?(x, y)
+    x_distance(x) <= 1 && y_distance(y) <= 1
+  end
+
 end
