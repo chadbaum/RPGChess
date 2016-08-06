@@ -177,15 +177,14 @@ RSpec.describe Pawn, type: :model do
       expect(moved_pawn.y_position).to eq 4
       expect(moved_pawn.moved).to eq true
     end
-  end
-  describe 'en_passant?' do
+
     it 'should return false if no piece is found adjacent to the piece' do
-      expect(pawn.en_passant?(3, 4)).to eq false
+      expect(pawn.move!(3, 4)).to eq false
     end
 
     # Check edge case at the start of game
     it 'should return false if last moved piece is nil' do
-      expect(pawn.en_passant?(3, 4)).to eq false
+      expect(pawn.move!(3, 4)).to eq false
     end
 
     it 'should return true if opponent pawn move 2 space in last turn' do
