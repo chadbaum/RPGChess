@@ -4,8 +4,7 @@ class King < Piece
   # implemented yet and thus ignored. Obstruction
   # logic is not necessary for the king.
   def valid_move?(x, y)
-    moved?(x, y) && radial_move?(x, y) && !checked_cell?(x, y) &&
-      (!game.black_check? || !game.white_check?)
+    moved?(x, y) && radial_move?(x, y) && !checked_cell?(x, y)
   end
 
   # Returns true if the provided coords are on the line of

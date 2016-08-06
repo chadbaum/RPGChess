@@ -32,15 +32,6 @@ RSpec.describe Game, type: :model do
         moved: true
       )
     end
-    let(:wht_king) do
-      empty_game.pieces.create(
-        type: 'King',
-        color: 'white',
-        x_position: 6,
-        y_position: 6,
-        moved: true
-      )
-    end
     let(:queen) do
       empty_game.pieces.create(
         type: 'Queen',
@@ -62,93 +53,39 @@ RSpec.describe Game, type: :model do
 
     it 'should return true if King is under check horizontally' do
       expect(queen.move!(1, 4)).to eq true
-      expect(queen.x_position).to eq 1
-      expect(queen.y_position).to eq 4
-      expect(queen.moved).to eq true
       expect(blk_king.x_position).to eq 3
       expect(blk_king.y_position).to eq 4
-      expect(blk_king.moved).to eq true
-
-      expect(wht_king.x_position).to eq 6
-      expect(wht_king.y_position).to eq 6
-      expect(wht_king.moved).to eq true
       expect(empty_game.black_check?).to eq true
-      expect(empty_game.white_check?).to eq false
     end
     it 'should return true if King is under check vertically' do
       expect(queen.move!(3, 7)).to eq true
-      expect(queen.x_position).to eq 3
-      expect(queen.y_position).to eq 7
-      expect(queen.moved).to eq true
       expect(blk_king.x_position).to eq 3
       expect(blk_king.y_position).to eq 4
-      expect(blk_king.moved).to eq true
-
-      expect(wht_king.x_position).to eq 6
-      expect(wht_king.y_position).to eq 6
-      expect(wht_king.moved).to eq true
       expect(empty_game.black_check?).to eq true
-      expect(empty_game.white_check?).to eq false
     end
     it 'should return true if King is under check diagonally' do
       expect(queen.move!(1, 2)).to eq true
-      expect(queen.x_position).to eq 1
-      expect(queen.y_position).to eq 2
-      expect(queen.moved).to eq true
       expect(blk_king.x_position).to eq 3
       expect(blk_king.y_position).to eq 4
-      expect(blk_king.moved).to eq true
-
-      expect(wht_king.x_position).to eq 6
-      expect(wht_king.y_position).to eq 6
-      expect(wht_king.moved).to eq true
       expect(empty_game.black_check?).to eq true
-      expect(empty_game.white_check?).to eq false
     end
     it 'should return true if King is under check in L-shape move' do
       expect(knight.move!(5, 5)).to eq true
-      expect(knight.x_position).to eq 5
-      expect(knight.y_position).to eq 5
-      expect(knight.moved).to eq true
       expect(blk_king.x_position).to eq 3
       expect(blk_king.y_position).to eq 4
-      expect(blk_king.moved).to eq true
-
-      expect(wht_king.x_position).to eq 6
-      expect(wht_king.y_position).to eq 6
-      expect(wht_king.moved).to eq true
       expect(empty_game.black_check?).to eq true
-      expect(empty_game.white_check?).to eq false
     end
     it 'should return false if King is not under check' do
       expect(queen.move!(1, 3)).to eq true
-      expect(queen.x_position).to eq 1
-      expect(queen.y_position).to eq 3
-      expect(queen.moved).to eq true
       expect(blk_king.x_position).to eq 3
       expect(blk_king.y_position).to eq 4
-      expect(blk_king.moved).to eq true
-
-      expect(wht_king.x_position).to eq 6
-      expect(wht_king.y_position).to eq 6
-      expect(wht_king.moved).to eq true
       expect(empty_game.black_check?).to eq false
-      expect(empty_game.white_check?).to eq false
     end
     it 'should return false if King is not under check in L-shape move' do
       expect(knight.move!(7, 5)).to eq true
-      expect(knight.x_position).to eq 7
-      expect(knight.y_position).to eq 5
-      expect(knight.moved).to eq true
       expect(blk_king.x_position).to eq 3
       expect(blk_king.y_position).to eq 4
-      expect(blk_king.moved).to eq true
-
-      expect(wht_king.x_position).to eq 6
-      expect(wht_king.y_position).to eq 6
-      expect(wht_king.moved).to eq true
       expect(empty_game.black_check?).to eq false
-      expect(empty_game.white_check?).to eq false
     end
   end
 end

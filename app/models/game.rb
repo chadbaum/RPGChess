@@ -16,9 +16,8 @@ class Game < ActiveRecord::Base
 
   def white_check?
     white_king = pieces.find_by(type: 'King', color: 'white')
-    pieces.each do |piece|
-      if piece.enemy?(white_king) &&
-         piece.valid_move?(white_king.x_position,
+    pieces.select { |p| p.color = 'black' }.each do |piece|
+      if piece.valid_move?(white_king.x_position,
                            white_king.y_position)
         return true
       end
@@ -28,9 +27,8 @@ class Game < ActiveRecord::Base
 
   def black_check?
     black_king = pieces.find_by(type: 'King', color: 'black')
-    pieces.each do |piece|
-      if piece.enemy?(black_king) &&
-         piece.valid_move?(black_king.x_position,
+    pieces.select { |p| p.color = 'white' }.each do |piece|
+      if piece.valid_move?(black_king.x_position,
                            black_king.y_position)
         return true
       end
