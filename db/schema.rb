@@ -29,8 +29,8 @@ ActiveRecord::Schema.define(version: 20160802123746) do
   end
 
   create_table "pieces", force: :cascade do |t|
-    t.string   "color"
-    t.string   "type"
+    t.string   "color",      limit: 255
+    t.string   "type",       limit: 255
     t.integer  "x_position"
     t.integer  "y_position"
     t.integer  "game_id"
