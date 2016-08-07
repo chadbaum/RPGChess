@@ -25,9 +25,6 @@ class Piece < ActiveRecord::Base
       capture!(victim)
     end
     update(x_position: x, y_position: y, moved: true)
-    # if checked_king(white_king)
-    # elsif checked_king(black_king)
-    # end
 
     true
   end
@@ -39,6 +36,22 @@ class Piece < ActiveRecord::Base
   # Returns true if position is occupied by a hostile piece.
   def enemy?(victim)
     color != victim.color
+  end
+
+  # Returns true if the provided coords are on the line of
+  # attack of any of the enemy piece. Method used to validate
+  # King's move and checkmate state
+  def checked_cell?(x, y)
+    if color == 'white'
+      black_pcs.each do |p|
+        return true if p.valid_move?(x, y)
+      end
+    else
+      white_pcs.each do |p|
+        return true if p.valid_move?(x, y)
+      end
+    end
+    false
   end
 
   private
@@ -147,5 +160,16 @@ class Piece < ActiveRecord::Base
       )
     end
     true
+  end
+
+  # selects all black or white pieces
+  # used as helper method to avoid rubocop ABC
+  # eror on checked_cell? method.
+  def black_pcs
+    game.pieces.select { |p| p.color == 'black' }
+  end
+
+  def white_pcs
+    game.pieces.select { |p| p.color == 'white' }
   end
 end
