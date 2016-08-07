@@ -26,22 +26,25 @@ class Pawn < Piece
   # 3)can only capture by opponent's pawn
   # 4)opponent pawn must be on the left or right of target piece's y axis
 
-  # Find the last moved piece
-  # check if en passant is possible
-  # return true if victim piece y coordinates is +1 or -1 from target spot
+  # En Passant Capture logic
   def en_passant_capture?(x, y)
+    return true if en_passant_possible?(x, y) || en_passant_y_diff?(x, y)
+  end
+
+  # Return false if victim piece is nil or same color
+  # Return true  if victim piece's y axis difference is equal to 1
+  def en_passant_y_diff?(x, y)
     victim = last_moved_piece
     return false if victim.nil? || victim.color == color
-    return true if en_passant?(x, y)
     return true if  x == victim.x_position &&
                     (y == victim.y_position - 1 || y == victim.y_position + 1)
   end
 
-  # return false if last move piece is nil (Start of game)
-  # return false last moved piece is not pawn or its y axis difference is !2
-  # check both both adjacent side of pawn
-  # if any have valid En Passant pawn piece, return true
-  def en_passant?(x, y)
+  # Return false if last move piece is nil (Start of game)
+  # Return false last moved piece is not pawn or its y axis difference is !2
+  # Check both both adjacent side of pawn
+  # If any have valid En Passant pawn piece, return true
+  def en_passant_possible?(x, y)
     return false if last_moved_piece.nil?
     return false unless last_moved_piece.y_distance(y - 2) == 2 &&
                         type == 'Pawn'
@@ -49,9 +52,9 @@ class Pawn < Piece
       .include?(true)
   end
 
-  # check for any adjacent piece
-  # return false if none if found
-  # return true if opponent's pawn is found
+  # Check for any adjacent piece
+  # Return false if none if found
+  # Return true if opponent's pawn is found
   def valid_en_passant_pawn?(x, y, adjacent)
     adjacent_piece = occupant_piece(x + (adjacent ? 1 : -1), y)
     return false if adjacent_piece.nil?
@@ -104,7 +107,7 @@ class Pawn < Piece
          end
   end
 
-  # find the last moved piece by subtracting current move number - 1
+  # Find the last moved piece by subtracting current move number - 1
   def last_moved_piece
     game.pieces.find_by(last_moved_piece: game.move_number - 1)
   end
