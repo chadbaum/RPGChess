@@ -192,7 +192,7 @@ RSpec.describe Pawn, type: :model do
       white_pawn.move!(7, 3)
       black_pawn.move!(6, 3)
 
-      expect(white_pawn.en_passant_capture?(6, 2)).to eq true
+      expect(white_pawn.move!(6, 2)).to eq true
     end
 
     it 'should return false if adjacent pawn is the same color' do
@@ -206,7 +206,7 @@ RSpec.describe Pawn, type: :model do
       white_pawn.move!(7, 3)
       another_white_pawn.move!(6, 3)
 
-      expect(white_pawn.en_passant_capture?(6, 2)).to eq false
+      expect(white_pawn.move!(6, 2)).to eq false
     end
   end
 end
