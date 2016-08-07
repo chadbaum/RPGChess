@@ -73,9 +73,11 @@ class Game < ActiveRecord::Base
 
   def create_piece(type, color, x_pos, y_pos)
     if color == 'white'
-      white.pieces.create(type: type, x_position: x_pos, y_position: y_pos, color: 'white', game_id: id)
+      white.pieces.create(type: type, x_position: x_pos, y_position: y_pos,
+                          color: 'white', game_id: id)
     else
-      black.pieces.create(type: type, x_position: x_pos, y_position: y_pos, color: 'black', game_id: id)
+      black.pieces.create(type: type, x_position: x_pos, y_position: y_pos,
+                          color: 'black', game_id: id)
     end
   end
 end
