@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'pry'
 
 RSpec.describe Game, type: :model do
   describe 'populate the board' do
@@ -45,6 +44,14 @@ RSpec.describe Game, type: :model do
 
         expect(game.turn).to eq 'black'
       end
+    end
+
+    it 'should show first turn of game belong to white player' do
+      expect(game.turn).to eq 'white'
+    end
+
+    it 'should show move number as 1' do
+      expect(game.move_number).to eq 1
     end
   end
 end

@@ -6,7 +6,7 @@ class Pawn < Piece
   # takes place by moving forward. Check, and checkmate logic
   # are not implemented yet and thus ignored.
   def valid_move?(x, y)
-    return true if fwd_diagonal_attack?(x, y)
+    return true if fwd_diagonal_attack?(x, y) || en_passant_capture?(x, y)
     moved ? one_fwd_move?(x, y) : first_fwd_move?(x, y) && !fwd_attack?(x, y)
   end
 
@@ -31,10 +31,10 @@ class Pawn < Piece
   # return true if victim piece y coordinates is +1 or -1 from target spot
   def en_passant_capture?(x, y)
     victim = last_moved_piece
-    return true if en_passant?(x, y)
     return false if victim.nil? || victim.color == color
-    return true if x == victim.x_position &&
-                   (y == victim.y_position - 1 || y == victim.y_position + 1)
+    return true if en_passant?(x, y)
+    return true if  x == victim.x_position &&
+                    (y == victim.y_position - 1 || y == victim.y_position + 1)
   end
 
   # return false if last move piece is nil (Start of game)
@@ -95,7 +95,7 @@ class Pawn < Piece
   # that is one space diagonally forward to the left or right
   # of the pawn's starting position.
   def fwd_diagonal_attack?(x, y)
-    return false unless occupant_piece(x, y) || en_passant_capture?(x, y)
+    return false unless occupant_piece(x, y)
     return false unless x == x_position + 1 || x == x_position - 1
     y == if color == 'black'
            y_position + 1

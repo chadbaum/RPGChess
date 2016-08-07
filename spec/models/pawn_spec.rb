@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'pry'
 RSpec.describe Pawn, type: :model do
   let(:game) { FactoryGirl.create(:game, :populated) }
   let(:pawn) do
