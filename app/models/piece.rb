@@ -24,8 +24,8 @@ class Piece < ActiveRecord::Base
       return false unless enemy?(victim)
       capture!(victim)
     end
+    return false if x_position == x && y_position == y && check?(color)
     update(x_position: x, y_position: y, moved: true)
-
     true
   end
 
@@ -82,24 +82,21 @@ class Piece < ActiveRecord::Base
   end
 
   # Returns true if the coordinates provided
-  # are different from the piece's starting
-  # position.
+  # are different from the piece's starting position.
   def moved?(x, y)
     x != x_position || y != y_position
   end
 
-  # Returns true if the coordinates provided
-  # have the same x-axis value and there are no
-  # pieces in between.
+  # Returns true if the coordinates provided have the
+  # same x-axis value and there are no pieces in between.
   def clear_horizontal_move?(x, y)
     return false unless y_distance(y) == 0
     distance = x_distance(x)
     path_clear?(x, y, distance)
   end
 
-  # Returns true if the coordinates provided
-  # have the same y-axis value and there are no
-  # pieces in between.
+  # Returns true if the coordinates provided have
+  # the same y-axis value and there are no pieces in between.
   def clear_vertical_move?(x, y)
     return false unless x_distance(x) == 0
     distance = y_distance(y)
@@ -107,9 +104,8 @@ class Piece < ActiveRecord::Base
   end
 
   # Returns true if the coordinates provided
-  # are the same distance away from the
-  # origin point along both axis and there are no
-  # pieces in between.
+  # are the same distance away from the origin point along
+  # both axis and there are no pieces in between.
   def clear_diagonal_move?(x, y)
     return false unless x_distance(x) == y_distance(y)
     distance = x_distance(x)
@@ -148,9 +144,8 @@ class Piece < ActiveRecord::Base
     coordinate_sets
   end
 
-  # Returns true if no x-y coordinate pairs
-  # between origin and destination have a piece
-  # present.
+  # Returns true if no x-y coordinate pairs between
+  # origin and destination have a piece present.
   def path_clear?(x, y, distance)
     coordinates = generate_path_coordinates(x, y, distance)
     coordinates.each do |coordinate|
@@ -160,16 +155,5 @@ class Piece < ActiveRecord::Base
       )
     end
     true
-  end
-
-  # selects all black or white pieces
-  # used as helper method to avoid rubocop ABC
-  # eror on checked_cell? method.
-  def black_pcs
-    game.pieces.select { |p| p.color == 'black' }
-  end
-
-  def white_pcs
-    game.pieces.select { |p| p.color == 'white' }
   end
 end

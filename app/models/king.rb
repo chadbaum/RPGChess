@@ -7,8 +7,6 @@ class King < Piece
     moved?(x, y) && radial_move?(x, y) && !checked_cell?(x, y)
   end
 
-
-
   private
 
   # Returns true if the provided coordinates are within

@@ -15,7 +15,7 @@ class Game < ActiveRecord::Base
   end
 
   def check?(color)
-    king = king(color)
+    king = game.pieces.find_by(type: 'King', color: color)
     enemy_pcs(color).each do |p|
       return true if p.valid_move?(king.x_position, king.y_position)
     end
@@ -24,12 +24,9 @@ class Game < ActiveRecord::Base
 
   private
 
-  def king(color)
-    pieces.find_by(type: 'King', color: color)
-  end
-
+  # selects enemy pieces that are not captured
   def enemy_pcs(color)
-    pieces.select { |p| p.color != color }
+    game.pieces.select { |p| p.color != color && p.captured != true }
   end
 
   def populate_left_black_half!
