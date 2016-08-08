@@ -24,13 +24,13 @@ class Piece < ActiveRecord::Base
       return false unless enemy?(victim)
       capture!(victim)
     end
-    return false if check_state(x, y)
+    return false if check_state(x, y, color)
     update(x_position: x, y_position: y, moved: true)
     true
   end
 
-  def check_state(x, y)
-    x_position == x && y_position == y && game.check?(color)
+  def check_state(x, y, color)
+    x_position = x && y_position = y && game.check?(color)
   end
 
   # All validation assumes white player is on the
