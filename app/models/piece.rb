@@ -30,7 +30,12 @@ class Piece < ActiveRecord::Base
   end
 
   def check_state(x, y, color)
-    x_position = x && y_position = y && game.check?(color)
+    return false if x_position == x && y_position == y && game.check?(color)
+  end
+
+  def move?(x, y)
+    update(x_position: x, y_position: y)
+    true
   end
 
   # All validation assumes white player is on the

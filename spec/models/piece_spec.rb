@@ -30,7 +30,7 @@ RSpec.describe Piece, type: :model do
   end
   let(:wht_pawn) do
     game.pieces.create(
-      type: 'Pawn',
+      type: 'Rook',
       color: 'white',
       x_position: 5,
       y_position: 3,
@@ -58,9 +58,15 @@ RSpec.describe Piece, type: :model do
   end
   describe 'move that opens check' do
     it 'should return false if pawn is opening a King for check' do
+      expect(blk_queen.x_position).to eq 3
+      expect(blk_queen.y_position).to eq 3
       expect(wht_king.x_position).to eq 6
       expect(wht_king.y_position).to eq 3
+      expect(wht_pawn.x_position).to eq 5
+      expect(wht_pawn.y_position).to eq 3
       expect(wht_pawn.move!(5, 2)).to eq false
+      expect(wht_pawn.x_position).to eq 5
+      expect(wht_pawn.y_position).to eq 3
       expect(game.check?(wht_king.color)).to eq false
     end
   end
