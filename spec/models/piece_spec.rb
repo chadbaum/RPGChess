@@ -19,6 +19,15 @@ RSpec.describe Piece, type: :model do
       moved: true
     )
   end
+  let(:blk_king) do
+    game.pieces.create(
+      type: 'King',
+      color: 'black',
+      x_position: 0,
+      y_position: 4,
+      moved: true
+    )
+  end
   let(:wht_king) do
     game.pieces.create(
       type: 'King',
@@ -30,7 +39,25 @@ RSpec.describe Piece, type: :model do
   end
   let(:wht_pawn) do
     game.pieces.create(
+      type: 'Pawn',
+      color: 'white',
+      x_position: 5,
+      y_position: 3,
+      moved: true
+    )
+  end
+  let(:wht_rook) do
+    game.pieces.create(
       type: 'Rook',
+      color: 'white',
+      x_position: 4,
+      y_position: 3,
+      moved: true
+    )
+  end
+  let(:wht_knight) do
+    game.pieces.create(
+      type: 'Knight',
       color: 'white',
       x_position: 5,
       y_position: 3,
@@ -57,7 +84,7 @@ RSpec.describe Piece, type: :model do
     end
   end
   describe 'move that opens check' do
-    it 'should return false if pawn is opening a King for check' do
+    it 'should return false if Pawn is opening a King for check' do
       expect(blk_queen.x_position).to eq 3
       expect(blk_queen.y_position).to eq 3
       expect(wht_king.x_position).to eq 6
@@ -65,8 +92,30 @@ RSpec.describe Piece, type: :model do
       expect(wht_pawn.x_position).to eq 5
       expect(wht_pawn.y_position).to eq 3
       expect(wht_pawn.move!(5, 2)).to eq false
-      expect(wht_pawn.x_position).to eq 5
-      expect(wht_pawn.y_position).to eq 3
+      expect(game.check?(wht_king.color)).to eq false
+    end
+    it 'should return false if Rook is opening a King for check' do
+      expect(blk_queen.x_position).to eq 3
+      expect(blk_queen.y_position).to eq 3
+      expect(wht_king.x_position).to eq 6
+      expect(wht_king.y_position).to eq 3
+      expect(wht_rook.x_position).to eq 4
+      expect(wht_rook.y_position).to eq 3
+      expect(wht_rook.move!(4, 7)).to eq false
+      expect(game.check?(wht_king.color)).to eq false
+    end
+    it 'should return false if Knight is opening a King for check' do
+      expect(blk_king.x_position).to eq 0
+      expect(blk_king.y_position).to eq 4
+      expect(blk_queen.x_position).to eq 3
+      expect(blk_queen.y_position).to eq 3
+      expect(wht_king.x_position).to eq 6
+      expect(wht_king.y_position).to eq 3
+      expect(wht_rook.x_position).to eq 4
+      expect(wht_rook.y_position).to eq 3
+      expect(wht_king.move!(5, 2)).to eq true
+      expect(blk_queen.move!(3, 4)).to eq true
+      expect(wht_rook.move!(4, 5)).to eq false
       expect(game.check?(wht_king.color)).to eq false
     end
   end

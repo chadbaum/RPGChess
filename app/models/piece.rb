@@ -2,7 +2,6 @@
 class Piece < ActiveRecord::Base
   belongs_to :game
   belongs_to :player
-
   validates :color, inclusion: { in: %w(black white) }
   validates :type, inclusion: { in: %w(Pawn Rook Bishop Knight King Queen) }
 
@@ -30,12 +29,12 @@ class Piece < ActiveRecord::Base
   end
 
   def check_state(x, y, color)
-    return false if x_position == x && y_position == y && game.check?(color)
-  end
-
-  def move?(x, y)
+    old_x = x_position
+    old_y = y_position
     update(x_position: x, y_position: y)
-    true
+    result = game.check?(color)
+    update(x_position: old_x, y_position: old_y)
+    result
   end
 
   # All validation assumes white player is on the
@@ -139,10 +138,8 @@ class Piece < ActiveRecord::Base
     direction = path_direction(x, y)
     (distance - 1).times do |i|
       i += 1
-      coordinate_sets << [
-        x_position + i * direction[:x],
-        y_position + i * direction[:y]
-      ]
+      coordinate_sets << [x_position + i * direction[:x],
+                          y_position + i * direction[:y]]
     end
     coordinate_sets
   end
