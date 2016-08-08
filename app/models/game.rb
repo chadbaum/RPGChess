@@ -4,6 +4,8 @@
 class Game < ActiveRecord::Base
   has_many :pieces
   has_many :players
+  has_many :users, through: :players
+  after_save :create_players!
 
   def populate!
     first_turn!
@@ -20,46 +22,69 @@ class Game < ActiveRecord::Base
     move_number.even? ? update(turn: 'black') : update(turn: 'white')
   end
 
+  def white
+    players.find_by(color: 'white')
+  end
+
+  def black
+    players.find_by(color: 'black')
+  end
+
   private
 
+  def create_players!
+    players.create(color: 'white')
+    players.create(color: 'black')
+  end
+
   def populate_left_black_half!
-    pieces.create(type: 'Rook', x_position: 0, y_position: 0, color: 'black')
-    pieces.create(type: 'Knight', x_position: 1, y_position: 0, color: 'black')
-    pieces.create(type: 'Bishop', x_position: 2, y_position: 0, color: 'black')
-    pieces.create(type: 'Queen', x_position: 3, y_position: 0, color: 'black')
+    create_piece('Rook', 'black', 0, 0)
+    create_piece('Knight', 'black', 1, 0)
+    create_piece('Bishop', 'black', 2, 0)
+    create_piece('Queen', 'black', 3, 0)
   end
 
   def populate_right_black_half!
-    pieces.create(type: 'King', x_position: 4, y_position: 0, color: 'black')
-    pieces.create(type: 'Bishop', x_position: 5, y_position: 0, color: 'black')
-    pieces.create(type: 'Knight', x_position: 6, y_position: 0, color: 'black')
-    pieces.create(type: 'Rook', x_position: 7, y_position: 0, color: 'black')
+    create_piece('King', 'black', 4, 0)
+    create_piece('Bishop', 'black', 5, 0)
+    create_piece('Knight', 'black', 6, 0)
+    create_piece('Rook', 'black', 7, 0)
   end
 
   def populate_black_pawns!
     (0..7).each do |i|
-      pieces.create(type: 'Pawn', x_position: i, y_position: 1, color: 'black')
+      create_piece('Pawn', 'black', i, 1)
     end
   end
 
   def populate_white_pawns!
-    (0..7).each do |j|
-      pieces.create(type: 'Pawn', x_position: j, y_position: 6, color: 'white')
+    (0..7).each do |i|
+      create_piece('Pawn', 'white', i, 6)
     end
   end
 
   def populate_left_white_half!
-    pieces.create(type: 'Rook', x_position: 0, y_position: 7, color: 'white')
-    pieces.create(type: 'Knight', x_position: 1, y_position: 7, color: 'white')
-    pieces.create(type: 'Bishop', x_position: 2, y_position: 7, color: 'white')
-    pieces.create(type: 'Queen', x_position: 3, y_position: 7, color: 'white')
+    create_piece('Rook', 'white', 0, 7)
+    create_piece('Knight', 'white', 1, 7)
+    create_piece('Bishop', 'white', 2, 7)
+    create_piece('Queen', 'white', 3, 7)
   end
 
   def populate_right_white_half!
-    pieces.create(type: 'King', x_position: 4, y_position: 7, color: 'white')
-    pieces.create(type: 'Bishop', x_position: 5, y_position: 7, color: 'white')
-    pieces.create(type: 'Knight', x_position: 6, y_position: 7, color: 'white')
-    pieces.create(type: 'Rook', x_position: 7, y_position: 7, color: 'white')
+    create_piece('King', 'white', 4, 7)
+    create_piece('Bishop', 'white', 5, 7)
+    create_piece('Knight', 'white', 6, 7)
+    create_piece('Rook', 'white', 7, 7)
+  end
+
+  def create_piece(type, color, x_pos, y_pos)
+    if color == 'white'
+      white.pieces.create(type: type, x_position: x_pos, y_position: y_pos,
+                          color: 'white', game_id: id)
+    else
+      black.pieces.create(type: type, x_position: x_pos, y_position: y_pos,
+                          color: 'black', game_id: id)
+    end
   end
 
   def first_turn!

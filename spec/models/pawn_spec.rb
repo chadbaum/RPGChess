@@ -207,5 +207,16 @@ RSpec.describe Pawn, type: :model do
 
       expect(white_pawn.move!(6, 2)).to eq false
     end
+
+    it 'should return false if adjacent piece is not pawn' do
+      game.pieces.create(
+        type: 'Rook',
+        color: 'black',
+        x_position: 6,
+        y_position: 4
+      )
+
+      expect(white_pawn.move!(6, 3)).to eq false
+    end
   end
 end
