@@ -17,47 +17,47 @@ $(function() {
     // assign variables to initial positions based on
     // their data attributes
     // black piece variables
-    var blackRookLeft = 'td[data-x="0"][data-y="0"]';
-    var blackKnightLeft = 'td[data-x="1"][data-y="0"]';
-    var blackBishopLeft = 'td[data-x="2"][data-y="0"]';
-    var blackQueen = 'td[data-x="3"][data-y="0"]';
+    var blackRookLeftTile = 'td[data-x="0"][data-y="0"]';
+    var blackKnightLeftTile = 'td[data-x="1"][data-y="0"]';
+    var blackBishopLeftTile = 'td[data-x="2"][data-y="0"]';
+    var blackQueenTile = 'td[data-x="3"][data-y="0"]';
 
-    var blackKing = 'td[data-x="4"][data-y="0"]';
-    var blackBishopRight = 'td[data-x="5"][data-y="0"]';
-    var blackKnightRight = 'td[data-x="6"][data-y="0"]';
-    var blackRookRight = 'td[data-x="7"][data-y="0"]';
+    var blackKingTile = 'td[data-x="4"][data-y="0"]';
+    var blackBishopRightTile = 'td[data-x="5"][data-y="0"]';
+    var blackKnightRightTile = 'td[data-x="6"][data-y="0"]';
+    var blackRookRightTile = 'td[data-x="7"][data-y="0"]';
 
     // white piece variables
-    var whiteRookLeft = 'td[data-x="0"][data-y="7"]';
-    var whiteKnightLeft = 'td[data-x="1"][data-y="7"]';
-    var whiteBishopLeft = 'td[data-x="2"][data-y="7"]';
-    var whiteQueen = 'td[data-x="3"][data-y="7"]';
+    var whiteRookLeftTile = 'td[data-x="0"][data-y="7"]';
+    var whiteKnightLeftTile = 'td[data-x="1"][data-y="7"]';
+    var whiteBishopLeftTile = 'td[data-x="2"][data-y="7"]';
+    var whiteQueenTile = 'td[data-x="3"][data-y="7"]';
 
-    var whiteKing = 'td[data-x="4"][data-y="7"]';
-    var whiteBishopRight = 'td[data-x="5"][data-y="7"]';
-    var whiteKnightRight = 'td[data-x="6"][data-y="7"]';
-    var whiteRookRight = 'td[data-x="7"][data-y="7"]';
+    var whiteKingTile = 'td[data-x="4"][data-y="7"]';
+    var whiteBishopRightTile = 'td[data-x="5"][data-y="7"]';
+    var whiteKnightRightTile = 'td[data-x="6"][data-y="7"]';
+    var whiteRookRightTile = 'td[data-x="7"][data-y="7"]';
 
     // append BS glyphicons to each <td> elements with IDs
     // matching the IDs in database
     // draw black figures
     // left side
-    $(blackRookLeft).append(
+    $(blackRookLeftTile).append(
         '<i id="1" class="black-pcs glyphicon glyphicon-tower">');
-    $(blackKnightLeft).append(
+    $(blackKnightLeftTile).append(
         '<i id="2" class="black-pcs glyphicon glyphicon-knight">');
-    $(blackBishopLeft).append(
+    $(blackBishopLeftTile).append(
         '<i id="3" class="black-pcs glyphicon glyphicon-bishop">');
-    $(blackQueen).append(
+    $(blackQueenTile).append(
         '<i id="4" class="black-pcs glyphicon glyphicon-queen">');
     // right side
-    $(blackKing).append(
+    $(blackKingTile).append(
         '<i id="5" class="black-pcs glyphicon glyphicon-king">');
-    $(blackBishopRight).append(
+    $(blackBishopRightTile).append(
         '<i id="6" class="black-pcs glyphicon glyphicon-bishop">');
-    $(blackKnightRight).append(
+    $(blackKnightRightTile).append(
         '<i id="7" class="black-pcs glyphicon glyphicon-knight">');
-    $(blackRookRight).append(
+    $(blackRookRightTile).append(
         '<i id="8" class="black-pcs glyphicon glyphicon-tower">');
 
 
@@ -74,22 +74,22 @@ $(function() {
 
     // draw white figures
     // left side
-    $(whiteRookLeft).append(
+    $(whiteRookLeftTile).append(
         '<i id="25" class="white-pcs glyphicon glyphicon-tower">');
-    $(whiteKnightLeft).append(
+    $(whiteKnightLeftTile).append(
         '<i id="26" class="white-pcs glyphicon glyphicon-knight">');
-    $(whiteBishopLeft).append(
+    $(whiteBishopLeftTile).append(
         '<i id="27" class="white-pcs glyphicon glyphicon-bishop">');
-    $(whiteQueen).append(
+    $(whiteQueenTile).append(
         '<i id="28" class="white-pcs glyphicon glyphicon-queen">');
     // right side
-    $(whiteKing).append(
+    $(whiteKingTile).append(
         '<i id="29" class="white-pcs glyphicon glyphicon-king">');
-    $(whiteBishopRight).append(
+    $(whiteBishopRightTile).append(
         '<i id="30" class="white-pcs glyphicon glyphicon-bishop">');
-    $(whiteKnightRight).append(
+    $(whiteKnightRightTile).append(
         '<i id="31" class="white-pcs glyphicon glyphicon-knight">');
-    $(whiteRookRight).append(
+    $(whiteRookRightTile).append(
         '<i id="32" class="white-pcs glyphicon glyphicon-tower">');
 
     });

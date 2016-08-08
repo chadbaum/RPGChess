@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Queen, type: :model do
-  let(:game) { FactoryGirl.create(:game) }
+  let(:game) { FactoryGirl.create(:game, :populated) }
   let(:queen) do
     game.pieces.find_by(
       type: 'Queen',

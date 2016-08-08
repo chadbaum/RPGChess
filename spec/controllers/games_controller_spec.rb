@@ -30,7 +30,7 @@ RSpec.describe GamesController, type: :controller do
 
   # UPDATE #
   describe 'games#update' do
-    let(:game) { FactoryGirl.create(:game) }
+    let(:game) { FactoryGirl.create(:game, :populated) }
 
     let(:wht_pawn) do
       game.pieces.find_by(

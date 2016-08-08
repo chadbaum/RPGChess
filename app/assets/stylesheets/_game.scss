@@ -1,0 +1,244 @@
+/* Global */
+
+hr {
+border: 0;
+height: 1px;
+background: #333;
+background-image: linear-gradient(to right, #ccc, #333, #ccc);
+}
+
+body {
+  background: url('/assets/concrete.png');
+  font-family: 'Rakkas', cursive;
+}
+
+.clr {
+  clear: both;
+}
+
+.navbar-forgot-password a {
+  color: white;
+}
+
+.form-inline {
+  color: white;
+}
+
+@media (min-width: 768px) {
+  .navbar-inverse {
+    height: 80px;
+  }
+
+  a.navbar-brand {
+    font-size: 35px !important;
+    margin-top: 20px !important;
+  }
+
+  .form-inline{
+    padding-top: 10px;
+  }
+
+  .navbar-checkbox {
+    padding-left: 35px;
+  }
+
+  .navbar-forgot-password {
+    padding-left: 75px;
+  }
+
+  ul.nav.navbar-nav.navbar-right li a {
+    color: white;
+    padding-top: 40px;
+    font-size: 20px;
+  }
+}
+
+/*FOOTER*/
+
+.site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.site-content {
+  flex: 1;
+}
+
+footer {
+  background-color: #979A9C;
+  height: 70px;
+}
+
+.footer-links li {
+  list-style-type: none;
+}
+
+.footer-links li a {
+  color: white;
+  text-decoration: none;
+}
+
+@media (max-width: 400px) {
+  .footer-links li a {
+    font-size: 10px;
+  }
+}
+
+/* INDEX */
+
+.navbar-inverse {
+  background-color: #979A9C;
+  border: none;
+  box-shadow: 3px 3px 3px;
+}
+
+.navbar-header .navbar-brand {
+  color: white;
+  text-decoration: none;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+ul.nav.navbar-nav.navbar-right li a {
+  color: white;
+}
+
+.nav .navbar-nav .navbar-right {
+  margin-right: 50px;
+}
+
+.login {
+  width: 100%;
+}
+
+.new-account {
+  padding-top: 20px;
+}
+
+.team-profile {
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.feature-pic {
+  border-radius: 5px;
+}
+
+p {
+  text-align: justify;
+}
+
+.hr {
+  margin-top: 15px;
+}
+
+#solutions {
+  margin-bottom: 15px;
+}
+
+/* CHESS BOARD */
+
+#chess-board {
+  border: 7px solid #000;
+  border-collapse: separate;
+  padding: 1px;
+}
+
+#chess-board td {
+  width: 70px;
+  height: 70px;
+  @include cell-gradient(#fff, #eee);
+  @include shadow-box(1px, #fff);
+  font-size: 47px;
+  @extend .text-center
+}
+
+@media (max-width: 620px) {
+  #chess-board td {
+  width: 55px;
+  height: 55px;
+  font-size: 35px;
+  }
+}
+
+@media (max-width: 490px) {
+  #chess-board td {
+  width: 45px;
+  height: 45px;
+  font-size: 30px;
+  }
+}
+
+.players h2 {
+  word-spacing: 10px;
+}
+
+#chess-board i {
+  text-shadow: 3px 3px 8px #444;
+}
+
+.white-pcs {
+  color: #fff;
+}
+
+
+/* makes the baord centered at all times*/
+.col-centered {
+  float: none;
+  margin: auto;
+}
+
+#chess-board tr:nth-child(odd) td:nth-child(even),
+#chess-board tr:nth-child(even) td:nth-child(odd) {
+  box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+  -moz-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+  -webkit-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+  @include cell-gradient(#ccc, #eee);
+}
+
+/* have to use a class here to override box shadow settings above */
+.container #chess-board tr td:hover {
+  box-shadow: inset 0 0 12px rgba(166,34,25, 0.6);
+  -moz-box-shadow: inset 0 0 12px rgba(166,34,25, 0.6);
+  -webkit-box-shadow: inset 0 0 12px rgba(166,34,25, 0.6);
+}
+
+/* User sign in and sign forms. */
+
+.border-form {
+  max-width: 500px;
+  padding: 19px 29px 29px;
+  margin: 0 auto 20px;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+     -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+          box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+
+.border-form .form-signin-heading,
+.border-form .checkbox {
+  margin-bottom: 10px;
+}
+
+.border-form input[type="text"],
+.border-form input[type="email"],
+.border-form input[type="password"] {
+  font-size: 16px;
+  height: auto;
+  margin-bottom: 15px;
+  padding: 7px 9px;
+}
+
+.devise-inputs {
+  width: 100%;
+}
+
+.highlighted-cell {
+  border: 3px solid rgba(63,166,41, 0.6);
+}
+
