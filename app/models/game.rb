@@ -7,14 +7,6 @@ class Game < ActiveRecord::Base
   has_many :users, through: :players
   after_save :create_players!
 
-<<<<<<< HEAD
-  after_create :populate_left_black_half!,
-               :populate_right_black_half!,
-               :populate_black_pawns!,
-               :populate_white_pawns!,
-               :populate_left_white_half!,
-               :populate_right_white_half!
-=======
   def populate!
     populate_left_black_half!
     populate_right_black_half!
@@ -38,7 +30,6 @@ class Game < ActiveRecord::Base
     players.create(color: 'white')
     players.create(color: 'black')
   end
->>>>>>> master
 
   def populate_left_black_half!
     create_piece('Rook', 'black', 0, 0)
