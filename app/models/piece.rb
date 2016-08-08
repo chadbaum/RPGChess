@@ -12,7 +12,6 @@ class Piece < ActiveRecord::Base
   LEFT = -1
   DOWN = 1
   UP = -1
-
   # Returns true and upates the piece's coordinates and moved
   # flag on a valid move where the tile is either empty or
   # occupied by an enemy piece.  Executes capture method
@@ -28,6 +27,9 @@ class Piece < ActiveRecord::Base
     update(x_position: x, y_position: y, moved: true,
            last_moved_piece: game.move_number)
     game.end_turn!
+    # if checked_king(white_king)
+    # elsif checked_king(black_king)
+    # end
     true
   end
 
@@ -41,17 +43,18 @@ class Piece < ActiveRecord::Base
   # All validation assumes white player is on the
   # 6-7 rows of the array, and black player is on
   # 0-1 rows of the array.
+
+  # Returns true if position is occupied by a hostile piece.
+  def enemy?(victim)
+    color != victim.color
+  end
+
   private
 
   # Updates a victim piece to nil coordinates and sets
   # captured flag to true.
   def capture!(victim)
     victim.update(x_position: nil, y_position: nil, captured: true)
-  end
-
-  # Returns true if position is occupied by a hostile piece.
-  def enemy?(victim)
-    color != victim.color
   end
 
   # Returns the piece occupying the coordinates.
