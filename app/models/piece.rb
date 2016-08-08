@@ -24,9 +24,13 @@ class Piece < ActiveRecord::Base
       return false unless enemy?(victim)
       capture!(victim)
     end
-    return false if x_position == x && y_position == y && check?(color)
+    return false if check_state(x, y)
     update(x_position: x, y_position: y, moved: true)
     true
+  end
+
+  def check_state(x, y)
+    x_position == x && y_position == y && game.check?(color)
   end
 
   # All validation assumes white player is on the
@@ -42,14 +46,8 @@ class Piece < ActiveRecord::Base
   # attack of any of the enemy piece. Method used to validate
   # King's move and checkmate state
   def checked_cell?(x, y)
-    if color == 'white'
-      black_pcs.each do |p|
-        return true if p.valid_move?(x, y)
-      end
-    else
-      white_pcs.each do |p|
-        return true if p.valid_move?(x, y)
-      end
+    game.enemy_pcs(color).each do |p|
+      return true if p.valid_move?(x, y)
     end
     false
   end
