@@ -4,6 +4,7 @@ class GamesController < ApplicationController
   before_action :authenticate_user!, only: [:create, :new]
 
   def index
+    @game = Game.all
   end
 
   def create
