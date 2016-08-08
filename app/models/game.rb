@@ -16,7 +16,7 @@ class Game < ActiveRecord::Base
     populate_right_white_half!
   end
 
-  def check?(color)
+  def in_check?(color)
     king = pieces.find_by(type: 'King', color: color)
     enemy_pcs(color).each do |p|
       return true if p.valid_move?(king.x_position, king.y_position)
@@ -35,6 +35,32 @@ class Game < ActiveRecord::Base
 
   def black
     players.find_by(color: 'black')
+  end
+
+  # Returns true if the provided coords are on the line of
+  # attack of any of the enemy piece. Method used to validate
+  # King's move and checkmate state
+  def cell_in_check?(x, y, color = nil)
+    enemy_pcs(color).each do |p|
+      return true if p.valid_move?(x, y)
+    end
+    false
+  end
+
+  def checkmate_coords(x, y)
+    check_coords = [[x, y]]
+    check_coords << [x, y - 1]     # if [x, y - 1]
+    check_coords << [x - 1, y]     # if [x - 1, y]
+    check_coords << [x + 1, y]     # if [x + 1, y]
+    check_coords << [x, y + 1]     # if [x, y + 1]
+    check_coords << [x - 1, y - 1] # if [x - 1, y - 1]
+    check_coords << [x + 1, y - 1] # if [x + 1, y - 1]
+    check_coords << [x - 1, y + 1] # if [x - 1, y + 1]
+    check_coords << [x + 1, y + 1] # if [x + 1, y + 1]
+  end
+
+  def checkmate?(coords)
+    coords.all? { |c| cell_in_check?(c[0], c[1]) }
   end
 
   private

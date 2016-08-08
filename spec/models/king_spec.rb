@@ -117,12 +117,12 @@ RSpec.describe King, type: :model do
     it 'should return true if new coords are in vertical enemy attack line' do
       expect(blk_queen.move!(2, 5)).to eq true
       expect(wht_king.move!(2, 3)).to eq false
-      expect(wht_king.checked_cell?(2, 3)).to eq true
+      expect(game.cell_in_check?(2, 3, wht_king.color)).to eq true
     end
     it 'should return true if new coords are in diagonal enemy attack line' do
       expect(blk_queen.move!(2, 5)).to eq true
       expect(wht_king.move!(4, 3)).to eq false
-      expect(wht_king.checked_cell?(4, 3)).to eq true
+      expect(game.cell_in_check?(4, 3, wht_king.color)).to eq true
     end
   end
 end
