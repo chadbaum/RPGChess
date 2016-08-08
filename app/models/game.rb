@@ -24,6 +24,14 @@ class Game < ActiveRecord::Base
     false
   end
 
+  def white
+    players.find_by(color: 'white')
+  end
+
+  def black
+    players.find_by(color: 'black')
+  end
+
   private
 
   def king(color)
