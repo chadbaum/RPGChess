@@ -97,7 +97,18 @@ RSpec.describe Game, type: :model do
       expect(empty_game.in_check?(king.color)).to eq true
       expect(king.move!(0, 2)).to eq true
       expect(rook.move!(0, 7)).to eq true
-      expect(empty_game.checkmate?(empty_game.checkmate_coords(king.x_position, king.y_position))).to eq true
+      expect(empty_game.in_check?(king.color)).to eq true
+      expect(king.move!(1, 2)).to eq false
+      expect(king.move!(0, 1)).to eq false
+
+      expect(empty_game.cell_in_check?(0,2,'black')).to eq true
+      expect(empty_game.cell_in_check?(0,3,'black')).to eq true
+      expect(empty_game.cell_in_check?(1,1,'black')).to eq true
+      expect(empty_game.cell_in_check?(1,2,'black')).to eq true
+      expect(empty_game.cell_in_check?(1,3,'black')).to eq true
+      expect(empty_game.cell_in_check?(0,1,'black')).to eq true
+
+      expect(empty_game.checkmate?(king.x_position, king.y_position, king.color)).to eq true
     end
   end
 end
