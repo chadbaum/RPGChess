@@ -5,9 +5,9 @@
         <%= image_tag 'user.png', class:'img-responsive' %>
         <h4><%= current_user.email %></h4>
         <h4>Member Since: <%= current_user.created_at.strftime("%B %d, %Y") %></h4>
-        <a class="btn-block btn btn-info" href="#" role="button">Account Settings</a>
+        <a class="btn-block btn btn-info account-settings" href="#" role="button">Account Settings</a>
       </div>
-      <div class="boxed col-sm-8">
+      <div class="boxed col-sm-8 col-xs-10 col-sm-offset-0 col-xs-offset-1">
         <h2 class="text-center">Hello There!</h2>
         <div class="col-sm-offset-1">
         <h3><b>Your Statistics</b></h3>
