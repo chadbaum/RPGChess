@@ -25,7 +25,7 @@ class Piece < ActiveRecord::Base
       capture!(victim)
     end
     update(x_position: x, y_position: y, moved: true,
-           last_moved_piece: game.move_number)
+           turn_last_moved: game.turn)
     game.end_turn!
     # if checked_king(white_king)
     # elsif checked_king(black_king)

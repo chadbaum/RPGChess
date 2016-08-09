@@ -18,8 +18,7 @@ class Game < ActiveRecord::Base
   end
 
   def end_turn!
-    increment!(:move_number)
-    move_number.even? ? update(turn: 'black') : update(turn: 'white')
+    increment!(:turn)
   end
 
   def check?(color)
@@ -104,6 +103,6 @@ class Game < ActiveRecord::Base
   end
 
   def first_turn!
-    update(turn: 'white', move_number: 1)
+    update(turn: 1)
   end
 end

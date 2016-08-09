@@ -24,34 +24,22 @@ RSpec.describe Game, type: :model do
       expect(game.pieces.last.color).to eq 'white'
     end
 
-    it 'should show first turn of game belong to white player' do
-      expect(game.turn).to eq 'white'
-    end
-
-    it 'should show move number as 1' do
-      expect(game.move_number).to eq 1
+    it 'should show turn as 1' do
+      expect(game.turn).to eq 1
     end
 
     describe 'end_turn!' do
-      it 'should increment move_number by 1 once the turn ended' do
+      it 'should increment turn by 1 once the turn ended' do
         game.end_turn!
 
-        expect(game.move_number).to eq 2
-      end
-
-      it 'should switch turn between black and white player' do
-        game.end_turn!
-
-        expect(game.turn).to eq 'black'
+        expect(game.turn).to eq 2
       end
     end
 
-    it 'should show first turn of game belong to white player' do
-      expect(game.turn).to eq 'white'
-    end
-
-    it 'should show move number as 1' do
-      expect(game.move_number).to eq 1
+    describe 'first_turn' do
+      it 'should show turn as 1' do
+        expect(game.turn).to eq 1
+      end
     end
   end
 

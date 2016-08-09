@@ -109,6 +109,6 @@ class Pawn < Piece
 
   # Find the last moved piece by subtracting current move number - 1
   def last_moved_piece
-    game.pieces.find_by(last_moved_piece: game.move_number - 1)
+    game.pieces.find_by(turn_last_moved: game.turn - 1)
   end
 end
