@@ -46,7 +46,7 @@ class Pawn < Piece
   # If any have valid En Passant pawn piece, return true
   def en_passant_possible?(x, y)
     return false if last_moved_piece.nil?
-    return false unless last_moved_piece.y_distance(y - 2) == 2 &&
+    return false unless last_moved_piece.y_distance(y) == 2 &&
                         type == 'Pawn'
     [valid_en_passant_pawn?(x, y, true), valid_en_passant_pawn?(x, y, false)]
       .include?(true)
@@ -58,8 +58,8 @@ class Pawn < Piece
   def valid_en_passant_pawn?(x, y, adjacent)
     adjacent_piece = occupant_piece(x + (adjacent ? 1 : -1), y)
     return false if adjacent_piece.nil?
-    return true if adjacent_piece.type ==
-                   'Pawn' && adjacent_piece.color != color
+    return true if adjacent_piece.type == 'Pawn' &&
+                   adjacent_piece.color != color
     false
   end
 
