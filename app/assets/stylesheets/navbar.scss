@@ -1,0 +1,54 @@
+@media (min-width: 768px) {
+  .navbar-inverse {
+    height: 80px;
+  }
+
+  a.navbar-brand {
+    font-size: 35px !important;
+    margin-top: 20px !important;
+  }
+
+  .form-inline{
+    padding-top: 10px;
+  }
+
+  .navbar-checkbox {
+    padding-left: 35px;
+  }
+
+  .navbar-forgot-password {
+    padding-left: 125px;
+  }
+
+  ul.nav.navbar-nav.navbar-right li a {
+    color: white;
+    padding-top: 40px;
+    font-size: 20px;
+  }
+}
+.navbar-forgot-password a {
+  color: white;
+}
+.form-inline {
+  color: white;
+}
+.navbar-inverse {
+  background-color: #979A9C;
+  border: none;
+  box-shadow: 3px 3px 3px;
+}
+
+.navbar-header .navbar-brand {
+  color: white;
+  text-decoration: none;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+ul.nav.navbar-nav.navbar-right li a {
+  color: white;
+}
+
+.nav .navbar-nav .navbar-right {
+  margin-right: 50px;
+}

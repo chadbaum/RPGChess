@@ -1,0 +1,29 @@
+.site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.site-content {
+  flex: 1;
+}
+
+footer {
+  background-color: #979A9C;
+  height: 70px;
+}
+
+.footer-links li {
+  list-style-type: none;
+}
+
+.footer-links li a {
+  color: white;
+  text-decoration: none;
+}
+
+@media (max-width: 400px) {
+  .footer-links li a {
+    font-size: 10px;
+  }
+}
