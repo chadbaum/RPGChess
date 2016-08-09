@@ -16,6 +16,14 @@ class Game < ActiveRecord::Base
     populate_right_white_half!
   end
 
+  def check?(color)
+    king = king(color)
+    enemy_pcs(color).each do |p|
+      return true if p.valid_move?(king.x_position, king.y_position)
+    end
+    false
+  end
+
   def white
     players.find_by(color: 'white')
   end
@@ -25,6 +33,14 @@ class Game < ActiveRecord::Base
   end
 
   private
+
+  def king(color)
+    pieces.find_by(type: 'King', color: color)
+  end
+
+  def enemy_pcs(color)
+    pieces.select { |p| p.color != color }
+  end
 
   def create_players!
     players.create(color: 'white')
