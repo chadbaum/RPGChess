@@ -48,22 +48,23 @@ class Game < ActiveRecord::Base
   end
 
   def checkmate_coords(x, y)
-    check_coords = [[x, y]]
-    check_coords << [x, y - 1]     # if [x, y - 1]
-    check_coords << [x - 1, y]     # if [x - 1, y]
-    check_coords << [x + 1, y]     # if [x + 1, y]
-    check_coords << [x, y + 1]     # if [x, y + 1]
-    check_coords << [x - 1, y - 1] # if [x - 1, y - 1]
-    check_coords << [x + 1, y - 1] # if [x + 1, y - 1]
-    check_coords << [x - 1, y + 1] # if [x - 1, y + 1]
-    check_coords << [x + 1, y + 1] # if [x + 1, y + 1]
+    coords = [x, y, (x - 1), (y + 1), (y - 1), (x + 1)]\
+             .uniq!.repeated_permutation(2).to_a
+    coords.select! { |i| i[0] <= x + 1 && i[1] >= y - 1 }
+    coords
   end
 
   def checkmate?(coords)
-    coords.all? { |c| cell_in_check?(c[0], c[1]) }
+    return true if coords.all? { |c| cell_in_check?(c[0], c[1]) if cell_exists?(c[0], c[1]) }
+    false
   end
 
+
   private
+
+  def cell_exists?(x, y)
+    (x <= 7 && x >= 0) && (y <= 7 && y >= 0)
+  end
 
   def create_players!
     players.create(color: 'white')
