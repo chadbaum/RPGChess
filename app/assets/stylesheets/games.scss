@@ -2,50 +2,54 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#games-list {
-  padding-top: 20px;
+#chess-board {
+  border: 7px solid #000;
+  border-collapse: separate;
+  padding: 1px;
+  width: 550px;
+  height: 550px;
 }
 
-#profile {
-  padding-bottom: 30px;
+#chess-board td {
+  @include cell-gradient(#fff, #eee);
+  @include shadow-box(1px, #fff);
+  font-size: 35px;
 }
 
-.join-headline {
-  padding-bottom: 20px;
-  margin-top: 0px;
+.players h2 {
+  word-spacing: 10px;
 }
 
-.stats {
-  padding-top: 20px;
+#chess-board i {
+  text-shadow: 3px 3px 8px #444;
 }
 
-.boxed {
-  background-color: #fff;
-  border: 1px solid #e5e5e5;
-  -webkit-border-radius: 5px;
-     -moz-border-radius: 5px;
-          border-radius: 5px;
-  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-     -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-          box-shadow: 0 1px 2px rgba(0,0,0,.05);
-  margin-bottom: 30px;
+.white-pcs {
+  color: #fff;
 }
 
-.boxed h4 {
-  padding-left: 25px;
-  padding-bottom: 26px;
+/* makes the baord centered at all times*/
+.col-centered {
+  float: none;
+  margin: auto;
 }
 
-.boxed .top {
-  padding-top: 25px;
+#chess-board tr:nth-child(odd) td:nth-child(even),
+#chess-board tr:nth-child(even) td:nth-child(odd) {
+  box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+  -moz-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+  -webkit-box-shadow:inset 0 0 10px rgba(0,0,0,.4);
+  @include cell-gradient(#ccc, #eee);
 }
 
-.account-settings {
-  margin-bottom: 30px;
+/* have to use a class here to override box shadow settings above */
+.container #chess-board tr td:hover {
+  box-shadow: inset 0 0 12px rgba(166,34,25, 0.6);
+  -moz-box-shadow: inset 0 0 12px rgba(166,34,25, 0.6);
+  -webkit-box-shadow: inset 0 0 12px rgba(166,34,25, 0.6);
 }
 
-@media (max-width: 768px) {
-  .dash-button {
-    margin-bottom: 20px;
-  }
+.highlighted-cell {
+  border: 3px solid rgba(63,166,41, 0.6);
 }
+

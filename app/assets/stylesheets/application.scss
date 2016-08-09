@@ -1,9 +1,12 @@
 /*
  *= require jquery-ui
  */
-@import "mixins";
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "game";
+@import "mixins";
+@import "global";
+@import "footer";
+@import "navbar";
 @import "games";
+
 @import 'https://fonts.googleapis.com/css?family=Rakkas';
