@@ -9,62 +9,9 @@
   </head>
   <body class="site">
     <main class="site-content">
-<<<<<<< HEAD
-      <nav class="navbar navbar-inverse" role="navigation">
-        <div class="container-fluid">
-          <!-- Brand and toggle get grouped for better mobile display -->
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-              <%= link_to 'StoicChess', root_path, class: 'navbar-brand' %>
-          </div>
-
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-              <% if user_signed_in? %>
-                <li><%= link_to 'My Profile', player_path(current_user) %></li>
-                <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
-              <% else %>
-                <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-                  <div class="form-inline">
-                    <div class="form-group">  
-                      <%= f.email_field :email, class: 'form-control', required: false, autofocus: true, placeholder:'Email Address' %>
-                    </div>
-                    <div class="form-group">
-                      <%= f.password_field :password, class: 'form-control', required: false, placeholder: 'Password' %>
-                    </div>
-                    <div class="form-group">
-                      <%= f.button :submit, "Log In", class: 'btn btn-success form-control' %>
-                    </div>
-                  </div>
-                  <div class="form-inline">
-                    <div class="checkbox">
-                      <label>
-                        <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
-                      </label>
-                    </div>
-                    <div class="form-group navbar-forgot-password">
-                      <%= render "devise/shared/forgotpassword" %>
-                    </div>
-                  </div>
-                <% end %>
-              <% end %>
-            </ul>
-          </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-      </nav>
-
-    <%= yield %>
-=======
       <%= render "layouts/navbar" %>
       <%= yield %>
       <%= render "layouts/footer" %>
->>>>>>> 2b9711f204f4d03f7e91bd089cab228a6d458ac1
     </main>
   </body>
 </html>
