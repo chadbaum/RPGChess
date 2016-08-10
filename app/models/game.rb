@@ -8,6 +8,7 @@ class Game < ActiveRecord::Base
   after_save :create_players!
 
   def populate!
+    first_turn!
     populate_left_black_half!
     populate_right_black_half!
     populate_black_pawns!
@@ -32,7 +33,15 @@ class Game < ActiveRecord::Base
     players.find_by(color: 'black')
   end
 
+  def end_turn!
+    increment!(:turn)
+  end
+
   private
+
+  def first_turn!
+    update(turn: 1)
+  end
 
   def king(color)
     pieces.find_by(type: 'King', color: color)
@@ -45,7 +54,7 @@ class Game < ActiveRecord::Base
   def create_players!
     players.create(color: 'white')
     players.create(color: 'black')
-  end\
+  end
 
   def populate_left_black_half!
     create_piece('Rook', 'black', 0, 0)
@@ -66,6 +75,7 @@ class Game < ActiveRecord::Base
       create_piece('Pawn', 'black', i, 1)
     end
   end
+
 
   def populate_white_pawns!
     (0..7).each do |i|
@@ -90,10 +100,10 @@ class Game < ActiveRecord::Base
   def create_piece(type, color, x_pos, y_pos)
     if color == 'white'
       white.pieces.create(type: type, x_position: x_pos, y_position: y_pos,
-                          color: 'white', game_id: id)
+      color: 'white', game_id: id)
     else
       black.pieces.create(type: type, x_position: x_pos, y_position: y_pos,
-                          color: 'black', game_id: id)
+      color: 'black', game_id: id)
     end
   end
 end

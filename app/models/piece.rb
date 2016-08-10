@@ -28,7 +28,7 @@ class Piece < ActiveRecord::Base
     # if checked_king(white_king)
     # elsif checked_king(black_king)
     # end
-
+    game.end_turn!
     true
   end
 
@@ -110,13 +110,13 @@ class Piece < ActiveRecord::Base
   def path_direction(x, y)
     direction = {}
     direction[:x] = if x_position < x then RIGHT
-                    elsif x_position > x then LEFT
-                    else 0
-                    end
+    elsif x_position > x then LEFT
+    else 0
+    end
     direction[:y] = if y_position < y then DOWN
-                    elsif y_position > y then UP
-                    else 0
-                    end
+    elsif y_position > y then UP
+    else 0
+    end
     direction
   end
 
@@ -142,8 +142,8 @@ class Piece < ActiveRecord::Base
     coordinates = generate_path_coordinates(x, y, distance)
     coordinates.each do |coordinate|
       return false if game.pieces.exists?(
-        x_position: coordinate[0],
-        y_position: coordinate[1]
+      x_position: coordinate[0],
+      y_position: coordinate[1]
       )
     end
     true
