@@ -30,29 +30,29 @@ RSpec.describe Game, type: :model do
     let(:empty_game) { FactoryGirl.create(:game, color: 'white', turn: 1) }
     let(:blk_king) do
       empty_game.pieces.create(
-      type: 'King',
-      color: 'black',
-      x_position: 3,
-      y_position: 4,
-      moved: true
+        type: 'King',
+        color: 'black',
+        x_position: 3,
+        y_position: 4,
+        moved: true
       )
     end
     let(:queen) do
       empty_game.pieces.create(
-      type: 'Queen',
-      color: 'white',
-      x_position: 1,
-      y_position: 5,
-      moved: true
+        type: 'Queen',
+        color: 'white',
+        x_position: 1,
+        y_position: 5,
+        moved: true
       )
     end
     let(:knight) do
       empty_game.pieces.create(
-      type: 'Knight',
-      color: 'white',
-      x_position: 6,
-      y_position: 7,
-      moved: false
+        type: 'Knight',
+        color: 'white',
+        x_position: 6,
+        y_position: 7,
+        moved: false
       )
     end
 

@@ -12,7 +12,7 @@ class Piece < ActiveRecord::Base
   LEFT = -1
   DOWN = 1
   UP = -1
-  # Returns true and upates the piece's coordinates and moved
+  # Returns true and updates the piece's coordinates and moved
   # flag on a valid move where the tile is either empty or
   # occupied by an enemy piece.  Executes capture method
   # on enemy occupying piece.  Otherwise returns false
@@ -111,13 +111,13 @@ class Piece < ActiveRecord::Base
   def path_direction(x, y)
     direction = {}
     direction[:x] = if x_position < x then RIGHT
-    elsif x_position > x then LEFT
-    else 0
-    end
+                    elsif x_position > x then LEFT
+                    else 0
+                    end
     direction[:y] = if y_position < y then DOWN
-    elsif y_position > y then UP
-    else 0
-    end
+                    elsif y_position > y then UP
+                    else 0
+                    end
     direction
   end
 
@@ -143,8 +143,8 @@ class Piece < ActiveRecord::Base
     coordinates = generate_path_coordinates(x, y, distance)
     coordinates.each do |coordinate|
       return false if game.pieces.exists?(
-      x_position: coordinate[0],
-      y_position: coordinate[1]
+        x_position: coordinate[0],
+        y_position: coordinate[1]
       )
     end
     true

@@ -82,7 +82,6 @@ class Game < ActiveRecord::Base
     end
   end
 
-
   def populate_white_pawns!
     (0..7).each do |i|
       create_piece('Pawn', 'white', i, 6)
@@ -106,10 +105,10 @@ class Game < ActiveRecord::Base
   def create_piece(type, color, x_pos, y_pos)
     if color == 'white'
       white.pieces.create(type: type, x_position: x_pos, y_position: y_pos,
-      color: 'white', game_id: id)
+                          color: 'white', game_id: id)
     else
       black.pieces.create(type: type, x_position: x_pos, y_position: y_pos,
-      color: 'black', game_id: id)
+                          color: 'black', game_id: id)
     end
   end
 end
