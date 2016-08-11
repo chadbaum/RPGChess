@@ -1,21 +1,23 @@
 # Main controller for chess session for CRUD
 # logic for our app
 class GamesController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :new]
+  before_action :authenticate_user!, only: [:create]
 
   def index
+    @games = Game.all
   end
 
   def create
     @game = Game.new
+    # set game_status
+    @game.save!
+    @game.white.user_id = current_user.id
+    @game.white.save!
+    @game.populate!
   end
 
   def show
     @piece_positions = Game.find(params[:id]).pieces
-  end
-
-  def new
-    @game = Game.new
   end
 
   def update

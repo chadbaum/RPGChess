@@ -6,15 +6,10 @@
       </div>
       <div class="col-sm-5">
         <h2 class="join-headline text-center">Your opponent awaits you! Join the battle!</h2>
-          <h4>Available game<a class="btn btn-success pull-right" href="#" role="button">Join game!</a></h4>
-          <br class="clr" />
-          <h4>Available game<a class="btn btn-success pull-right" href="#" role="button">Join game!</a></h4>
-          <br class="clr" />
-          <h4>Available game<a class="btn btn-success pull-right" href="#" role="button">Join game!</a></h4>
-          <br class="clr" />
-          <h4>Available game<a class="btn btn-success pull-right" href="#" role="button">Join game!</a></h4>
-          <br class="clr" />
-          <h4>Available game<a class="btn btn-success pull-right" href="#" role="button">Join game!</a></h4>
+          <% @games.each do |game| %>
+            <h4>Available game<%= button_to "Join game!", game_path(game), class: "btn btn-success pull-right" %></h4>
+            <br class="clr">
+          <% end %>
       </div>
     </div>
   </section>          
@@ -25,7 +20,7 @@
         <a class="btn btn-info dash-button" href="<%= player_path(current_user) %>" role="button">User Dashboard</a>
       </div>
       <div class="col-sm-offset-2 col-sm-2">
-        <a class="center-block btn btn-success btn-lg dash-button" href="#" role="button">Create a Game</a>
+      <%= link_to "Create a Game", games_path, method: :post, class: "center-block btn btn-success btn-lg dash-button" %>
       </div>
       <div class="col-sm-offset-2 col-sm-1">
         <a class="btn btn-info" href="#" role="button">Account Settings</a>
