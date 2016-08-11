@@ -1,5 +1,4 @@
 require 'rails_helper'
-
 RSpec.describe Piece, type: :model do
   let(:game) { FactoryGirl.create(:game, :populated) }
   let(:queen) do
@@ -35,6 +34,7 @@ RSpec.describe Piece, type: :model do
       y_position: 1
     )
   end
+
   describe 'move with capture' do
     it 'should return true on move against a hostile piece' do
       victim = game.pieces.find_by(x_position: 3, y_position: 1)
