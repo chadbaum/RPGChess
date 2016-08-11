@@ -3,7 +3,7 @@ StoicChess::Application.routes.draw do
   root 'static_pages#index'
 
   resources :games
-  resources :players, only: [:show]
+  resources :users, only: [:show]
 
 
   # The priority is based upon order of creation: first created ->
