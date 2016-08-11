@@ -8,12 +8,10 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.new
-    # set game_status
-    @game.save!
-    @game.white.user_id = current_user.id
-    @game.white.save!
+    @game = Game.create
+    @game.white.update(user_id: current_user.id)
     @game.populate!
+    redirect_to game_path(@game)
   end
 
   def show
@@ -26,6 +24,12 @@ class GamesController < ApplicationController
     x = params[:x_position].to_i
     y = params[:y_position].to_i
     @piece.move!(x, y)
+  end
+
+  def join
+    @game = Game.find(params[:id])
+    @game.black.update(user_id: current_user.id)
+    redirect_to game_path(@game)
   end
 
   private
