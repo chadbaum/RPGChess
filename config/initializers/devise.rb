@@ -39,7 +39,7 @@ Devise.setup do |config|
   # determining whether
   # or not authentication should be aborted when the value is
   # not present.
-  # config.authentication_keys = [:login]
+  # config.authentication_keys = [:email]
 
   # Configure parameters from the request object used for
   # authentication. Each entry
