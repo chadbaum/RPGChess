@@ -12,6 +12,10 @@
         </div>
         <br>
         <div class="form-group">
+          <%= f.text_field :username, required: true, autofocus: true, class:'form-control', placeholder: 'Username' %>
+        </div>
+        <br>
+        <div class="form-group">
           <%= f.password_field :password, class: 'form-control', required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), placeholder: 'Password' %>
         </div>
         <br>

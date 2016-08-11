@@ -39,7 +39,7 @@ Devise.setup do |config|
   # determining whether
   # or not authentication should be aborted when the value is
   # not present.
-  config.authentication_keys = [:login]
+  # config.authentication_keys = [:login]
 
   # Configure parameters from the request object used for
   # authentication. Each entry
@@ -279,7 +279,7 @@ Devise.setup do |config|
   # first check for
   # "users/sessions/new". It's turned off by default because it's
   # slower if you are using only default views.
-   config.scoped_views = true
+  # config.scoped_views = false
 
   # Configure the default scope given to Warden. By default it's the
   # first devise role declared in your routes (usually :user).
