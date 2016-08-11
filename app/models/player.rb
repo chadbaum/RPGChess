@@ -6,8 +6,12 @@ class Player < ApplicationRecord
 
   validates :color, inclusion: { in: %w(black white) }
 
-  def player_turn
-    game.turn % 2 == 0 ? update(color: 'black') : update(color: 'white')  
+  def valid_turn?
+    return false unless player.color == game.color
+  end
+
+  def player_turn!
+    game.turn % 2 == 0 ? update(color: 'black') : update(color: 'white')
   end
 
   def king

@@ -18,6 +18,7 @@ class Piece < ActiveRecord::Base
   # on enemy occupying piece.  Otherwise returns false
   # and no further changes are made.
   def move!(x, y)
+    return false unless game.color == color
     return false unless valid_move?(x, y)
     victim = occupant_piece(x, y)
     if victim
@@ -28,7 +29,7 @@ class Piece < ActiveRecord::Base
     # if checked_king(white_king)
     # elsif checked_king(black_king)
     # end
-    game.end_turn!
+    game.end_turn!(color)
     true
   end
 

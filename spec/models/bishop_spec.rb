@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+require 'pry'
 RSpec.describe Bishop, type: :model do
   let(:game) { FactoryGirl.create(:game, :populated) }
   let(:bishop) do

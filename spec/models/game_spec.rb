@@ -18,10 +18,16 @@ RSpec.describe Game, type: :model do
     it 'should give me the last pieces color' do
       expect(game.pieces.last.color).to eq 'white'
     end
+    it 'should show game color as white' do
+      expect(game.color).to eq 'white'
+    end
+    it 'should show game turn number as 1' do
+      expect(game.turn).to eq 1
+    end
   end
 
   describe 'check?' do
-    let(:empty_game) { FactoryGirl.create(:game) }
+    let(:empty_game) { FactoryGirl.create(:game, color: 'white', turn: 1) }
     let(:blk_king) do
       empty_game.pieces.create(
       type: 'King',

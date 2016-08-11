@@ -33,14 +33,20 @@ class Game < ActiveRecord::Base
     players.find_by(color: 'black')
   end
 
-  def end_turn!
+  # At the end of turn
+  # Alternate the color between white and black (first turn color is white)
+  # Increment turn number by 1
+  def end_turn!(color)
+    next_turn_color = color == 'white' ? 'black' : 'white'
+    update(color: next_turn_color)
     increment!(:turn)
   end
 
   private
 
+  # At first turn set turn to 1 and color to white
   def first_turn!
-    update(turn: 1)
+    update(turn: 1, color: 'white')
   end
 
   def king(color)
