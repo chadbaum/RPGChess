@@ -40,12 +40,12 @@ class Game < ActiveRecord::Base
   # Returns true if the provided coords are on the line of
   # attack of any of the enemy piece. Method used to validate
   # King's move and checkmate state
-  def cell_in_check?(x, y, color = nil)
-    enemy_pcs(color).each do |p|
-      return true if p.valid_move?(x, y)
-    end
-    false
-  end
+  # def cell_in_check?(x, y, color = nil)
+  #   enemy_pcs(color).each do |p|
+  #     return true if p.valid_move?(x, y)
+  #   end
+  #   false
+  # end
 
   # Returns an array of all coordinates around the king,
   # including his current position and makes sure that
@@ -56,31 +56,18 @@ class Game < ActiveRecord::Base
     end
   end
 
+  private
+
+  # Generates all avilable coords around the current
+  # coords, including the current ones
   def generate_coords(x, y)
     coords = [x, y, (x + 1), (x - 1), (y + 1), (y - 1)]
     coords.uniq!.repeated_permutation(2).to_a
     coords
   end
 
-  # Returns true if all coordinates around the king
-  # are in check, including the king.
-  # def checkmate?(x, y, color)
-  #   return true if checkmate_coords(x, y).all?
-  #   { |c| check_state(c[0], c[1], color) }
-  #   false
-  # end
 
-  #  def check_state(x, y, color)
-  #   old_x = 0
-  #   old_y = 1
-  #   update(x_position: x, y_position: y)
-  #   result = in_check?(color)
-  #   update(x_position: old_x, y_position: old_y)
-  #   result
-  # end
-
-  private
-
+  # returns true if cell exists or not
   def exist?(x, y)
     (x <= 7 && x >= 0) && (y <= 7 && y >= 0)
   end
