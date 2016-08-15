@@ -30,8 +30,8 @@ class Piece < ActiveRecord::Base
 
   def checkmate?(x, y, color)
     if game.checkmate_coords(x, y).all? do |c|
-        check_state(c[0], c[1], color)
-      end
+         check_state(c[0], c[1], color)
+       end
       return true
     end
     false
@@ -157,11 +157,9 @@ class Piece < ActiveRecord::Base
   # origin and destination have a piece present.
   def path_clear?(x, y, distance)
     coordinates = generate_path_coordinates(x, y, distance)
-    coordinates.each do |coordinate|
-      return false if game.pieces.exists?(
-        x_position: coordinate[0],
-        y_position: coordinate[1]
-      )
+    coordinates.each do |coord|
+      return false if game.pieces.exists?(x_position: coord[0],\
+                                          y_position: coord[1])
     end
     true
   end
