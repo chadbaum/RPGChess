@@ -87,7 +87,7 @@ class Game < ActiveRecord::Base
   def create_players!
     players.create(color: 'white')
     players.create(color: 'black')
-  end
+  end\
 
   def populate_left_black_half!
     create_piece('Rook', 'black', 0, 0)
