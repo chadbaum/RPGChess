@@ -55,16 +55,6 @@ class Piece < ActiveRecord::Base
     color != victim.color
   end
 
-  # Returns true if the provided coords are on the line of
-  # attack of any of the enemy piece. Method used to validate
-  # King's move and checkmate state
-  # def cell_in_check?(x, y)
-  #   game.enemy_pcs(color).each do |p|
-  #     return true if p.valid_move?(x, y)
-  #   end
-  #   false
-  # end
-
   private
 
   # Updates a victim piece to nil coordinates and sets

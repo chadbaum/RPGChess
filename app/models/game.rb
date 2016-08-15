@@ -37,16 +37,6 @@ class Game < ActiveRecord::Base
     players.find_by(color: 'black')
   end
 
-  # Returns true if the provided coords are on the line of
-  # attack of any of the enemy piece. Method used to validate
-  # King's move and checkmate state
-  # def cell_in_check?(x, y, color = nil)
-  #   enemy_pcs(color).each do |p|
-  #     return true if p.valid_move?(x, y)
-  #   end
-  #   false
-  # end
-
   # Returns an array of all coordinates around the king,
   # including his current position and makes sure that
   # they exist on the board.
@@ -65,7 +55,6 @@ class Game < ActiveRecord::Base
     coords.uniq!.repeated_permutation(2).to_a
     coords
   end
-
 
   # returns true if cell exists or not
   def exist?(x, y)
