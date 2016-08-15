@@ -28,6 +28,15 @@ class Piece < ActiveRecord::Base
     true
   end
 
+  def checkmate?(x, y, color)
+    if game.checkmate_coords(x, y).all? do |c|
+        check_state(c[0], c[1], color)
+      end
+      return true
+    end
+    false
+  end
+
   def check_state(x, y, color)
     old_x = x_position
     old_y = y_position

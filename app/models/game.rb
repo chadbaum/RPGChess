@@ -51,18 +51,34 @@ class Game < ActiveRecord::Base
   # including his current position and makes sure that
   # they exist on the board.
   def checkmate_coords(x, y)
-    coords = [x, y, (x - 1), (y + 1), (y - 1), (x + 1)].uniq!.repeated_permutation(2).to_a
-    coords.select! { |i| i[0] <= x + 1 && i[1] >= y - 1 && cell_exists?(i[0], i[1]) }
+    coords = [x, y,
+              (x - 1),
+              (y + 1),
+              (y - 1),
+              (x + 1)].uniq!\
+             .repeated_permutation(2).to_a
+    coords.select! do |i|
+      i[0] <= x + 1 && i[1] >= y - 1 && cell_exists?(i[0], i[1])
+    end
     coords
   end
 
   # Returns true if all coordinates around the king
   # are in check, including the king.
-  def checkmate?(x, y, color)
-    return true if checkmate_coords(x, y).all? { |c| cell_in_check?(c[0], c[1], color) }
-    false
-  end
+  # def checkmate?(x, y, color)
+  #   return true if checkmate_coords(x, y).all?
+  #   { |c| check_state(c[0], c[1], color) }
+  #   false
+  # end
 
+  #  def check_state(x, y, color)
+  #   old_x = 0
+  #   old_y = 1
+  #   update(x_position: x, y_position: y)
+  #   result = in_check?(color)
+  #   update(x_position: old_x, y_position: old_y)
+  #   result
+  # end
 
   private
 

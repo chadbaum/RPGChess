@@ -1,37 +1,36 @@
 require 'rails_helper'
 
 RSpec.describe Game, type: :model do
-    let(:empty_game) { FactoryGirl.create(:game) }
-    let(:game) { FactoryGirl.create(:game, :populated) }
-    let(:blk_king) do
-      empty_game.pieces.create(
-        type: 'King',
-        color: 'black',
-        x_position: 3,
-        y_position: 4,
-        moved: true
-      )
-    end
-    let(:queen) do
-      empty_game.pieces.create(
-        type: 'Queen',
-        color: 'white',
-        x_position: 1,
-        y_position: 5,
-        moved: true
-      )
-    end
-    let(:knight) do
-      empty_game.pieces.create(
-        type: 'Knight',
-        color: 'white',
-        x_position: 6,
-        y_position: 7,
-        moved: false
-      )
-    end
+  let(:empty_game) { FactoryGirl.create(:game) }
+  let(:game) { FactoryGirl.create(:game, :populated) }
+  let(:blk_king) do
+    empty_game.pieces.create(
+      type: 'King',
+      color: 'black',
+      x_position: 3,
+      y_position: 4,
+      moved: true
+    )
+  end
+  let(:queen) do
+    empty_game.pieces.create(
+      type: 'Queen',
+      color: 'white',
+      x_position: 1,
+      y_position: 5,
+      moved: true
+    )
+  end
+  let(:knight) do
+    empty_game.pieces.create(
+      type: 'Knight',
+      color: 'white',
+      x_position: 6,
+      y_position: 7,
+      moved: false
+    )
+  end
   describe 'populate the board' do
-
     it 'should give us 32 pieces upon board population' do
       expect(game.pieces.count).to eq 32
     end
@@ -48,7 +47,6 @@ RSpec.describe Game, type: :model do
       expect(game.pieces.last.color).to eq 'white'
     end
   end
-
   describe 'check?' do
     it 'should return true if King is under check horizontally' do
       expect(queen.move!(1, 4)).to eq true
@@ -89,9 +87,12 @@ RSpec.describe Game, type: :model do
   end
   describe 'checkmate' do
     it 'should return true if King is in checkmate' do
-      rook = empty_game.pieces.create(type: 'Rook', color: 'white', x_position: 2, y_position: 7)
-      king = empty_game.pieces.create(type: 'King', color: 'black', x_position: 1, y_position: 2)
-      wht_king = empty_game.pieces.create(type: 'King', color: 'white', x_position: 5, y_position: 2)
+      rook = empty_game.pieces.create(type: 'Rook', color: 'white',\
+                                      x_position: 2, y_position: 7)
+      king = empty_game.pieces.create(type: 'King', color: 'black',\
+                                      x_position: 1, y_position: 2)
+      empty_game.pieces.create(type: 'King', color: 'white',\
+                               x_position: 5, y_position: 2)
       expect(queen.x_position).to eq 1
       expect(queen.y_position).to eq 5
       expect(empty_game.in_check?(king.color)).to eq true
@@ -101,14 +102,15 @@ RSpec.describe Game, type: :model do
       expect(king.move!(1, 2)).to eq false
       expect(king.move!(0, 1)).to eq false
 
-      expect(empty_game.cell_in_check?(0,2,'black')).to eq true
-      expect(empty_game.cell_in_check?(0,3,'black')).to eq true
-      expect(empty_game.cell_in_check?(1,1,'black')).to eq true
-      expect(empty_game.cell_in_check?(1,2,'black')).to eq true
-      expect(empty_game.cell_in_check?(1,3,'black')).to eq true
-      expect(empty_game.cell_in_check?(0,1,'black')).to eq true
+      expect(empty_game.cell_in_check?(0, 2, 'black')).to eq true
+      expect(empty_game.cell_in_check?(0, 3, 'black')).to eq true
+      expect(empty_game.cell_in_check?(1, 1, 'black')).to eq true
+      expect(empty_game.cell_in_check?(1, 2, 'black')).to eq true
+      expect(empty_game.cell_in_check?(1, 3, 'black')).to eq true
+      expect(king.check_state(0, 1, 'black')).to eq true
 
-      expect(empty_game.checkmate?(king.x_position, king.y_position, king.color)).to eq true
+      expect(king.checkmate?(king.x_position, king.y_position,\
+                             king.color)).to eq true
     end
   end
 end
