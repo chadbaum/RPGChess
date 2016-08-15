@@ -17,7 +17,7 @@ class Piece < ActiveRecord::Base
   # occupied by an enemy piece.  Executes capture method
   # on enemy occupying piece.  Otherwise returns false
   # and no further changes are made.
-  # At the end of successful move!, end player's turn. 
+  # At the end of successful move!, end player's turn.
   def move!(x, y)
     return false unless game.color == color && valid_move?(x, y)
     victim = occupant_piece(x, y)
