@@ -59,6 +59,7 @@ class Game < ActiveRecord::Base
   def generate_coords(x, y)
     coords = [x, y, (x + 1), (x - 1), (y + 1), (y - 1)]
     coords.uniq!.repeated_permutation(2).to_a
+    coords
   end
 
   # Returns true if all coordinates around the king

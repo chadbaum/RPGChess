@@ -102,14 +102,42 @@ RSpec.describe Game, type: :model do
       expect(king.move!(1, 2)).to eq false
       expect(king.move!(0, 1)).to eq false
 
-      expect(empty_game.cell_in_check?(0, 2, 'black')).to eq true
-      expect(empty_game.cell_in_check?(0, 3, 'black')).to eq true
-      expect(empty_game.cell_in_check?(1, 1, 'black')).to eq true
-      expect(empty_game.cell_in_check?(1, 2, 'black')).to eq true
-      expect(empty_game.cell_in_check?(1, 3, 'black')).to eq true
-      expect(king.check_state(0, 1, 'black')).to eq true
-
       expect(king.checkmate?(king.x_position, king.y_position,\
+                             king.color)).to eq true
+    end
+    it 'should return true if King is in checkmate' do
+      empty_game.pieces.create(type: 'King', color: 'white',
+                               x_position: 5, y_position: 2)
+      empty_game.pieces.create(type: 'Bishop', color: 'white',
+                               x_position: 4, y_position: 5)
+      empty_game.pieces.create(type: 'Bishop', color: 'white',
+                               x_position: 4, y_position: 4)
+      king = empty_game.pieces.create(type: 'King', color: 'black',
+                                      x_position: 7, y_position: 7)
+      queen = empty_game.pieces.create(type: 'Queen', color: 'white',
+                                       x_position: 6, y_position: 4)
+
+      expect(queen.move!(5, 4)).to eq true
+      expect(king.move!(7, 6)).to eq false
+      expect(king.move!(6, 7)).to eq false
+      expect(king.checkmate?(king.x_position, king.y_position,
+                             king.color)).to eq true
+    end
+    it 'should return true if King is in checkmate' do
+      empty_game.pieces.create(type: 'King', color: 'white',
+                               x_position: 1, y_position: 2)
+      empty_game.pieces.create(type: 'Rook', color: 'white',
+                               x_position: 4, y_position: 0)
+      empty_game.pieces.create(type: 'Rook', color: 'white',
+                               x_position: 6, y_position: 0)
+      queen = empty_game.pieces.create(type: 'Queen', color: 'white',
+                                       x_position: 7, y_position: 1)
+      king = empty_game.pieces.create(type: 'King', color: 'black',
+                                      x_position: 5, y_position: 4)
+      expect(queen.move!(5, 1)).to eq true
+      expect(king.move!(4, 4)).to eq false
+      expect(king.move!(6, 5)).to eq false
+      expect(king.checkmate?(king.x_position, king.y_position,
                              king.color)).to eq true
     end
   end
