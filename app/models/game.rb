@@ -18,11 +18,16 @@ class Game < ActiveRecord::Base
   end
 
   def check?(color)
-    king = king(color)
+    king = pieces.find_by(type: 'King', color: color)
     enemy_pcs(color).each do |p|
       return true if p.valid_move?(king.x_position, king.y_position)
     end
     false
+  end
+
+  # selects enemy pieces that are not captured
+  def enemy_pcs(color)
+    pieces.select { |p| p.color != color && p.captured != true }
   end
 
   def white
@@ -47,14 +52,6 @@ class Game < ActiveRecord::Base
   # At first turn set turn to 1 and color to white
   def first_turn!
     update(turn: 1, color: 'white')
-  end
-
-  def king(color)
-    pieces.find_by(type: 'King', color: color)
-  end
-
-  def enemy_pcs(color)
-    pieces.select { |p| p.color != color }
   end
 
   def create_players!
