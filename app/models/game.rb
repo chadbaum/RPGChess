@@ -51,12 +51,14 @@ class Game < ActiveRecord::Base
   # including his current position and makes sure that
   # they exist on the board.
   def checkmate_coords(x, y)
-    gen_coords(x, y).uniq!.repeated_permutation(2).to_a
-    c.select! { |i| i[0] <= xx && i[1] >= yy && exist?(i[0], i[1]) }
+    generate_coords(x, y).select! do |i|
+      i[0] <= x + 1 && i[1] >= y - 1 && exist?(i[0], i[1])
+    end
   end
 
-  def gen_coords(x, y)
-    [x, y, (x + 1), (x - 1), (y + 1), (y - 1)]
+  def generate_coords(x, y)
+    coords = [x, y, (x + 1), (x - 1), (y + 1), (y - 1)]
+    coords.uniq!.repeated_permutation(2).to_a
   end
 
   # Returns true if all coordinates around the king
