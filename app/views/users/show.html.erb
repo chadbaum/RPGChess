@@ -1,0 +1,23 @@
+<div class="container-fluid">
+  <section id="player-dashboard">
+    <div class="row">
+      <div class="user col-sm-offset-1 col-sm-2">
+        <%= image_tag 'user.png', class:'img-responsive' %>
+        <h4><%= current_user.email %></h4>
+        <h4>Member Since: <%= current_user.created_at.strftime("%B %d, %Y") %></h4>
+        <a class="btn-block btn btn-info account-settings" href="#" role="button">Account Settings</a>
+      </div>
+      <div class="boxed col-sm-7 col-xs-10 col-xs-offset-1">
+        <h2 class="text-center">Hello There!</h2>
+        <div class="col-sm-offset-1">
+          <h3 class="user-stats"><strong>Your Statistics</strong></h3>
+        <p>Games Played: <%= current_user.games.count %></p> 
+        <p>Wins</p>
+        <p>Losses</p>
+        <p></picture>Draws</h4>
+        <h3 class="battles"><strong>Historical Battles</strong></h3>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
