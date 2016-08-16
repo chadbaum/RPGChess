@@ -3,11 +3,13 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
-
 @import "mixins";
 @import "global";
 @import "footer";
 @import "navbar";
 @import "games";
+@import "devise";
+@import "users";
+@import "static_pages";
 
 @import 'https://fonts.googleapis.com/css?family=Rakkas';
