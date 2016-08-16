@@ -92,7 +92,7 @@ RSpec.describe Piece, type: :model do
       expect(wht_pawn.x_position).to eq 5
       expect(wht_pawn.y_position).to eq 3
       expect(wht_pawn.move!(5, 2)).to eq false
-      expect(game.check?(wht_king.color)).to eq false
+      expect(game.in_check?(wht_king.color)).to eq false
     end
     it 'should return false if Rook is opening a King for check' do
       expect(blk_queen.x_position).to eq 3
@@ -102,7 +102,7 @@ RSpec.describe Piece, type: :model do
       expect(wht_rook.x_position).to eq 4
       expect(wht_rook.y_position).to eq 3
       expect(wht_rook.move!(4, 7)).to eq false
-      expect(game.check?(wht_king.color)).to eq false
+      expect(game.in_check?(wht_king.color)).to eq false
     end
     it 'should return false if Knight is opening a King for check' do
       expect(blk_king.x_position).to eq 0
@@ -116,7 +116,7 @@ RSpec.describe Piece, type: :model do
       expect(wht_king.move!(5, 2)).to eq true
       expect(blk_queen.move!(3, 4)).to eq true
       expect(wht_rook.move!(4, 5)).to eq false
-      expect(game.check?(wht_king.color)).to eq false
+      expect(game.in_check?(wht_king.color)).to eq false
     end
   end
 end

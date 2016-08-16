@@ -16,7 +16,9 @@ class Game < ActiveRecord::Base
     populate_right_white_half!
   end
 
-  def check?(color)
+  # Returns true if the King of the color that
+  # just moved is in check
+  def in_check?(color)
     king = pieces.find_by(type: 'King', color: color)
     enemy_pcs(color).each do |p|
       return true if p.valid_move?(king.x_position, king.y_position)
@@ -29,20 +31,34 @@ class Game < ActiveRecord::Base
     pieces.select { |p| p.color != color && p.captured != true }
   end
 
-  def white
-    players.find_by(color: 'white')
-  end
-
-  def black
-    players.find_by(color: 'black')
+  # Returns an array of all coordinates around the king,
+  # including his current position and makes sure that
+  # they exist on the board.
+  def checkmate_coords(x, y)
+    coords_around_cell(x, y).select! do |i|
+      i[0] <= x + 1 && i[1] >= y - 1 && exist?(i[0], i[1])
+    end
   end
 
   private
 
+  # Generates all avilable coords around the current
+  # coords, including the current ones
+  def coords_around_cell(x, y)
+    coords = [x, y, (x + 1), (x - 1), (y + 1), (y - 1)]
+    coords.uniq!.repeated_permutation(2).to_a
+    coords
+  end
+
+  # returns true if cell exists or not
+  def exist?(x, y)
+    (x <= 7 && x >= 0) && (y <= 7 && y >= 0)
+  end
+
   def create_players!
     players.create(color: 'white')
     players.create(color: 'black')
-  end\
+  end
 
   def populate_left_black_half!
     create_piece('Rook', 'black', 0, 0)
@@ -82,6 +98,14 @@ class Game < ActiveRecord::Base
     create_piece('Bishop', 'white', 5, 7)
     create_piece('Knight', 'white', 6, 7)
     create_piece('Rook', 'white', 7, 7)
+  end
+
+  def white
+    players.find_by(color: 'white')
+  end
+
+  def black
+    players.find_by(color: 'black')
   end
 
   def create_piece(type, color, x_pos, y_pos)

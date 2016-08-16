@@ -28,11 +28,20 @@ class Piece < ActiveRecord::Base
     true
   end
 
+  def checkmate?(x, y, color)
+    if game.checkmate_coords(x, y).all? do |c|
+         check_state(c[0], c[1], color)
+       end
+      return true
+    end
+    false
+  end
+
   def check_state(x, y, color)
     old_x = x_position
     old_y = y_position
     update(x_position: x, y_position: y)
-    result = game.check?(color)
+    result = game.in_check?(color)
     update(x_position: old_x, y_position: old_y)
     result
   end
@@ -44,16 +53,6 @@ class Piece < ActiveRecord::Base
   # Returns true if position is occupied by a hostile piece.
   def enemy?(victim)
     color != victim.color
-  end
-
-  # Returns true if the provided coords are on the line of
-  # attack of any of the enemy piece. Method used to validate
-  # King's move and checkmate state
-  def checked_cell?(x, y)
-    game.enemy_pcs(color).each do |p|
-      return true if p.valid_move?(x, y)
-    end
-    false
   end
 
   private
@@ -148,11 +147,9 @@ class Piece < ActiveRecord::Base
   # origin and destination have a piece present.
   def path_clear?(x, y, distance)
     coordinates = generate_path_coordinates(x, y, distance)
-    coordinates.each do |coordinate|
-      return false if game.pieces.exists?(
-        x_position: coordinate[0],
-        y_position: coordinate[1]
-      )
+    coordinates.each do |coord|
+      return false if game.pieces.exists?(x_position: coord[0],\
+                                          y_position: coord[1])
     end
     true
   end
