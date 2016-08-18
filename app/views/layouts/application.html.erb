@@ -1,25 +1,17 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>StoicChess</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-
-  <% if user_signed_in? %>
-    <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
-  <% else %>
-      <li><%= link_to 'Sign in', new_user_session_path %></li>
-      <li><%= link_to 'Sign up', new_user_registration_path %></li>
-  <% end %>
-
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-
-<%= yield %>
-
-</body>
+  <head>
+    <title>StoicChess</title>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body class="site">
+    <main class="site-content">
+      <%= render "layouts/navbar" %>
+      <%= yield %>
+    </main>
+      <%= render "layouts/footer" %>
+  </body>
 </html>

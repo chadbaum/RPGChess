@@ -25,5 +25,10 @@ module StoicChess
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales',
     #  '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+    # Add the fonts path
+    config.assets.paths << "#{Rails.root}/app/assets/fonts"
+    # Precompile additional assets
+    config.assets.precompile += %w( .svg .eot. .woff .ttf )
+
   end
 end
