@@ -11,7 +11,7 @@ class King < Piece
       )
   end
 
-  #private
+  private
 
   # Returns true if the provided coordinates are within
   # 1 adjacent space of the king in any direction.
@@ -47,7 +47,9 @@ class King < Piece
   end
 
   def enemy_pieces
-    game.pieces.select { |piece| piece.color != color && piece.captured != true }
+    game.pieces.select do |piece|
+      piece.color != color && piece.captured != true
+    end
   end
 
   # Returns true if the king and rook have not moved,

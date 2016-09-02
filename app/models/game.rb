@@ -35,11 +35,9 @@ class Game < ActiveRecord::Base
   end
 
   def gameover!
-    
   end
 
   def check!
-
   end
 
   def current_player
