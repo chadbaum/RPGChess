@@ -26,10 +26,6 @@ class Game < ActiveRecord::Base
     tiles
   end
 
-  def current_player
-    turn.odd? ? white : black
-  end
-
   def next_turn
     if current_player.enemy.king.in_check?
       player.enemy.king.in_checkmate? ? gameover! : check!
@@ -38,36 +34,27 @@ class Game < ActiveRecord::Base
     update(turn: increment_turn)
   end
 
-  def in_check_scan?(x, y)
-    old_x = x_position
-    old_y = y_position
-    update(x_position: x, y_position: y)
-    result = game.in_check?(color)
-    update(x_position: old_x, y_position: old_y)
-    result
+  def gameover!
+    
   end
 
-  # Returns an array of all coordinates around the king,
-  # including his current position and makes sure that
-  # they exist on the board.
-  def checkmate_coords(x, y)
-    coords_around_cell(x, y).select! do |i|
-      i[0] <= x + 1 && i[1] >= y - 1 && exist?(i[0], i[1])
-    end
+  def check!
+
   end
 
-  # Generates all avilable coords around the current
-  # coords, including the current ones
-  def coords_around_cell(x, y)
-    coords = [x, y, (x + 1), (x - 1), (y + 1), (y - 1)]
-    coords.uniq!.repeated_permutation(2).to_a
-    coords
+  def current_player
+    turn.odd? ? white : black
   end
 
-  # returns true if cell exists or not
-  def exist?(x, y)
-    (x <= 7 && x >= 0) && (y <= 7 && y >= 0)
+  def white
+    players.find_by(color: 'white')
   end
+
+  def black
+    players.find_by(color: 'black')
+  end
+
+  private
 
   def create_players!
     players.create(color: 'white')
@@ -113,16 +100,6 @@ class Game < ActiveRecord::Base
     create_piece('Knight', 'white', 6, 7)
     create_piece('Rook', 'white', 7, 7)
   end
-
-  def white
-    players.find_by(color: 'white')
-  end
-
-  def black
-    players.find_by(color: 'black')
-  end
-
-  private
 
   def create_piece(type, color, x_pos, y_pos)
     if color == 'white'

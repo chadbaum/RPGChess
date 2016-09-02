@@ -11,6 +11,7 @@ class Piece < ActiveRecord::Base
   LEFT = -1
   DOWN = 1
   UP = -1
+  
   # Returns true and upates the piece's coordinates and moved
   # flag on a valid move where the tile is either empty or
   # occupied by an enemy piece.  Executes capture method
