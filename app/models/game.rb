@@ -26,17 +26,25 @@ class Game < ActiveRecord::Base
     tiles
   end
 
+  def current_player
+    turn.odd? ? white : black
+  end
+
   def next_turn
+    if current_player.enemy.king.in_check?
+      player.enemy.king.in_checkmate? ? gameover! : check!
+    end
     increment_turn = turn + 1
     update(turn: increment_turn)
   end
 
-  def in_check_scan?
-    white.king.in_check? || black.king.in_check?
-  end
-
-  def in_checkmate_scan?
-
+  def in_check_scan?(x, y)
+    old_x = x_position
+    old_y = y_position
+    update(x_position: x, y_position: y)
+    result = game.in_check?(color)
+    update(x_position: old_x, y_position: old_y)
+    result
   end
 
   # Returns an array of all coordinates around the king,

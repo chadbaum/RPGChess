@@ -23,30 +23,19 @@ class Piece < ActiveRecord::Base
       return false unless enemy?(victim)
       capture!(victim)
     end
-    return false if player.king.in_check?
+    return false if king_exposed?(x, y)
     update(x_position: x, y_position: y, moved: true)
-    if player.enemy.king.in_check?
-      player.enemy.king.in_checkmate? ? game.gameover! : game.check!
-    end
+    game.next_turn
     true
   end
 
-  def checkmate?(x, y, color)
-    if game.checkmate_coords(x, y).all? do |c|
-         check_state(c[0], c[1], color)
-       end
-      return true
-    end
-    false
-  end
-
-  def check_state(x, y, color)
-    old_x = x_position
-    old_y = y_position
+  def king_exposed?(x, y)
+    original_x = x_position
+    original_y = y_position
     update(x_position: x, y_position: y)
-    result = game.in_check?(color)
-    update(x_position: old_x, y_position: old_y)
-    result
+    exposed = player.king.in_check?
+    update(x_position: original_x, y_position: original_y)
+    exposed
   end
 
   # All validation assumes white player is on the
