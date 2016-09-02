@@ -4,19 +4,50 @@ class King < Piece
   # implemented yet and thus ignored. Obstruction
   # logic is not necessary for the king.
   def valid_move?(x, y)
-    moved?(x, y) && !check_state(x, y, color) &&
+    moved?(x, y) && !in_check?(x, y) &&
       (
         radial_move?(x, y) ||
         clear_castling_move?(x, y)
       )
   end
 
-  private
+  #private
 
   # Returns true if the provided coordinates are within
   # 1 adjacent space of the king in any direction.
   def radial_move?(x, y)
     x_distance(x) <= 1 && y_distance(y) <= 1
+  end
+
+  def in_check?(x, y)
+    enemy_pieces.each do |piece|
+      return true if piece.valid_move?(x, y)
+    end
+    false
+  end
+
+  def in_checkmate?
+    potential_moves = generate_radial_tiles
+    potential_moves.each do |tile|
+      if valid_move?(tile[0], tile[1]) && !in_check?(tile[0], tile[1])
+        return false
+      end
+    end
+    true
+  end
+
+  def generate_radial_tiles
+    radial_tiles = []
+    game.generate_tiles.each do |tile|
+      if radial_move?(tile[0], tile[1]) && moved?(tile[0], tile[1])
+        radial_tiles << tile
+      end
+    end
+    radial_tiles
+  end
+
+  def enemy_pieces
+    game.pieces.select { |piece| piece.color != color && piece.captured != true }
   end
 
   # Returns true if the king and rook have not moved,

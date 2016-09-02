@@ -16,19 +16,27 @@ class Game < ActiveRecord::Base
     populate_right_white_half!
   end
 
-  # Returns true if the King of the color that
-  # just moved is in check
-  def in_check?(color)
-    king = pieces.find_by(type: 'King', color: color)
-    enemy_pcs(color).each do |p|
-      return true if p.valid_move?(king.x_position, king.y_position)
+  def generate_tiles
+    tiles = []
+    (0..7).each do |x|
+      (0..7).each do |y|
+        tiles << [x, y]
+      end
     end
-    false
+    tiles
   end
 
-  # selects enemy pieces that are not captured
-  def enemy_pcs(color)
-    pieces.select { |p| p.color != color && p.captured != true }
+  def next_turn
+    increment_turn = turn + 1
+    update(turn: increment_turn)
+  end
+
+  def in_check_scan?
+    white.king.in_check? || black.king.in_check?
+  end
+
+  def in_checkmate_scan?
+
   end
 
   # Returns an array of all coordinates around the king,
@@ -39,8 +47,6 @@ class Game < ActiveRecord::Base
       i[0] <= x + 1 && i[1] >= y - 1 && exist?(i[0], i[1])
     end
   end
-
-  private
 
   # Generates all avilable coords around the current
   # coords, including the current ones
@@ -107,6 +113,8 @@ class Game < ActiveRecord::Base
   def black
     players.find_by(color: 'black')
   end
+
+  private
 
   def create_piece(type, color, x_pos, y_pos)
     if color == 'white'

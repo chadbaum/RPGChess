@@ -23,8 +23,11 @@ class Piece < ActiveRecord::Base
       return false unless enemy?(victim)
       capture!(victim)
     end
-    return false if check_state(x, y, color)
+    return false if player.king.in_check?
     update(x_position: x, y_position: y, moved: true)
+    if player.enemy.king.in_check?
+      player.enemy.king.in_checkmate? ? game.gameover! : game.check!
+    end
     true
   end
 
