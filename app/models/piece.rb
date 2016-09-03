@@ -19,12 +19,8 @@ class Piece < ActiveRecord::Base
   # and no further changes are made.
   def move!(x, y)
     return false unless valid_move?(x, y)
-    victim = occupant_piece(x, y)
-    if victim
-      return false unless enemy?(victim)
-      capture!(victim)
-    end
     return false if king_exposed?(x, y)
+    capture!(x, y) if occupied(x, y)
     update(x_position: x, y_position: y, moved: true)
     game.next_turn
     true
@@ -42,23 +38,31 @@ class Piece < ActiveRecord::Base
   # All validation assumes white player is on the
   # 6-7 rows of the array, and black player is on
   # 0-1 rows of the array.
-
-  # Returns true if position is occupied by a hostile piece.
-  def enemy?(victim)
-    color != victim.color
+  
+  def generate_moveset_tiles
+    moveset_tiles = []
+    game.generate_tiles.each do |tile|
+      if valid_move?(tile[0], tile[1])
+        moveset_tiles << tile
+      end
+    end
+    moveset_tiles
   end
 
   private
 
   # Updates a victim piece to nil coordinates and sets
   # captured flag to true.
-  def capture!(victim)
-    victim.update(x_position: nil, y_position: nil, captured: true)
+  def capture!(x, y)
+    victim = game.occupant(x, y)
+    if victim
+      victim.update(x_position: nil, y_position: nil, captured: true)
+    end
   end
 
-  # Returns the piece occupying the coordinates.
-  def occupant_piece(x, y)
-    game.pieces.find_by(x_position: x, y_position: y)
+  def capturable?(x, y)
+    potential_victim = game.occupant(x, y)
+    color != potential_victim.color
   end
 
   # Compares a piece's x_position with the
@@ -77,13 +81,14 @@ class Piece < ActiveRecord::Base
 
   # Returns true if the coordinates provided
   # are different from the piece's starting position.
-  def moved?(x, y)
+  def moved_from_origin?(x, y)
     x != x_position || y != y_position
   end
 
   # Returns true if the coordinates provided have the
   # same x-axis value and there are no pieces in between.
   def clear_horizontal_move?(x, y)
+    return false unless moved_from_origin?(x, y)
     return false unless y_distance(y).zero?
     distance = x_distance(x)
     path_clear?(x, y, distance)
@@ -92,6 +97,7 @@ class Piece < ActiveRecord::Base
   # Returns true if the coordinates provided have
   # the same y-axis value and there are no pieces in between.
   def clear_vertical_move?(x, y)
+    return false unless moved_from_origin?(x, y)
     return false unless x_distance(x).zero?
     distance = y_distance(y)
     path_clear?(x, y, distance)
@@ -101,6 +107,7 @@ class Piece < ActiveRecord::Base
   # are the same distance away from the origin point along
   # both axis and there are no pieces in between.
   def clear_diagonal_move?(x, y)
+    return false unless moved_from_origin?(x, y)
     return false unless x_distance(x) == y_distance(y)
     distance = x_distance(x)
     path_clear?(x, y, distance)

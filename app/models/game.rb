@@ -28,13 +28,14 @@ class Game < ActiveRecord::Base
 
   def next_turn
     if current_player.enemy.king.in_check?
-      player.enemy.king.in_checkmate? ? gameover! : check!
+      player.enemy.king.in_checkmate? ? game_over! : check!
     end
-    increment_turn = turn + 1
-    update(turn: increment_turn)
+    incremented_turn = turn + 1
+    update(turn: incremented_turn)
   end
 
-  def gameover!
+  def game_over!
+    update(active: false)
   end
 
   def check!
@@ -50,6 +51,15 @@ class Game < ActiveRecord::Base
 
   def black
     players.find_by(color: 'black')
+  end
+
+  # Returns the piece occupying the coordinates.
+  def occupant(x, y)
+    pieces.find_by(x_position: x, y_position: y)
+  end
+
+  def occupied?(x, y)
+    pieces.exists?(x_position: x, y_position: y)
   end
 
   private

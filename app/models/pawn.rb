@@ -55,7 +55,7 @@ class Pawn < Piece
   # that is one space diagonally forward to the left or right
   # of the pawn's starting position.
   def fwd_diagonal_attack?(x, y)
-    return false unless occupant_piece(x, y)
+    return false unless game.occupant(x, y)
     return false unless x == x_position + 1 || x == x_position - 1
     y == if color == 'black'
            y_position + 1
