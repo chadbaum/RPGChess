@@ -5,7 +5,7 @@ class Game < ActiveRecord::Base
   has_many :pieces
   has_many :players
   has_many :users, through: :players
-  after_save :create_players!
+  #after_save :create_players!
 
   def populate!
     populate_left_black_half!
@@ -14,6 +14,11 @@ class Game < ActiveRecord::Base
     populate_white_pawns!
     populate_left_white_half!
     populate_right_white_half!
+  end
+
+  def create_players!
+    players.create(color: 'white')
+    players.create(color: 'black')
   end
 
   def generate_tiles
@@ -54,20 +59,15 @@ class Game < ActiveRecord::Base
   end
 
   # Returns the piece occupying the coordinates.
-  def occupant(x, y)
+  def tile_occupant(x, y)
     pieces.find_by(x_position: x, y_position: y)
   end
 
-  def occupied?(x, y)
+  def tile_occupied?(x, y)
     pieces.exists?(x_position: x, y_position: y)
   end
 
   private
-
-  def create_players!
-    players.create(color: 'white')
-    players.create(color: 'black')
-  end
 
   def populate_left_black_half!
     create_piece('Rook', 'black', 0, 0)
@@ -109,12 +109,12 @@ class Game < ActiveRecord::Base
     create_piece('Rook', 'white', 7, 7)
   end
 
-  def create_piece(type, color, x_pos, y_pos)
+  def create_piece(type, color, x, y)
     if color == 'white'
-      white.pieces.create(type: type, x_position: x_pos, y_position: y_pos,
+      white.pieces.create(type: type, x_position: x, y_position: y,
                           color: 'white', game_id: id)
     else
-      black.pieces.create(type: type, x_position: x_pos, y_position: y_pos,
+      black.pieces.create(type: type, x_position: x, y_position: y,
                           color: 'black', game_id: id)
     end
   end

@@ -22,19 +22,10 @@ class Piece < ActiveRecord::Base
   def move!(x, y)
     return false unless valid_move?(x, y)
     return false if king_exposed?(x, y)
-    capture!(x, y) if occupied(x, y)
+    capture!(x, y)
     update(x_position: x, y_position: y, moved: true)
     game.next_turn
     true
-  end
-
-  def king_exposed?(x, y)
-    original_x = x_position
-    original_y = y_position
-    update(x_position: x, y_position: y)
-    exposed = player.king.in_check?
-    update(x_position: original_x, y_position: original_y)
-    exposed
   end
 
   def generate_valid_moves
@@ -45,19 +36,30 @@ class Piece < ActiveRecord::Base
     moveset_tiles
   end
 
-  def capturable?(x, y)
-    potential_victim = game.occupant(x, y)
-    return color != potential_victim.color if potential_victim
-    false
-  end
-
-  private
+  #private
 
   # Updates a victim piece to nil coordinates and sets
   # captured flag to true.
   def capture!(x, y)
-    victim = game.occupant(x, y)
+    victim = game.tile_occupant(x, y)
     victim.update(x_position: nil, y_position: nil, captured: true) if victim
+  end
+
+  def capturable?(x, y)
+    player.enemy.pieces.exists?(x_position: x, y_position: y)
+  end
+
+  def tile_empty_or_capturable?(x, y)
+    !game.tile_occupied?(x, y) || capturable?(x, y)
+  end
+
+  def king_exposed?(x, y)
+    original_x = x_position
+    original_y = y_position
+    update(x_position: x, y_position: y)
+    exposed = player.king.in_check?
+    update(x_position: original_x, y_position: original_y)
+    exposed
   end
 
   # Compares a piece's x_position with the
@@ -127,24 +129,28 @@ class Piece < ActiveRecord::Base
 
   # Returns an array of x-y coordinate subarrays
   # between origin and destination.
-  def generate_path_coordinates(x, y, distance)
-    coordinate_sets = []
+  def generate_path(x, y, distance)
+    path = []
     direction = path_direction(x, y)
     (distance - 1).times do |i|
       i += 1
-      coordinate_sets << [x_position + i * direction[:x],
-                          y_position + i * direction[:y]]
+      path << [
+        x_position + i * direction[:x],
+        y_position + i * direction[:y]
+      ]
     end
-    coordinate_sets
+    path
   end
 
   # Returns true if no x-y coordinate pairs between
   # origin and destination have a piece present.
   def path_clear?(x, y, distance)
-    coordinates = generate_path_coordinates(x, y, distance)
-    coordinates.each do |coord|
-      return false if game.pieces.exists?(x_position: coord[0],\
-                                          y_position: coord[1])
+    path = generate_path(x, y, distance)
+    path.each do |tile|
+      return false if game.pieces.exists?(
+        x_position: tile[0],
+        y_position: tile[1]
+      )
     end
     true
   end
