@@ -2,9 +2,8 @@
 class Knight < Piece
   # There is no obstruction logic necessary for the knight.
   def valid_move?(x, y)
-    if game.occupied?(x, y) ? capturable?(x, y) : true
-      l_shaped_move?(x, y)
-    end
+    return false unless game.occupied?(x, y) ? capturable?(x, y) : true
+    l_shaped_move?(x, y)
   end
 
   # Returns true if the coordinates provided are either

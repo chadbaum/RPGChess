@@ -1,4 +1,6 @@
-# Piece superset behavior.
+# All validation assumes white player is on the
+# 6-7 rows of the array, and black player is on
+# 0-1 rows of the array.
 class Piece < ActiveRecord::Base
   belongs_to :game
   belongs_to :player
@@ -35,18 +37,18 @@ class Piece < ActiveRecord::Base
     exposed
   end
 
-  # All validation assumes white player is on the
-  # 6-7 rows of the array, and black player is on
-  # 0-1 rows of the array.
-  
-  def generate_moveset_tiles
+  def generate_valid_moves
     moveset_tiles = []
     game.generate_tiles.each do |tile|
-      if valid_move?(tile[0], tile[1])
-        moveset_tiles << tile
-      end
+      moveset_tiles << tile if valid_move?(tile[0], tile[1])
     end
     moveset_tiles
+  end
+
+  def capturable?(x, y)
+    potential_victim = game.occupant(x, y)
+    return color != potential_victim.color if potential_victim
+    false
   end
 
   private
@@ -55,14 +57,7 @@ class Piece < ActiveRecord::Base
   # captured flag to true.
   def capture!(x, y)
     victim = game.occupant(x, y)
-    if victim
-      victim.update(x_position: nil, y_position: nil, captured: true)
-    end
-  end
-
-  def capturable?(x, y)
-    potential_victim = game.occupant(x, y)
-    color != potential_victim.color
+    victim.update(x_position: nil, y_position: nil, captured: true) if victim
   end
 
   # Compares a piece's x_position with the

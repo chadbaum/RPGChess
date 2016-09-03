@@ -4,10 +4,9 @@ class King < Piece
   # implemented yet and thus ignored. Obstruction
   # logic is not necessary for the king.
   def valid_move?(x, y)
+    return false unless game.occupied?(x, y) ? capturable?(x, y) : true
     return false if in_check?(x, y)
-    if game.occupied?(x, y) ? capturable?(x, y) : true
-      radial_move?(x, y) || clear_castling_move?(x, y)
-    end
+    radial_move?(x, y) || clear_castling_move?(x, y)
   end
 
   private
@@ -26,7 +25,7 @@ class King < Piece
   end
 
   def in_checkmate?
-    potential_moves = generate_moveset_tiles
+    potential_moves = generate_valid_moves
     potential_moves.each do |tile|
       if valid_move?(tile[0], tile[1]) && !in_check?(tile[0], tile[1])
         return false
@@ -34,8 +33,6 @@ class King < Piece
     end
     true
   end
-
-
 
   # Returns true if the king and rook have not moved,
   # the location is a valid castling target, and there is
