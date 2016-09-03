@@ -77,7 +77,7 @@ RSpec.describe Pawn, type: :model do
 
   describe 'obstructed move' do
     it 'should return false and not update position on obstructed move' do
-      game.pieces.create(
+      test_game.pieces.create(
         type: 'Rook',
         color: 'white',
         x_position: 5,
@@ -90,7 +90,7 @@ RSpec.describe Pawn, type: :model do
     end
 
     it 'should return false and not update position on obstructed move' do
-      game.pieces.create(
+      test_game.pieces.create(
         type: 'Rook',
         color: 'white',
         x_position: 5,
@@ -105,7 +105,7 @@ RSpec.describe Pawn, type: :model do
 
   describe 'diagonal capture' do
     it 'should return false and not update position on capturing friendly' do
-      victim = game.pieces.create(
+      victim = test_game.pieces.create(
         type: 'Rook',
         color: 'white',
         x_position: 2,
@@ -123,7 +123,7 @@ RSpec.describe Pawn, type: :model do
     end
 
     it 'should return true and update position on capturing enemy' do
-      victim = game.pieces.create(
+      victim = test_game.pieces.create(
         type: 'Rook',
         color: 'black',
         x_position: 2,
