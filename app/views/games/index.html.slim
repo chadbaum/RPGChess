@@ -1,11 +1,6 @@
 .container-fluid
   section#games-list
-    .row
-      .col-sm-5.col-sm-offset-1
-        = image_tag 'chess.jpg', class: 'img-responsive feature-pic'
-      .col-sm-5
-        h2.join-headline.text-center
-          | Your opponent awaits you! Join the battle!
+    | Your opponent awaits you! Join the battle!
           - @games.each do |game|
             h4 Available Game
             = button_to 'Join Game', join_game_path(game), class: 'btn btn-success pull-right'
