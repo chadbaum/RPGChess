@@ -1,8 +1,9 @@
+# Game object that handles turn logic and board creation.
 class Game < ActiveRecord::Base
   has_many :pieces
   has_many :players
   has_many :users, through: :players
-  after_save :populate!
+  after_create :populate!
 
   def populate!
     populate_players!
