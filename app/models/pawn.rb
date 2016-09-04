@@ -7,7 +7,8 @@ class Pawn < Piece
   # are not implemented yet and thus ignored.
   def valid_move?(x, y)
     return true if fwd_diagonal_attack?(x, y)
-    moved ? one_fwd_move?(x, y) : first_fwd_move?(x, y) && !fwd_attack?(x, y)
+    return false if game.tile_occupied?(x, y)
+    moved ? one_fwd_move?(x, y) : first_fwd_move?(x, y)
   end
 
   # Updates the piece's type from Pawn to the new type
@@ -44,11 +45,6 @@ class Pawn < Piece
   # are 1-2 tiles forward from the piece's origin.
   def first_fwd_move?(x, y)
     one_fwd_move?(x, y) || clear_two_fwd_move?(x, y)
-  end
-
-  # Returns true if a piece exists in pawn's forward path.
-  def fwd_attack?(x, y)
-    game.pieces.exists?(x_position: x, y_position: y)
   end
 
   # Returns true if pawn is moving into an enemy-occupied tile
