@@ -7,13 +7,6 @@ class Piece < ActiveRecord::Base
   validates :color, inclusion: { in: %w(black white) }
   validates :type, inclusion: { in: %w(Pawn Rook Bishop Knight King Queen) }
 
-  # Class constants used to determine path direction
-  # for obstruction logic.
-  RIGHT = 1
-  LEFT = -1
-  DOWN = 1
-  UP = -1
-
   # Returns true and upates the piece's coordinates and moved
   # flag on a valid move where the tile is either empty or
   # occupied by an enemy piece.  Executes capture method
@@ -116,12 +109,12 @@ class Piece < ActiveRecord::Base
   # to determine direction of path along both axis.
   def path_direction(x, y)
     direction = {}
-    direction[:x] = if x_position < x then RIGHT
-                    elsif x_position > x then LEFT
+    direction[:x] = if x_position < x then 1
+                    elsif x_position > x then -1
                     else 0
                     end
-    direction[:y] = if y_position < y then DOWN
-                    elsif y_position > y then UP
+    direction[:y] = if y_position < y then 1
+                    elsif y_position > y then -1
                     else 0
                     end
     direction
