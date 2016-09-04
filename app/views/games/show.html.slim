@@ -1,0 +1,15 @@
+= content_tag :div, id: "piece_pos", data: { positions: @piece_positions } do
+
+.text-center.players
+  h2
+    | ♛ 
+    /= @game.white.user.username 
+    | vs 
+    | ♕ 
+    /= @game.black.user.username
+  hr
+table#chess-board
+  - 8.times do |y|
+    tr
+      - 8.times do |x|
+        | <td data-x='#{x}' data-y='#{y}'></td>

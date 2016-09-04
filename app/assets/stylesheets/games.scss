@@ -6,6 +6,9 @@
   border: 7px solid #000;
   border-collapse: separate;
   padding: 1px;
+  float: none;
+  margin: auto;
+  table-layout: fixed;
   width: 550px;
   height: 550px;
 }
@@ -26,12 +29,6 @@
 
 .white-pcs {
   color: #fff;
-}
-
-/* makes the baord centered at all times*/
-.col-centered {
-  float: none;
-  margin: auto;
 }
 
 #chess-board tr:nth-child(odd) td:nth-child(even),
