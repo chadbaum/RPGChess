@@ -1,24 +1,13 @@
-# model Game,piece creation inside
-# DO NOT chnage the sequence of methods
-# or you will break the front end view
+# Game object that handles turn logic and board creation.
 class Game < ActiveRecord::Base
   has_many :pieces
   has_many :players
   has_many :users, through: :players
-  after_save :create_players!, :populate!
+  after_create :populate!
 
   def populate!
-    populate_left_black_half!
-    populate_right_black_half!
-    populate_black_pawns!
-    populate_white_pawns!
-    populate_left_white_half!
-    populate_right_white_half!
-  end
-
-  def create_players!
-    players.create(color: 'white')
-    players.create(color: 'black')
+    populate_players!
+    populate_pieces!
   end
 
   def generate_tiles
@@ -69,44 +58,58 @@ class Game < ActiveRecord::Base
 
   private
 
-  def populate_left_black_half!
-    create_piece('Rook', 'black', 0, 0)
-    create_piece('Knight', 'black', 1, 0)
-    create_piece('Bishop', 'black', 2, 0)
-    create_piece('Queen', 'black', 3, 0)
+  def populate_pieces!
+    populate_pawns!
+    populate_knights!
+    populate_bishops!
+    populate_rooks!
+    populate_queens!
+    populate_kings!
   end
 
-  def populate_right_black_half!
-    create_piece('King', 'black', 4, 0)
-    create_piece('Bishop', 'black', 5, 0)
-    create_piece('Knight', 'black', 6, 0)
-    create_piece('Rook', 'black', 7, 0)
+  def populate_players!
+    players.create(color: 'white')
+    players.create(color: 'black')
   end
 
-  def populate_black_pawns!
+  def populate_pawns!
+    (0..7).each do |i|
+      create_piece('Pawn', 'white', i, 6)
+    end
     (0..7).each do |i|
       create_piece('Pawn', 'black', i, 1)
     end
   end
 
-  def populate_white_pawns!
-    (0..7).each do |i|
-      create_piece('Pawn', 'white', i, 6)
-    end
-  end
-
-  def populate_left_white_half!
-    create_piece('Rook', 'white', 0, 7)
+  def populate_knights!
     create_piece('Knight', 'white', 1, 7)
-    create_piece('Bishop', 'white', 2, 7)
-    create_piece('Queen', 'white', 3, 7)
+    create_piece('Knight', 'white', 6, 7)
+    create_piece('Knight', 'black', 1, 0)
+    create_piece('Knight', 'black', 6, 0)
   end
 
-  def populate_right_white_half!
-    create_piece('King', 'white', 4, 7)
+  def populate_bishops!
+    create_piece('Bishop', 'white', 2, 7)
     create_piece('Bishop', 'white', 5, 7)
-    create_piece('Knight', 'white', 6, 7)
+    create_piece('Bishop', 'black', 2, 0)
+    create_piece('Bishop', 'black', 5, 0)
+  end
+
+  def populate_rooks!
+    create_piece('Rook', 'white', 0, 7)
     create_piece('Rook', 'white', 7, 7)
+    create_piece('Rook', 'black', 0, 0)
+    create_piece('Rook', 'black', 7, 0)
+  end
+
+  def populate_queens!
+    create_piece('Queen', 'white', 3, 7)
+    create_piece('Queen', 'black', 0, 3)
+  end
+
+  def populate_kings!
+    create_piece('King', 'white', 4, 7)
+    create_piece('King', 'black', 4, 0)
   end
 
   def create_piece(type, color, x, y)
