@@ -35,13 +35,12 @@ class King < Piece
   # the location is a valid castling target, and there is
   # no obstruction along the way. DOES NOT INCLUDE CHECK LOGIC.
   def clear_castling_move?(x, y)
-    return false unless castling_coordinates?([x, y])
-    return false if moved
-    rook = castling_rook(x)
-    return false unless rook
+    return false unless valid_castling_tile?(x, y) && !moved
+    rook = select_castling_rook(x)
+    return false if rook.nil?
     distance = x_distance(rook.x_position)
-    if path_clear?(rook.x_position, rook.y_position, distance) & !rook.moved
-      rook.castling_move
+    if path_clear?(rook.x_position, rook.y_position, distance) && !rook.moved
+      rook.castling_move!
       return true
     end
     false
@@ -49,18 +48,18 @@ class King < Piece
 
   # Returns true if coordinates are one of the two valid
   # castling destinations for each king.
-  def castling_coordinates?(coordinates)
+  def valid_castling_tile?(x, y)
     options = if color == 'white'
                 [[6, 7], [2, 7]]
               else
                 [[6, 0], [2, 0]]
               end
-    options.include?(coordinates)
+    options.include?([x, y])
   end
 
   # Returns the rook that would be castling with the king
   # based on whether the king is trying to castle left or right.
-  def castling_rook(x)
+  def select_castling_rook(x)
     rook_x = x == 6 ? 7 : 0
     rook_y = color == 'white' ? 7 : 0
     game.pieces.find_by(x_position: rook_x, y_position: rook_y)
