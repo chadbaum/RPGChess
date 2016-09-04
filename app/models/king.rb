@@ -41,9 +41,10 @@ class King < Piece
     distance = x_distance(rook.x_position)
     if path_clear?(rook.x_position, rook.y_position, distance) && !rook.moved
       rook.castling_move!
-      return true
+      true
+    else
+      false
     end
-    false
   end
 
   # Returns true if coordinates are one of the two valid
