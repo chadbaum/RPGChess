@@ -16,7 +16,7 @@ table#chess-board
         - piece = @game.pieces.find_by(x_position: x, y_position: y)
         - if piece
           - if piece.type == 'Rook'
-            | <span class='piece #{piece.color.downcase} glyphicon glyphicon-tower'> 
+            | <span class='piece #{piece.color.downcase} glyphicon glyphicon-tower' data-id='#{id}'> 
           - else
-            | <span class='piece #{piece.color.downcase} glyphicon glyphicon-#{piece.type.downcase}'>      
+            | <span class='piece #{piece.color.downcase} glyphicon glyphicon-#{piece.type.downcase}' data-id='#{id}'>      
         | </td>

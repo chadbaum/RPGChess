@@ -26,11 +26,17 @@ class GamesController < ApplicationController
   end
 
   def update
-    @game = Game.find(params[:id])
-    @piece = @game.pieces.find(params[:piece_id])
-    x = params[:x_position].to_i
-    y = params[:y_position].to_i
+    respond_to do |format|
+    end
+    @piece = Piece.find_by(game_id: params[:id], id: params[:piece_id])
     @piece.move!(x, y)
-    # MOVE TO PIECES CONTROLLER???
+    respond_with @piece
+
+    # private
+    #
+    # def piece_params
+    #   params.require(:piece).permit(:x_position, :y_position, :moved)
+    # end
+
   end
 end
