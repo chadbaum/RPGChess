@@ -33,7 +33,7 @@ class Game < ActiveRecord::Base
 
   def next_turn
     if current_player.enemy.king.in_check?
-      player.enemy.king.in_checkmate? ? game_over! : check!
+      current_player.enemy.king.in_checkmate? ? game_over! : check!
     end
     incremented_turn = turn + 1
     update(turn: incremented_turn)
