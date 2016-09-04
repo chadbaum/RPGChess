@@ -7,6 +7,8 @@
     | vs 
     | ♕ 
     /= @game.black.user.username
+  h2 
+    = "Turn: #{@game.turn}"
   hr
 table#chess-board
   - 8.times do |y|
@@ -16,7 +18,7 @@ table#chess-board
         - piece = @game.pieces.find_by(x_position: x, y_position: y)
         - if piece
           - if piece.type == 'Rook'
-            | <span class='piece #{piece.color.downcase} glyphicon glyphicon-tower' data-id='#{id}'> 
+            | <span class='piece #{piece.color.downcase} glyphicon glyphicon-tower' data-id='#{piece.id}'> 
           - else
-            | <span class='piece #{piece.color.downcase} glyphicon glyphicon-#{piece.type.downcase}' data-id='#{id}'>      
+            | <span class='piece #{piece.color.downcase} glyphicon glyphicon-#{piece.type.downcase}' data-id='#{piece.id}'>      
         | </td>

@@ -24,19 +24,4 @@ class GamesController < ApplicationController
     @pieces = @game.pieces
     # ADD AUTHENTICATION FOR CORRECT USERS
   end
-
-  def update
-    respond_to do |format|
-    end
-    @piece = Piece.find_by(game_id: params[:id], id: params[:piece_id])
-    @piece.move!(x, y)
-    respond_with @piece
-
-    # private
-    #
-    # def piece_params
-    #   params.require(:piece).permit(:x_position, :y_position, :moved)
-    # end
-
-  end
 end

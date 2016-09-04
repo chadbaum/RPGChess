@@ -38,7 +38,7 @@ $(function() {
       var draggedPiece = ui.draggable;
       $.ajax({
         method: 'PATCH',
-        url: '/update',
+        url: '/pieces/' + $(draggedPiece).data('id'),
         dataType: 'json',
         data: {
           id: $(event.target).data('id'),
