@@ -16,8 +16,7 @@ class King < Piece
   end
 
   def in_checkmate?
-    potential_moves = generate_valid_moves
-    potential_moves.each do |tile|
+    generate_valid_moves.each do |tile|
       return false if valid_move?(tile[0], tile[1]) && !in_check?
     end
     true

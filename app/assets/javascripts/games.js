@@ -14,7 +14,7 @@ $(function() {
     // Makes all cells that have <i> elements
     // draggble. If move is invalid, the piece will
     // return to its cell
-    $('#chess-board td > span').draggable({
+    $('#chess-board td span').draggable({
       containment: "#chess-board",
       cursor: "all-scroll",
       opacity: 0.6,
@@ -29,6 +29,21 @@ $(function() {
       // this logic can be removed when move! method works
       // properly
       tolerance: 'pointer',
-      hoverClass: 'highlighted-cell'
+      hoverClass: 'selected-tile',
+      accept: function( draggablePiece ) {
+        var targetTile = this;
+        if (draggablePiece.hasClass('white') && $(targetTile).children('span').hasClass('white')) {
+          return false;
+        } else if (draggablePiece.hasClass('black') && $(targetTile).children('span').hasClass('black')) {
+            return false;
+        } else {
+            return true;
+        }
+      },
+      drop: function( event, ui ) {
+        var targetTile = this;
+        var draggedPiece = ui.draggable;
+        draggedPiece.detach().css({top: 0, left: 0}).appendTo(targetTile);
+      }
     });
 });
