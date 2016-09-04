@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Rook, type: :model do
-  let(:test_game) { FactoryGirl.create(:game, :populated) }
-  let(:rook) {test_game.white.rooks.last}
+  let(:test_game) { FactoryGirl.create(:game) }
+  let(:rook) { test_game.white.rooks.last }
 
   describe 'creation' do
     it 'should create a white rook' do

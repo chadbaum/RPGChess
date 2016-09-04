@@ -5,7 +5,7 @@ class Game < ActiveRecord::Base
   has_many :pieces
   has_many :players
   has_many :users, through: :players
-  #after_save :create_players!
+  after_save :create_players!, :populate!
 
   def populate!
     populate_left_black_half!

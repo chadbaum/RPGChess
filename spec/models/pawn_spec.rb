@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Pawn, type: :model do
-  let(:test_game) { FactoryGirl.create(:game, :populated) }
+  let(:test_game) { FactoryGirl.create(:game) }
   let(:pawn) { test_game.white.pawns.find_by(x_position: 5) }
 
   describe 'creation' do

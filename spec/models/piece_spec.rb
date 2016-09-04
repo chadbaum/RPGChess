@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Piece, type: :model do
-  let(:test_game) { FactoryGirl.create(:game, :populated) }
+  let(:test_game) { FactoryGirl.create(:game) }
   let(:queen) { test_game.white.queen }
 
   describe 'move with capture' do

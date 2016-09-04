@@ -36,7 +36,7 @@ class Piece < ActiveRecord::Base
     moveset_tiles
   end
 
-  #private
+  private
 
   # Updates a victim piece to nil coordinates and sets
   # captured flag to true.

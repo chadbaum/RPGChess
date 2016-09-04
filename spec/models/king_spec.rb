@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe King, type: :model do
-  let(:test_game) { FactoryGirl.create(:game, :populated) }
-  let(:king) {test_game.white.king}
+  let(:test_game) { FactoryGirl.create(:game) }
+  let(:king) { test_game.white.king }
 
   describe 'creation' do
     it 'should create a white king' do

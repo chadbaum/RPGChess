@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Bishop, type: :model do
-  let(:test_game) { FactoryGirl.create(:game, :populated) }
-  let(:bishop) {test_game.white.bishops.first}
+  let(:test_game) { FactoryGirl.create(:game) }
+  let(:bishop) { test_game.white.bishops.first }
 
   describe 'creation validation' do
     it 'should create a white bishop' do
