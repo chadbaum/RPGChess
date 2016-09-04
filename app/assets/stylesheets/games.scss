@@ -5,30 +5,39 @@
 #chess-board {
   border: 7px solid #000;
   border-collapse: separate;
-  padding: 1px;
-  float: none;
   margin: auto;
   table-layout: fixed;
-  width: 550px;
-  height: 550px;
 }
 
 #chess-board td {
   @include cell-gradient(#fff, #eee);
   @include shadow-box(1px, #fff);
-  font-size: 35px;
+  margin: 0;
+  padding: 0;
+  width: 88px;
+  height: 88px;
+  text-align: center;
 }
 
 .players h2 {
   word-spacing: 10px;
 }
 
-#chess-board i {
+#chess-board piece {
+
+}
+
+.piece {
+  font-size: 45px;
   text-shadow: 3px 3px 8px #444;
 }
 
-.white-pcs {
-  color: #fff;
+.white {
+  color: white;
+}
+
+.black {
+  color: black;
 }
 
 #chess-board tr:nth-child(odd) td:nth-child(even),

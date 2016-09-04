@@ -1,4 +1,4 @@
-= content_tag :div, id: "piece_pos", data: { positions: @piece_positions } do
+/= content_tag :div, id: "piece_pos", data: { positions: @piece_positions } do
 
 .text-center.players
   h2
@@ -12,4 +12,11 @@ table#chess-board
   - 8.times do |y|
     tr
       - 8.times do |x|
-        | <td data-x='#{x}' data-y='#{y}'></td>
+        | <td data-x='#{x}' data-y='#{y}'>
+        - piece = @game.pieces.find_by(x_position: x, y_position: y)
+        - if piece
+          - if piece.type == 'Rook'
+            | <span class='piece #{piece.color.downcase} glyphicon glyphicon-tower'> 
+          - else
+            | <span class='piece #{piece.color.downcase} glyphicon glyphicon-#{piece.type.downcase}'>      
+        | </td>
