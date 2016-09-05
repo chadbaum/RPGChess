@@ -39,7 +39,6 @@ class King < Piece
     return false if rook.nil?
     distance = x_distance(rook.x_position)
     if path_clear?(rook.x_position, rook.y_position, distance) && !rook.moved
-      rook.castling_move!
       true
     else
       false

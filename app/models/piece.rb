@@ -13,11 +13,10 @@ class Piece < ActiveRecord::Base
   # on enemy occupying piece.  Otherwise returns false
   # and no further changes are made.
   def move!(x, y)
-    return false unless valid_move?(x, y) && !king_exposed?(x, y)
+    return false unless valid_move?(x, y)
     capture!(x, y)
     update(x_position: x, y_position: y, moved: true)
     game.next_turn
-    true
   end
 
   def generate_valid_moves
