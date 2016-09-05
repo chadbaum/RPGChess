@@ -1,3 +1,48 @@
+var draggableTurnCheck = function() {
+  var turnNumber = parseInt($('#turn').html());
+  if (turnNumber % 2 == 0){
+    $('.white').draggable( 'disable' );
+    $('.black').draggable( 'enable' );
+    //$('.white').unbind('mouseenter mouseleave'); //FIX
+  }
+  else {
+    $('.black').draggable( 'disable' );
+    $('.white').draggable( 'enable' );
+    //$('.black').unbind('mouseenter mouseleave');//FIX
+  }
+};
+
+var refreshScoreBoard = function () {
+  $.ajax({
+    method: 'GET',
+    url: '/games/' + $('#chess-board').data('id') + '/refresh',
+    dataType: 'html',
+    success: function( data ) {
+      $('#scoreboard').html(data);
+    }
+  })
+}
+
+var showValidMoves = function ( draggedPiece ) {
+  $.ajax({
+    method: 'GET',
+    url: '/pieces/' + $(draggedPiece).data('id'),
+    dataType: 'json',
+    success: function( validMoves ){
+      $('#chess-board td').each(function( element ) {
+        var tile = this;
+        var tileX = $(this).data('x');
+        var tileY = $(this).data('y');
+        for (var i = 0; i < validMoves.length; i++) {
+          if (tileX === validMoves[i][0] && tileY === validMoves[i][1]) {
+            $(tile).addClass( 'valid-move-tile' );
+          }
+        }
+      });
+    }
+  })
+}
+
 $(function() {
 
   // setTimeout(function(){
@@ -45,37 +90,11 @@ $(function() {
     },
     start: function( event, ui ) {
       var draggedPiece = this;
-      $.ajax({
-        method: 'GET',
-        url: '/pieces/' + $(draggedPiece).data('id'),
-        dataType: 'json',
-        success: function( validMoves ){
-          $('#chess-board td').each(function( element ) {
-            var tile = this;
-            var tileX = $(this).data('x');
-            var tileY = $(this).data('y');
-            for (var i = 0; i < validMoves.length; i++) {
-              if (tileX === validMoves[i][0] && tileY === validMoves[i][1]) {
-                $(tile).addClass( 'valid-move-tile' );
-              }
-            }
-          });
-        }
-      })
+      showValidMoves( draggedPiece );
     }
   });
 
-  $(function(){
-    var turnNumber = parseInt($('#turn').html());
-    if (turnNumber % 2 == 0){
-      $('.white').draggable( 'disable' );
-      //$('.white').unbind('mouseenter mouseleave'); //FIX
-    }
-    else {
-      $('.black').draggable( 'disable' );
-      //$('.black').unbind('mouseenter mouseleave');//FIX
-    }
-  });
+  draggableTurnCheck();
 
   $('#chess-board td').droppable( {
     tolerance: 'pointer',
@@ -101,6 +120,8 @@ $(function() {
         }
       })
       draggedPiece.detach().css({top: 0, left: 0}).appendTo(targetTile);
+      refreshScoreBoard();
+      draggableTurnCheck();
     }
   });
 });

@@ -8,8 +8,13 @@ class PiecesController < ApplicationController
     @piece.move!(x, y)
   end
 
-  def moves
+  def valid_moves
     @piece = Piece.find(params[:id])
     render json: @piece.generate_valid_moves
+  end
+
+  def refresh
+    @game = Game.find(params[:id])
+    render partial: 'scoreboard'
   end
 end
