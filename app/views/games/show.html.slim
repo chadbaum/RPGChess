@@ -1,5 +1,3 @@
-/= content_tag :div, id: "piece_pos", data: { positions: @piece_positions } do
-
 .text-center.players
   h2
     | ♛ 
@@ -8,7 +6,9 @@
     | ♕ 
     /= @game.black.user.username
   h2 
-    = "Turn: #{@game.turn}"
+    = "Turn: "
+    span#turn 
+      = @game.turn
   hr
 table#chess-board
   - 8.times do |y|
