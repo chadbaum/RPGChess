@@ -4,7 +4,7 @@ class King < Piece
   # implemented yet and thus ignored. Obstruction
   # logic is not necessary for the king.
   def valid_move?(x, y)
-    return false unless tile_empty_or_capturable?(x, y)
+    return false unless tile_empty_or_capturable?(x, y) && !king_exposed?(x, y)
     radial_move?(x, y) || clear_castling_move?(x, y)
   end
 

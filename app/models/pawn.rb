@@ -7,7 +7,7 @@ class Pawn < Piece
   # are not implemented yet and thus ignored.
   def valid_move?(x, y)
     return true if diagonal_attack?(x, y)
-    return false if game.tile_occupied?(x, y)
+    return false if game.tile_occupied?(x, y) && king_exposed?(x, y)
     moved ? forward_march?(x, y) : first_move_march?(x, y)
   end
 

@@ -2,7 +2,8 @@
 class Knight < Piece
   # There is no obstruction logic necessary for the knight.
   def valid_move?(x, y)
-    tile_empty_or_capturable?(x, y) && l_shaped_move?(x, y)
+    return false unless tile_empty_or_capturable?(x, y) && !king_exposed?(x, y)
+    l_shaped_move?(x, y)
   end
 
   # Returns true if the coordinates provided are either

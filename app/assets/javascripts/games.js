@@ -12,6 +12,19 @@ var draggableTurnCheck = function() {
   }
 };
 
+var addValidMoveTile = function( validMoves ) {
+  $('#chess-board td').each(function( element ) {
+    var tile = this;
+    var tileX = $(this).data('x');
+    var tileY = $(this).data('y');
+    for (var i = 0; i < validMoves.length; i++) {
+      if (tileX === validMoves[i][0] && tileY === validMoves[i][1]) {
+        $(tile).addClass( 'valid-move-tile' );
+      }
+    }
+  });
+}
+
 var refreshScoreBoard = function () {
   $.ajax({
     method: 'GET',
@@ -19,6 +32,7 @@ var refreshScoreBoard = function () {
     dataType: 'html',
     success: function( data ) {
       $('#scoreboard').html(data);
+      draggableTurnCheck();
     }
   })
 }
@@ -29,17 +43,21 @@ var showValidMoves = function ( draggedPiece ) {
     url: '/pieces/' + $(draggedPiece).data('id'),
     dataType: 'json',
     success: function( validMoves ){
-      $('#chess-board td').each(function( element ) {
-        var tile = this;
-        var tileX = $(this).data('x');
-        var tileY = $(this).data('y');
-        for (var i = 0; i < validMoves.length; i++) {
-          if (tileX === validMoves[i][0] && tileY === validMoves[i][1]) {
-            $(tile).addClass( 'valid-move-tile' );
-          }
-        }
-      });
+      addValidMoveTile( validMoves );
     }
+  })
+}
+
+var updatePieceMove = function ( droppedPiece, tileX, tileY ) {
+  $.ajax({
+    method: 'PATCH',
+    url: '/pieces/' + $(droppedPiece).data('id'),
+    data: {
+      x: tileX,
+      y: tileY
+    },
+    success: refreshScoreBoard,
+    error: function() { console.error( arguments ) }
   })
 }
 
@@ -88,6 +106,9 @@ $(function() {
         $(this).removeClass( 'valid-move-tile' );
       });
     },
+    // create: function( event, ui ) {
+    //   draggableTurnCheck();
+    // },
     start: function( event, ui ) {
       var draggedPiece = this;
       showValidMoves( draggedPiece );
@@ -109,19 +130,11 @@ $(function() {
     },
     drop: function( event, ui ) {
       var targetTile = this;
-      var draggedPiece = ui.draggable;
-      $.ajax({
-        method: 'PATCH',
-        url: '/pieces/' + $(draggedPiece).data('id'),
-        dataType: 'json',
-        data: {
-          x: $(event.target).data('x'),
-          y: $(event.target).data('y')
-        }
-      })
-      draggedPiece.detach().css({top: 0, left: 0}).appendTo(targetTile);
-      refreshScoreBoard();
-      draggableTurnCheck();
+      var droppedPiece = ui.draggable;
+      var tileX = $(event.target).data('x');
+      var tileY = $(event.target).data('y');
+      updatePieceMove( droppedPiece, tileX, tileY );
+      $(droppedPiece).detach().css({top: 0, left: 0}).appendTo(targetTile);
     }
   });
 });
