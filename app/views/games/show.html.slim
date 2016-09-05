@@ -16,9 +16,9 @@
     .white-graveyard
       - @game.white.pieces.where(captured: true).each do |captured_piece|
         - if captured_piece.type == 'Rook'
-          | <span class='piece white glyphicon glyphicon-tower'> 
+          | <span class='piece captured-piece white glyphicon glyphicon-tower'> 
         - else
-          | <span class='piece white glyphicon glyphicon-#{captured_piece.type.downcase}'>     
+          | <span class='piece captured-piece white glyphicon glyphicon-#{captured_piece.type.downcase}'>     
     table#chess-board
       - 8.times do |y|
         tr
@@ -34,6 +34,6 @@
     .black-graveyard
       - @game.black.pieces.where(captured: true).each do |captured_piece|
         - if captured_piece.type == 'Rook'
-          | <span class='piece black glyphicon glyphicon-tower'> 
+          | <span class='piece captured-piece black glyphicon glyphicon-tower'> 
         - else
-          | <span class='piece black glyphicon glyphicon-#{captured_piece.type.downcase}'>   
+          | <span class='piece captured-piece black glyphicon glyphicon-#{captured_piece.type.downcase}'>   

@@ -32,11 +32,12 @@ $(function() {
   //   }
   // );
 
-  $('#chess-board td span').draggable({
+  $('.piece').draggable({
     containment: "#chess-board",
     cursor: "all-scroll",
     opacity: 0.6,
     revert: 'invalid',
+    cancel: '.captured-piece',
     stop: function( event, ui ) {
       $('#chess-board td').each(function( element ) {
         $(this).removeClass( 'valid-move-tile' );
@@ -68,11 +69,11 @@ $(function() {
     var turnNumber = parseInt($('#turn').html());
     if (turnNumber % 2 == 0){
       $('.white').draggable( 'disable' );
-      $('.white').unbind('mouseenter mouseleave'); //FIX
+      //$('.white').unbind('mouseenter mouseleave'); //FIX
     }
     else {
       $('.black').draggable( 'disable' );
-      $('.black').unbind('mouseenter mouseleave');//FIX
+      //$('.black').unbind('mouseenter mouseleave');//FIX
     }
   });
 
@@ -100,7 +101,6 @@ $(function() {
         }
       })
       draggedPiece.detach().css({top: 0, left: 0}).appendTo(targetTile);
-      location.reload();
     }
   });
 });
