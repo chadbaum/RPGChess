@@ -51,12 +51,10 @@ $(function() {
     hoverClass: 'selected-tile',
     accept: function( draggablePiece ) {
       var targetTile = this;
-      if (draggablePiece.hasClass('white') && $(targetTile).children('span').hasClass('white')) {
-        return false;
-      } else if (draggablePiece.hasClass('black') && $(targetTile).children('span').hasClass('black')) {
-          return false;
+      if ($(targetTile).hasClass('valid-move-tile')) {
+        return true;
       } else {
-          return true;
+        return false;
       }
     },
     drop: function( event, ui ) {
