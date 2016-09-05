@@ -5,6 +5,7 @@ StoicChess::Application.routes.draw do
   resources :games, only: [:create, :index, :show]
   patch 'games/:id/join', to: 'games#join', as: :join_game
   patch 'pieces/:id', to: 'pieces#move', as: :move_piece
+  get 'pieces/:id/', to: 'pieces#moves', as: :moves
   resources :users, only: [:show]
 
 

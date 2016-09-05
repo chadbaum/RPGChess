@@ -7,4 +7,9 @@ class PiecesController < ApplicationController
     y = params[:y].to_i
     @piece.move!(x, y)
   end
+
+  def moves
+    @piece = Piece.find(params[:id])
+    render json: @piece.generate_valid_moves
+  end
 end
