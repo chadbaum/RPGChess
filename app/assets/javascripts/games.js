@@ -4,6 +4,34 @@ $(function() {
   //   window.location.reload(1);
   // }, 15000);
 
+  // $('#chess-board td').hover(
+  //   function() {
+  //     var hoveredTile = this;
+  //     var hoveredPiece = $(this).children('span');
+  //     if (typeof $(hoveredPiece).data('id') === 'number') {
+  //       $.ajax({
+  //         method: 'GET',
+  //         url: '/pieces/' + $(hoveredPiece).data('id'),
+  //         dataType: 'json',
+  //         success: function( validMoves ){
+  //           $('#chess-board td').each(function( element ) {
+  //             var tile = this;
+  //             var tileX = $(this).data('x');
+  //             var tileY = $(this).data('y');
+  //             for (var i = 0; i < validMoves.length; i++) {
+  //               if (tileX === validMoves[i][0] && tileY === validMoves[i][1]) {
+  //                 $(tile).addClass( 'valid-move-tile' );
+  //               }
+  //             }
+  //           });
+  //         }
+  //       })
+  //     }
+  //   }, function() {
+  //     $('#chess-board td').removeClass( 'valid-move-tile' );
+  //   }
+  // );
+
   $('#chess-board td span').draggable({
     containment: "#chess-board",
     cursor: "all-scroll",
@@ -23,8 +51,8 @@ $(function() {
         success: function( validMoves ){
           $('#chess-board td').each(function( element ) {
             var tile = this;
-            var tileX = $(this).data('x'); //correct
-            var tileY = $(this).data('y'); //correct
+            var tileX = $(this).data('x');
+            var tileY = $(this).data('y');
             for (var i = 0; i < validMoves.length; i++) {
               if (tileX === validMoves[i][0] && tileY === validMoves[i][1]) {
                 $(tile).addClass( 'valid-move-tile' );
@@ -39,10 +67,12 @@ $(function() {
   $(function(){
     var turnNumber = parseInt($('#turn').html());
     if (turnNumber % 2 == 0){
-      $('.white').draggable( 'disable' )
+      $('.white').draggable( 'disable' );
+      $('.white').unbind('mouseenter mouseleave'); //FIX
     }
     else {
-      $('.black').draggable( 'disable' )
+      $('.black').draggable( 'disable' );
+      $('.black').unbind('mouseenter mouseleave');//FIX
     }
   });
 
