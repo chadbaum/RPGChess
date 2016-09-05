@@ -14,6 +14,16 @@ $(function() {
     }
   });
 
+  $(function(){
+    var turnNumber = parseInt($('#turn').html());
+    if (turnNumber % 2 == 0){
+      $('.white').draggable( 'disable' )
+    }
+    else {
+      $('.black').draggable( 'disable' )
+    }
+  });
+
   $('#chess-board td').droppable( {
     tolerance: 'pointer',
     hoverClass: 'selected-tile',
