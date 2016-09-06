@@ -16,11 +16,18 @@ class King < Piece
   end
 
   def in_checkmate?
-    potential_moves = generate_valid_moves
-    potential_moves.each do |tile|
+    generate_valid_moves.each do |tile|
       return false if valid_move?(tile[0], tile[1]) && !in_check?
     end
     true
+  end
+
+  # Returns the rook that would be castling with the king
+  # based on whether the king is trying to castle left or right.
+  def select_castling_rook(x)
+    rook_x = x == 6 ? 7 : 0
+    rook_y = color == 'white' ? 7 : 0
+    game.pieces.find_by(x_position: rook_x, y_position: rook_y)
   end
 
   private
@@ -40,10 +47,10 @@ class King < Piece
     return false if rook.nil?
     distance = x_distance(rook.x_position)
     if path_clear?(rook.x_position, rook.y_position, distance) && !rook.moved
-      rook.castling_move!
-      return true
+      true
+    else
+      false
     end
-    false
   end
 
   # Returns true if coordinates are one of the two valid
@@ -55,13 +62,5 @@ class King < Piece
                 [[6, 0], [2, 0]]
               end
     options.include?([x, y])
-  end
-
-  # Returns the rook that would be castling with the king
-  # based on whether the king is trying to castle left or right.
-  def select_castling_rook(x)
-    rook_x = x == 6 ? 7 : 0
-    rook_y = color == 'white' ? 7 : 0
-    game.pieces.find_by(x_position: rook_x, y_position: rook_y)
   end
 end

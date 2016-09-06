@@ -1,7 +1,7 @@
 # Game object that handles turn logic and board creation.
 class Game < ActiveRecord::Base
-  has_many :pieces
-  has_many :players
+  has_many :pieces, dependent: :destroy
+  has_many :players, dependent: :destroy
   has_many :users, through: :players
   after_create :populate!
 
@@ -104,7 +104,7 @@ class Game < ActiveRecord::Base
 
   def populate_queens!
     create_piece('Queen', 'white', 3, 7)
-    create_piece('Queen', 'black', 0, 3)
+    create_piece('Queen', 'black', 3, 0)
   end
 
   def populate_kings!

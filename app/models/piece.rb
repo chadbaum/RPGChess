@@ -13,20 +13,18 @@ class Piece < ActiveRecord::Base
   # on enemy occupying piece.  Otherwise returns false
   # and no further changes are made.
   def move!(x, y)
-    return false unless valid_move?(x, y)
-    return false if king_exposed?(x, y)
+    return false unless valid_move?(x, y) && !king_exposed?(x, y)
+    select_castling_rook(x).castle! if type == 'King' &&
+                                       clear_castling_move?(x, y)
     capture!(x, y)
     update(x_position: x, y_position: y, moved: true)
     game.next_turn
-    true
   end
 
   def generate_valid_moves
-    moveset_tiles = []
-    game.generate_tiles.each do |tile|
-      moveset_tiles << tile if valid_move?(tile[0], tile[1])
+    game.generate_tiles.select do |tile|
+      valid_move?(tile[0], tile[1]) && !king_exposed?(tile[0], tile[1])
     end
-    moveset_tiles
   end
 
   private
@@ -78,8 +76,7 @@ class Piece < ActiveRecord::Base
   # Returns true if the coordinates provided have the
   # same x-axis value and there are no pieces in between.
   def clear_horizontal_move?(x, y)
-    return false unless moved_from_origin?(x, y)
-    return false unless y_distance(y).zero?
+    return false unless moved_from_origin?(x, y) && y_distance(y).zero?
     distance = x_distance(x)
     path_clear?(x, y, distance)
   end
@@ -87,8 +84,7 @@ class Piece < ActiveRecord::Base
   # Returns true if the coordinates provided have
   # the same y-axis value and there are no pieces in between.
   def clear_vertical_move?(x, y)
-    return false unless moved_from_origin?(x, y)
-    return false unless x_distance(x).zero?
+    return false unless moved_from_origin?(x, y) && x_distance(x).zero?
     distance = y_distance(y)
     path_clear?(x, y, distance)
   end
@@ -97,8 +93,8 @@ class Piece < ActiveRecord::Base
   # are the same distance away from the origin point along
   # both axis and there are no pieces in between.
   def clear_diagonal_move?(x, y)
-    return false unless moved_from_origin?(x, y)
-    return false unless x_distance(x) == y_distance(y)
+    return false unless moved_from_origin?(x, y) &&
+                        x_distance(x) == y_distance(y)
     distance = x_distance(x)
     path_clear?(x, y, distance)
   end

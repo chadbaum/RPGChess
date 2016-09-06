@@ -24,13 +24,4 @@ class GamesController < ApplicationController
     @pieces = @game.pieces
     # ADD AUTHENTICATION FOR CORRECT USERS
   end
-
-  def update
-    @game = Game.find(params[:id])
-    @piece = @game.pieces.find(params[:piece_id])
-    x = params[:x_position].to_i
-    y = params[:y_position].to_i
-    @piece.move!(x, y)
-    # MOVE TO PIECES CONTROLLER???
-  end
 end

@@ -1,0 +1,11 @@
+.text-center.players
+  h2
+    = @game.white.user ? @game.white.user.username : "Available" 
+    |  vs. 
+    = @game.black.user ? @game.black.user.username : "Available"
+  h2 
+    = "Turn: "
+    span#turn 
+      = @game.turn
+    span#player-turn
+      = " (#{@game.current_player.color.capitalize})"

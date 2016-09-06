@@ -1,9 +1,9 @@
 .container-fluid
   section#games-list
     | Your opponent awaits you! Join the battle!
-          - @games.each do |game|
-            h4 Available Game
-            = button_to 'Join Game', join_game_path(game), class: 'btn btn-success pull-right'
+    - @games.each do |game|
+      h4 Available Game
+      = button_to 'Join Game', join_game_path(game), class: 'btn btn-success pull-right'
   section#profile
     .row 
       br
