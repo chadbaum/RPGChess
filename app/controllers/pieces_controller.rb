@@ -17,4 +17,9 @@ class PiecesController < ApplicationController
     @game = Game.find(params[:id])
     render partial: 'scoreboard'
   end
+
+  def refreshboard
+    @game = Game.find(params[:id])
+    render partial: 'chessboard'
+  end
 end
