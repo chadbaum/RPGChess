@@ -5,7 +5,6 @@ var addDraggable = function() {
     opacity: 0.6,
     revert: 'invalid',
     cancel: '.captured-piece',
-    create: function( event, ui ) {toggleDraggable},
     stop: function( event, ui ) {
       $('#chess-board td').each(function( element ) {
         $(this).removeClass( 'valid-move-tile' );
@@ -32,15 +31,16 @@ var addDroppable = function() {
     },
     drop: function( event, ui ) {
       var targetTile = this;
+      var victim = $(targetTile).children();
       var droppedPiece = ui.draggable;
       var tileX = $(event.target).data('x');
       var tileY = $(event.target).data('y');
       updatePieceMove( droppedPiece, tileX, tileY );
+      $(victim).detach();
       $(droppedPiece).detach().css({top: 0, left: 0}).appendTo(targetTile);
     }
   });
 }
-
 
 var toggleDraggable = function() {
   var turn = $('#chess-board').data('turn');

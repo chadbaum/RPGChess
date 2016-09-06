@@ -1,9 +1,9 @@
 .white-graveyard
   - @game.white.pieces.where(captured: true).each do |captured_piece|
     - if captured_piece.type == 'Rook'
-      | <span class='piece captured-piece white glyphicon glyphicon-tower'> 
+      span class='piece captured-piece white glyphicon glyphicon-tower' 
     - else
-      | <span class='piece captured-piece white glyphicon glyphicon-#{captured_piece.type.downcase}'>     
+      span class='piece captured-piece white glyphicon glyphicon-#{captured_piece.type.downcase}'
 table#chess-board data-id='#{@game.id}' data-turn='#{@game.turn}'
   - 8.times do |y|
     tr
@@ -12,13 +12,13 @@ table#chess-board data-id='#{@game.id}' data-turn='#{@game.turn}'
         - piece = @game.pieces.find_by(x_position: x, y_position: y)
         - if piece
           - if piece.type == 'Rook'
-            | <span class='piece #{piece.color.downcase} glyphicon glyphicon-tower' data-id='#{piece.id}'> 
+            span class='piece #{piece.color.downcase} glyphicon glyphicon-tower' data-id='#{piece.id}' 
           - else
-            | <span class='piece #{piece.color.downcase} glyphicon glyphicon-#{piece.type.downcase}' data-id='#{piece.id}'>      
+            span class='piece #{piece.color.downcase} glyphicon glyphicon-#{piece.type.downcase}' data-id='#{piece.id}'     
         | </td>
 .black-graveyard
   - @game.black.pieces.where(captured: true).each do |captured_piece|
     - if captured_piece.type == 'Rook'
-      | <span class='piece captured-piece black glyphicon glyphicon-tower'> 
+        span class='piece captured-piece black glyphicon glyphicon-tower' 
     - else
-      | <span class='piece captured-piece black glyphicon glyphicon-#{captured_piece.type.downcase}'>   
+        span class='piece captured-piece black glyphicon glyphicon-#{captured_piece.type.downcase}'  
