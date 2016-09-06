@@ -4,7 +4,7 @@ class King < Piece
   # implemented yet and thus ignored. Obstruction
   # logic is not necessary for the king.
   def valid_move?(x, y)
-    return false unless tile_empty_or_capturable?(x, y) && !king_exposed?(x, y)
+    return false unless tile_empty_or_capturable?(x, y)
     radial_move?(x, y) || clear_castling_move?(x, y)
   end
 
@@ -20,6 +20,14 @@ class King < Piece
       return false if valid_move?(tile[0], tile[1]) && !in_check?
     end
     true
+  end
+
+  # Returns the rook that would be castling with the king
+  # based on whether the king is trying to castle left or right.
+  def select_castling_rook(x)
+    rook_x = x == 6 ? 7 : 0
+    rook_y = color == 'white' ? 7 : 0
+    game.pieces.find_by(x_position: rook_x, y_position: rook_y)
   end
 
   private
@@ -54,13 +62,5 @@ class King < Piece
                 [[6, 0], [2, 0]]
               end
     options.include?([x, y])
-  end
-
-  # Returns the rook that would be castling with the king
-  # based on whether the king is trying to castle left or right.
-  def select_castling_rook(x)
-    rook_x = x == 6 ? 7 : 0
-    rook_y = color == 'white' ? 7 : 0
-    game.pieces.find_by(x_position: rook_x, y_position: rook_y)
   end
 end

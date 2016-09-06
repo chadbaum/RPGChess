@@ -13,14 +13,18 @@ class Piece < ActiveRecord::Base
   # on enemy occupying piece.  Otherwise returns false
   # and no further changes are made.
   def move!(x, y)
-    return false unless valid_move?(x, y)
+    return false unless valid_move?(x, y) && !king_exposed?(x, y)
+    return false if player != game.current_player
+    select_castling_rook.castle! if type == 'King' && clear_castling_move?(x, y)
     capture!(x, y)
     update(x_position: x, y_position: y, moved: true)
     game.next_turn
   end
 
   def generate_valid_moves
-    game.generate_tiles.select { |tile| valid_move?(tile[0], tile[1]) }
+    game.generate_tiles.select do |tile|
+      valid_move?(tile[0], tile[1]) && !king_exposed?(tile[0], tile[1])
+    end
   end
 
   private
