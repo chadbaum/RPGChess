@@ -1,3 +1,4 @@
+# Handles all AJAX requests coming from active games to update pieces.
 class PiecesController < ApplicationController
   respond_to :json
 

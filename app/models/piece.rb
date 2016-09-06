@@ -14,8 +14,8 @@ class Piece < ActiveRecord::Base
   # and no further changes are made.
   def move!(x, y)
     return false unless valid_move?(x, y) && !king_exposed?(x, y)
-    return false if player != game.current_player
-    select_castling_rook(x).castle! if type == 'King' && clear_castling_move?(x, y)
+    select_castling_rook(x).castle! if type == 'King' &&
+                                       clear_castling_move?(x, y)
     capture!(x, y)
     update(x_position: x, y_position: y, moved: true)
     game.next_turn
