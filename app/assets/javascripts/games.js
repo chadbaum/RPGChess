@@ -35,7 +35,7 @@ var addDroppable = function() {
       var droppedPiece = ui.draggable;
       var tileX = $(event.target).data('x');
       var tileY = $(event.target).data('y');
-      updatePieceMove( droppedPiece, tileX, tileY );
+      sendPieceMove( droppedPiece, tileX, tileY );
       $(victim).detach();
       $(droppedPiece).detach().css({top: 0, left: 0}).appendTo(targetTile);
     }
@@ -43,16 +43,13 @@ var addDroppable = function() {
 }
 
 var toggleDraggable = function() {
+  $('.piece').draggable( 'disable' );
   var turn = $('#chess-board').data('turn');
-  if (turn % 2 == 0){
-    $('.white').draggable( 'disable' );
+  if (turn % 2 === 0 && $('#chess-board').data('player') === 'black'){
     $('.black').draggable( 'enable' );
-    //$('.white').unbind('mouseenter mouseleave'); //FIX
   }
-  else {
-    $('.black').draggable( 'disable' );
-    $('.white').draggable( 'enable' );
-    //$('.black').unbind('mouseenter mouseleave');//FIX
+  if (turn % 2 != 0 && $('#chess-board').data('player') === 'white'){
+    $('.white').draggable ( 'enable' );
   }
 };
 
@@ -69,24 +66,13 @@ var addValidMoveTile = function( validMoves ) {
   });
 }
 
-var refreshScoreBoard = function () {
+var refreshGame = function () {
   $.ajax({
     method: 'GET',
     url: '/games/' + $('#chess-board').data('id') + '/refresh',
     dataType: 'html',
     success: function( data ) {
-      $('#scoreboard').html(data);
-    }
-  })
-}
-
-var refreshChessBoard = function () {
-  $.ajax({
-    method: 'GET',
-    url: '/games/' + $('#chess-board').data('id') + '/refreshboard',
-    dataType: 'html',
-    success: function( data ) {
-      $('#chess').html(data);
+      $('#game').html(data);
       addDraggable();
       addDroppable();
       toggleDraggable();
@@ -105,16 +91,37 @@ var showValidMoves = function ( draggedPiece ) {
   })
 }
 
-var updatePieceMove = function ( droppedPiece, tileX, tileY ) {
+var sendPieceMove = function ( droppedPiece, tileX, tileY ) {
   $.ajax({
     method: 'PATCH',
     url: '/pieces/' + $(droppedPiece).data('id'),
-    data: {
-      x: tileX,
-      y: tileY
-    },
-    success: [refreshScoreBoard, refreshChessBoard],
-    error: function() { console.error( arguments ) }
+    data: {x: tileX, y: tileY},
+    success: refreshGame
+  })
+}
+
+var isActiveTurn = function() {
+  var turn = $('#chess-board').data('turn');
+  return turn % 2 === 0 && $('#chess-board').data('player') === 'black' ||
+         turn % 2 != 0 && $('#chess-board').data('player') === 'white';
+}
+
+var pollingRefreshGame = function () {
+  $.ajax({
+    method: 'GET',
+    url: '/games/' + $('#chess-board').data('id') + '/refresh',
+    dataType: 'html',
+    success: function( data ) {
+      $('#game').html(data);
+      addDraggable();
+      addDroppable();
+      toggleDraggable();
+      setInterval(function() {
+        if (!isActiveTurn()) {
+          refreshGame();
+        }
+      }, 3000);
+    }
   })
 }
 
@@ -122,6 +129,7 @@ $(function() {
   addDraggable();
   addDroppable();
   toggleDraggable();
+  pollingRefreshGame();
 });
 
 
