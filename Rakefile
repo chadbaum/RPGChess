@@ -5,4 +5,4 @@ require File.expand_path('../config/application', __FILE__)
 #require 'rubocop/rake_task'
 
 StoicChess::Application.load_tasks
-RuboCop::RakeTask.new
+#RuboCop::RakeTask.new
