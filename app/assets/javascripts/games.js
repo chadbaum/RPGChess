@@ -43,16 +43,13 @@ var addDroppable = function() {
 }
 
 var toggleDraggable = function() {
+  $('.piece').draggable( 'disable' );
   var turn = $('#chess-board').data('turn');
-  if (turn % 2 == 0){
-    $('.white').draggable( 'disable' );
+  if (turn % 2 === 0 && $('#chess-board').data('player') === 'black'){
     $('.black').draggable( 'enable' );
-    //$('.white').unbind('mouseenter mouseleave'); //FIX
   }
-  else {
-    $('.black').draggable( 'disable' );
-    $('.white').draggable( 'enable' );
-    //$('.black').unbind('mouseenter mouseleave');//FIX
+  if (turn % 2 != 0 && $('#chess-board').data('player') === 'white'){
+    $('.white').draggable ( 'enable' );
   }
 };
 

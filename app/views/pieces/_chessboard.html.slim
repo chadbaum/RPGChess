@@ -4,7 +4,7 @@
       span class='piece captured-piece white glyphicon glyphicon-tower' 
     - else
       span class='piece captured-piece white glyphicon glyphicon-#{captured_piece.type.downcase}'
-table#chess-board data-id='#{@game.id}' data-turn='#{@game.turn}'
+table#chess-board data-id='#{@game.id}' data-turn='#{@game.turn}' data-player='#{@player.color}'
   - 8.times do |y|
     tr
       - 8.times do |x|
