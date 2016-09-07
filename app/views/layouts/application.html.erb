@@ -10,7 +10,9 @@
   <body class="site">
     <main class="site-content">
       <%= render "layouts/navbar" %>
-      <%= yield %>
+      <div id='window'>
+        <%= yield %>
+      </div>
     </main>
       <%= render "layouts/footer" %>
   </body>

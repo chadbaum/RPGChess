@@ -16,12 +16,13 @@ class PiecesController < ApplicationController
 
   def refresh
     @game = Game.find(params[:id])
-    render partial: 'scoreboard'
+    @player = Player.find_by(game_id: @game.id, user_id: current_user.id)
+    render partial: 'game'
   end
 
-  def refreshboard
-    @game = Game.find(params[:id])
-    @player = Player.find_by(game_id: @game.id, user_id: current_user.id)
-    render partial: 'chessboard'
-  end
+  # def refreshboard
+  #   @game = Game.find(params[:id])
+  #   @player = Player.find_by(game_id: @game.id, user_id: current_user.id)
+  #   render partial: 'chessboard'
+  # end
 end

@@ -7,7 +7,6 @@ StoicChess::Application.routes.draw do
   patch 'pieces/:id', to: 'pieces#move'
   get 'pieces/:id/', to: 'pieces#valid_moves'
   get 'games/:id/refresh', to: 'pieces#refresh'
-  get 'games/:id/refreshboard', to: 'pieces#refreshboard'
   resources :users, only: [:show]
 
 
