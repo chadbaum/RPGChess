@@ -115,10 +115,18 @@ var updatePieceMove = function ( droppedPiece, tileX, tileY ) {
   })
 }
 
+var pollServer = function() {
+  setInterval(function() {
+    refreshScoreBoard();
+    refreshChessBoard();
+  }, 5000);
+}
+
 $(function() {
   addDraggable();
   addDroppable();
   toggleDraggable();
+  pollServer();
 });
 
 
